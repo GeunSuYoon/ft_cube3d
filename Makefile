@@ -1,5 +1,5 @@
 # Names
-NAME	= so_long
+NAME	= cub3D
 MNAME	= libmlx.a
 
 # Source Files and Object Files, Header
