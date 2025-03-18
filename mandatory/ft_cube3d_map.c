@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 00:58:01 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/19 01:10:47 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/03/19 05:25:03 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,13 @@ char	**read_map(t_data *data, t_map *map, char *name, int map_fd)
 	while (1)
 	{
 		tmp_map = get_next_line(map_fd);
-		
+		if (tmp_map == 0)
+		{
+			map_close_check(data, map, tmp_map, map_fd);
+			break ;
+		}
+		map_size(data, map, tmp_map);
+		total_map = realloc_map(map, total_map, tmp_map);
 	}
 	close(map_fd);
 	return (total_map);
