@@ -12,9 +12,45 @@
 
 #include "ft_cube3d.h"
 
-void	print_err(t_data *data, char *str, int errsig);
+void	free_td_str(char **str, size_t str_height);
+size_t	ft_strtdlen(char **tdstr);
+void	exit_err(t_data *data, char *str, int errsig);
+void	print_err(char *str);
 
-void	print_err(t_data *data, char *str, int errsig)
+size_t	ft_strtdlen(char **tdstr)
+{
+	size_t	cnt;
+
+	cnt = 0;
+	while (tdstr[cnt])
+		cnt++;
+	return (cnt);
+}
+
+void	free_td_str(char **str, size_t str_height)
+{
+	size_t	height_cnt;
+
+	height_cnt = 0;
+	while (height_cnt < str_height)
+	{
+		free(str[height_cnt]);
+		str[height_cnt] = 0;
+		height_cnt++;
+	}
+	free(str);
+	str = 0;
+}
+
+void	exit_err(t_data *data, char *str, int errsig)
+{
+	print_err(str);
+	if (errsig)
+		exit(errsig);
+	exit(errno);
+}
+
+void	print_err(char *str)
 {
 	perror("Error\n");
 	if (str)
@@ -22,7 +58,4 @@ void	print_err(t_data *data, char *str, int errsig)
 	else
 		perror(strerror(errno));
 	write(STDERR_FILENO, "\n", 1);
-	if (errsig)
-		exit(errsig);
-	exit(errno);
 }
