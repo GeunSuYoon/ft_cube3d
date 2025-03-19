@@ -49,11 +49,31 @@ typedef struct s_map
 {
 	char	**map_data;
 }	t_map;
+typedef struct s_image
+{
+	char	*image_path;
+}	t_image;
+typedef struct s_color
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_color;
 typedef struct s_data
 {
 	t_map	*map;
+	t_image	*no;
+	t_image	*so;
+	t_image	*eo;
+	t_color	*fc;
+	t_color	*cc;
 }	t_data;
 
-void	print_err(t_data *data, char *str, int errsig);
+t_color	*parse_color(t_data *data, int map_fd, char *ident);
+t_image	*parse_image(t_data *data, int map_fd, char *ident);
+size_t	ft_strtdlen(char **tdstr);
+void	free_td_str(char **str, size_t str_height);
+void	exit_err(t_data *data, char *str, int errsig);
+void	print_err(char *str);
 
 #endif

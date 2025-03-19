@@ -14,6 +14,8 @@
 
 int	main(int argc, char **argv)
 {
+	t_data	*data;
+
 	if (argc != 2)
-		print_err("No program argument", ERR);
+		exit_err(data, "unexpected program argument", ERR);
 }
