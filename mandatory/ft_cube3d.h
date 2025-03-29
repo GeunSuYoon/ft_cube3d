@@ -6,20 +6,20 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 00:28:05 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/29 16:01:02 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/03/29 17:19:31 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_CUBE3D_H
 # define FT_CUBE3D_H
 
+# define EMPTY ' '
 # define SPACE '0'
 # define WALL '1'
-# define NORTH 'N'
-# define SOUTH 'S'
-# define WEST 'W'
-# define EAST 'E'
-# define EMPTY ' '
+# define PNORTH 'N'
+# define PSOUTH 'S'
+# define PWEST 'W'
+# define PEAST 'E'
 # define ERR 1
 # define MNORTH "NO"
 # define MSOUTH "SO"
@@ -50,6 +50,7 @@ typedef struct s_pos
 typedef struct s_map
 {
 	char	**map_data;
+	size_t	map_height;
 }	t_map;
 typedef struct s_image
 {
