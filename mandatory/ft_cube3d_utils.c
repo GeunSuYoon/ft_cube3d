@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 00:34:34 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/29 15:36:05 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/03/29 16:32:11 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 void	free_td_str(char **str, size_t str_height);
 size_t	ft_strtdlen(char **tdstr);
-void	exit_err(t_data *data, char *str, int errsig);
-void	print_err(char *str);
 int		ft_strcmp(char *s1, char *s2);
 
 size_t	ft_strtdlen(char **tdstr)
@@ -41,24 +39,6 @@ void	free_td_str(char **str, size_t str_height)
 	}
 	free(str);
 	str = 0;
-}
-
-void	exit_err(t_data *data, char *str, int errsig)
-{
-	print_err(str);
-	if (errsig)
-		exit(errsig);
-	exit(errno);
-}
-
-void	print_err(char *str)
-{
-	perror("Error\n");
-	if (str)
-		perror(str);
-	else
-		perror(strerror(errno));
-	write(STDERR_FILENO, "\n", 1);
 }
 
 int	ft_strcmp(char *s1, char *s2)
