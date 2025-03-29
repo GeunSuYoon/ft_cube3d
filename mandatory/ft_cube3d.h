@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 00:28:05 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/29 15:39:07 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/03/29 16:01:02 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,8 @@ typedef struct s_data
 	t_mlx	*mlx_ctl;
 }	t_data;
 
-t_color	*parse_color(t_data *data, int map_fd, char *ident);
-t_image	*parse_image(t_data *data, int map_fd, char *ident);
+void	parse_color(t_data *data, int map_fd);
+void	parse_image(t_data *data, int map_fd);
 
 size_t	ft_strtdlen(char **tdstr);
 void	free_td_str(char **str, size_t str_height);

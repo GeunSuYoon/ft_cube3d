@@ -6,37 +6,53 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 02:13:29 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/20 02:38:26 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/03/29 16:11:31 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube3d.h"
 
-t_color	*parse_color(t_data *data, int map_fd, char *ident);
+void	parse_color(t_data *data, int map_fd);
+void	color_setter(t_data *data, char **info);
 t_color	*init_color(t_data *data, char *rgb);
 
-t_color	*parse_color(t_data *data, int map_fd, char *ident)
+void	parse_color(t_data *data, int map_fd)
 {
-	t_color	*new_color;
 	char	*tmp_line;
-	char	**tmp_td_line;
+	char	**color_info;
+	int		cnt;
 
-	tmp_line = get_next_line(map_fd);
-	while (tmp_line && !ft_strlen(tmp_line))
+	cnt = 0;
+	while (cnt < 4)
+	{
 		tmp_line = get_next_line(map_fd);
-	if (!tmp_line)
-		exit_err(data, 0, 0);
-	tmp_td_line = ft_split(tmp_line, ' ');
-	free(tmp_line);
-	if (!tmp_td_line)
-		exit_err(data, 0, 0);
-	if (ft_strtdlen(tmp_td_line) != 2)
-		exit_err(data, 0, 0);
-	if (ft_strncmp(ident, tmp_td_line[0], ft_strlen(tmp_td_line[0])))
-		exit_err(data, "unexpected map file information", 1);
-	new_color = init_color(data, tmp_td_line[1]);
-	free_td_str(tmp_td_line, 2);
-	return (new_color);
+		while (tmp_line && !ft_strlen(tmp_line))
+			tmp_line = get_next_line(map_fd);
+		if (!tmp_line)
+			exit_err(data, 0, 0);
+		color_info = ft_split(tmp_line, ' ');
+		free(tmp_line);
+		if (!color_info)
+			exit_err(data, 0, 0);
+		if (ft_strtdlen(color_info) != 2)
+			exit_err(data, "unexpected image infomation", 1);
+		color_setter(data, color_info);
+		free_td_str(color_info, 2);
+		cnt++;
+	}
+}
+
+void	color_setter(t_data *data, char **info)
+{
+	if (!ft_strcmp(info[0], MFC))
+		data->fc = init_color(data, info[1]);
+	else if (!ft_strcmp(info[0], MCC))
+		data->cc = init_color(data, info[1]);
+	else
+	{
+		free_td_str(info, 2);
+		exit_err(data, "unexpected image infomation", 1);
+	}
 }
 
 t_color	*init_color(t_data *data, char *rgb)
