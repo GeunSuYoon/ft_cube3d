@@ -6,53 +6,57 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 01:54:26 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/29 15:58:37 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/03/29 16:09:15 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube3d.h"
 
 void	parse_image(t_data *data, int map_fd);
-int		image_setter(t_data *data, char *ident, char *path);
+void	image_setter(t_data *data, char **info);
 t_image	*init_image(t_data *data, char *path);
 
 void	parse_image(t_data *data, int map_fd)
 {
 	char	*tmp_line;
-	char	**tmp_td_line;
-	
-	tmp_line = get_next_line(map_fd);
-	while (tmp_line && !ft_strlen(tmp_line))
+	char	**image_info;
+	int		cnt;
+
+	cnt = 0;
+	while (cnt < 4)
+	{
 		tmp_line = get_next_line(map_fd);
+		while (tmp_line && !ft_strlen(tmp_line))
+			tmp_line = get_next_line(map_fd);
 		if (!tmp_line)
-		exit_err(data, 0, 0);
-		tmp_td_line = ft_split(tmp_line, ' ');
+			exit_err(data, 0, 0);
+		image_info = ft_split(tmp_line, ' ');
 		free(tmp_line);
-		if (!tmp_td_line)
-		exit_err(data, 0, 0);
-		if (ft_strtdlen(tmp_td_line) != 2)
-		exit_err(data, 0, 0);
-		if (image_setter(data, tmp_td_line[0], tmp_td_line[1]))
-		{
-			free_td_str(tmp_td_line, 2);
-		exit_err(data, "unexpected image infomation", 1);
+		if (!image_info)
+			exit_err(data, 0, 0);
+		if (ft_strtdlen(image_info) != 2)
+			exit_err(data, "unexpected image infomation", 1);
+		image_setter(data, image_info);
+		free_td_str(image_info, 2);
+		cnt++;
 	}
-	free_td_str(tmp_td_line, 2);
 }
 
-int	image_setter(t_data *data, char *ident, char *path)
+void	image_setter(t_data *data, char **info)
 {
-	if (!ft_strcmp(ident, MNORTH))
-		data->no = init_image(data, path);
-	else if (!ft_strcmp(ident, MSOUTH))
-		data->so = init_image(data, path);
-	else if (!ft_strcmp(ident, MWEST))
-		data->we = init_image(data, path);
-	else if (!ft_strcmp(ident, MEAST))
-		data->ea = init_image(data, path);
+	if (!ft_strcmp(info[0], MNORTH))
+		data->no = init_image(data, info[1]);
+	else if (!ft_strcmp(info[0], MSOUTH))
+		data->so = init_image(data, info[1]);
+	else if (!ft_strcmp(info[0], MWEST))
+		data->we = init_image(data, info[1]);
+	else if (!ft_strcmp(info[0], MEAST))
+		data->ea = init_image(data, info[1]);
 	else
-		return (1);
-	return (0);
+	{
+		free_td_str(info, 2);
+		exit_err(data, "unexpected image infomation", 1);
+	}
 }
 
 t_image	*init_image(t_data *data, char *path)
