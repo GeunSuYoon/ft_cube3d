@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 02:13:29 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/29 16:11:31 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/03/29 16:12:15 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	parse_color(t_data *data, int map_fd)
 	int		cnt;
 
 	cnt = 0;
-	while (cnt < 4)
+	while (cnt < 2)
 	{
 		tmp_line = get_next_line(map_fd);
 		while (tmp_line && !ft_strlen(tmp_line))
