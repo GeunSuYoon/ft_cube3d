@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 02:13:29 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/29 16:12:15 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/03/29 16:12:36 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	color_setter(t_data *data, char **info)
 	else
 	{
 		free_td_str(info, 2);
-		exit_err(data, "unexpected image infomation", 1);
+		exit_err(data, "unexpected color infomation", 1);
 	}
 }
 
