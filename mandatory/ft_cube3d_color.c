@@ -6,15 +6,28 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 02:13:29 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/29 16:12:36 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/03/30 14:06:12 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube3d.h"
 
+t_color_con	*init_color_con(t_data *data, int map_fd);
 void	parse_color(t_data *data, int map_fd);
 void	color_setter(t_data *data, char **info);
 t_color	*init_color(t_data *data, char *rgb);
+
+t_color_con	*init_color_con(t_data *data, int map_fd)
+{
+	t_color_con	*new_color_con;
+
+	new_color_con = ft_calloc(1, sizeof(t_color_con));
+	if (!new_color_con)
+		exit_err(data, 0, 0);
+	data->color_con = new_color_con;
+	parse_color(data, map_fd);
+	return (new_color_con);
+}
 
 void	parse_color(t_data *data, int map_fd)
 {
@@ -45,9 +58,9 @@ void	parse_color(t_data *data, int map_fd)
 void	color_setter(t_data *data, char **info)
 {
 	if (!ft_strcmp(info[0], MFC))
-		data->fc = init_color(data, info[1]);
+		data->color_con->fc = init_color(data, info[1]);
 	else if (!ft_strcmp(info[0], MCC))
-		data->cc = init_color(data, info[1]);
+		data->color_con->cc = init_color(data, info[1]);
 	else
 	{
 		free_td_str(info, 2);

@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 00:28:05 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/30 13:31:19 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/03/30 14:06:49 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,10 @@ typedef struct s_data
 }	t_data;
 
 // image
+t_image_con	*init_image_con(t_data *data, int map_fd);
 void	parse_image(t_data *data, int map_fd);
 // color
+t_color_con	*init_color_con(t_data *data, int map_fd);
 void	parse_color(t_data *data, int map_fd);
 
 // map

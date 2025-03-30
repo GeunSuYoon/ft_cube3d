@@ -6,15 +6,28 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 01:54:26 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/29 16:09:15 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/03/30 14:04:52 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube3d.h"
 
-void	parse_image(t_data *data, int map_fd);
-void	image_setter(t_data *data, char **info);
-t_image	*init_image(t_data *data, char *path);
+t_image_con	*init_image_con(t_data *data, int map_fd);
+void		parse_image(t_data *data, int map_fd);
+void		image_setter(t_data *data, char **info);
+t_image		*init_image(t_data *data, char *path);
+
+t_image_con	*init_image_con(t_data *data, int map_fd)
+{
+	t_image_con	*new_image_con;
+
+	new_image_con = ft_calloc(1, sizeof(t_image_con));
+	if (!new_image_con)
+		exit_err(data, 0, 0);
+	data->image_con = new_image_con;
+	parse_image(data, map_fd);
+	return (new_image_con);
+}
 
 void	parse_image(t_data *data, int map_fd)
 {
@@ -45,13 +58,13 @@ void	parse_image(t_data *data, int map_fd)
 void	image_setter(t_data *data, char **info)
 {
 	if (!ft_strcmp(info[0], MNORTH))
-		data->no = init_image(data, info[1]);
+		data->image_con->no = init_image(data, info[1]);
 	else if (!ft_strcmp(info[0], MSOUTH))
-		data->so = init_image(data, info[1]);
+		data->image_con->so = init_image(data, info[1]);
 	else if (!ft_strcmp(info[0], MWEST))
-		data->we = init_image(data, info[1]);
+		data->image_con->we = init_image(data, info[1]);
 	else if (!ft_strcmp(info[0], MEAST))
-		data->ea = init_image(data, info[1]);
+		data->image_con->ea = init_image(data, info[1]);
 	else
 	{
 		free_td_str(info, 2);
