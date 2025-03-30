@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 02:13:29 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/30 14:06:12 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/03/30 16:07:46 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	parse_color(t_data *data, int map_fd)
 	{
 		tmp_line = get_next_line(map_fd);
 		while (tmp_line && !ft_strlen(tmp_line))
+		{
+			free(tmp_line);
 			tmp_line = get_next_line(map_fd);
+		}
 		if (!tmp_line)
 			exit_err(data, 0, 0);
 		color_info = ft_split(tmp_line, ' ');

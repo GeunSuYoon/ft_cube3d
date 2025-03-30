@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 01:54:26 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/30 14:04:52 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/03/30 16:07:11 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,10 @@ void	parse_image(t_data *data, int map_fd)
 	{
 		tmp_line = get_next_line(map_fd);
 		while (tmp_line && !ft_strlen(tmp_line))
+		{
+			free(tmp_line);
 			tmp_line = get_next_line(map_fd);
+		}
 		if (!tmp_line)
 			exit_err(data, 0, 0);
 		image_info = ft_split(tmp_line, ' ');
