@@ -7,7 +7,7 @@ AR		= ar
 ARFLAG	= rcus
 CC		= cc
 CFLAG	= -Wall -Wextra -Werror
-HEADER	= ./get_next_line.h
+HEADER	= ./
 
 all : $(NAME)
 

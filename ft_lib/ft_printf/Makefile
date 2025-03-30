@@ -9,7 +9,7 @@ AR		= ar
 ARFLAG	= rcus
 CC		= cc
 CFLAG	= -Wall -Wextra -Werror
-HEADER	= ./ft_printf.h
+HEADER	= ./
 
 all : $(NAME)
 

@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 16:22:45 by geuyoon           #+#    #+#             */
-/*   Updated: 2023/11/05 16:15:48 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/03/30 16:44:17 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	size_t	haystack_len;
 	size_t	needle_len;
 	char	*ret_char;
 
@@ -25,7 +24,6 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 	if (*needle == '\0')
 		return ((char *)haystack);
 	needle_len = ft_strlen(needle);
-	haystack_len = ft_strlen(haystack);
 	ret_char = ft_strchr(haystack, (int)*needle);
 	while (ret_char != NULL)
 	{

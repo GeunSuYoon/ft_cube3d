@@ -50,7 +50,7 @@ AR		= ar
 ARFLAG	= -urcs
 CC		= cc
 CFLAG	= -Wall -Wextra -Werror
-HEADER	= libft.h
+HEADER	= ./
 
 all : ${NAME}
 
