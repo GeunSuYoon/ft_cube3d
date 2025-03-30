@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 00:28:05 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/29 17:19:31 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/03/30 13:31:19 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,43 +47,66 @@ typedef struct s_pos
 	float	x;
 	float	y;
 }	t_pos;
-typedef struct s_map
-{
-	char	**map_data;
-	size_t	map_height;
-}	t_map;
+// image structure
 typedef struct s_image
 {
 	void	*img_ptr;
 	int		height;
 	int		width;
 }	t_image;
+// image container structure
+typedef struct s_image_con
+{
+	t_image	*no;
+	t_image	*so;
+	t_image	*we;
+	t_image	*ea;
+}	t_image_con;
+// color structure
 typedef struct s_color
 {
 	int	r;
 	int	g;
 	int	b;
 }	t_color;
+// color container structure
+typedef struct s_color_con
+{
+	t_color	*fc;
+	t_color	*cc;
+}	t_color_con;
+// map structure
+typedef struct s_map
+{
+	char	**map_data;
+	size_t	map_height;
+	size_t	map_width;
+}	t_map;
+// mlx structure
 typedef struct s_mlx
 {
 	void	*mlx;
 	void	*win;
 	t_pos	start_pos;
 }	t_mlx;
+// data structure
 typedef struct s_data
 {
-	t_map	*map;
-	t_image	*no;
-	t_image	*so;
-	t_image	*we;
-	t_image	*ea;
-	t_color	*fc;
-	t_color	*cc;
-	t_mlx	*mlx_ctl;
+	t_map		*map;
+	t_image_con	*image_con;
+	t_color_con	*color_con;
+	t_mlx		*mlx_ctl;
 }	t_data;
 
-void	parse_color(t_data *data, int map_fd);
+// image
 void	parse_image(t_data *data, int map_fd);
+// color
+void	parse_color(t_data *data, int map_fd);
+
+// map
+int		map_line_checker(t_data *data, char *map_line);
+// free
+void    data_free(t_data *data);
 
 size_t	ft_strtdlen(char **tdstr);
 void	free_td_str(char **str, size_t str_height);
