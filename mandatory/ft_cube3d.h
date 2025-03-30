@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 00:28:05 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/30 14:06:49 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/03/30 15:40:47 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct s_map
 	char	**map_data;
 	size_t	map_height;
 	size_t	map_width;
+	t_pos	*p_pos;
 }	t_map;
 // mlx structure
 typedef struct s_mlx
@@ -104,14 +105,20 @@ void	parse_image(t_data *data, int map_fd);
 // color
 t_color_con	*init_color_con(t_data *data, int map_fd);
 void	parse_color(t_data *data, int map_fd);
-
 // map
-int		map_line_checker(t_data *data, char *map_line);
+t_map	*init_map(t_data *data, int map_fd);
+// map checker
+void	wall_copier(t_data *data, t_map *map, int **round_checker);
+void	map_dp(t_data *data, int **round_checker, int x, int y);
+int		**init_round_checker(t_data *data, t_map *map);
+int		map_ele_checker(char ele);
+void	map_check_exit(t_data *data, int **round_checker, char *str, int errsig);
 // free
 void    data_free(t_data *data);
 
 size_t	ft_strtdlen(char **tdstr);
-void	free_td_str(char **str, size_t str_height);
+void	free_td_str(char **ptr, size_t height);
+void	free_td_int(int **ptr, size_t height);
 void	exit_err(t_data *data, char *str, int errsig);
 void	print_err(char *str);
 int		ft_strcmp(char *s1, char *s2);
