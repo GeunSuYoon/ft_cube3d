@@ -1,59 +1,70 @@
 # Names
 NAME	= cub3D
-MNAME	= libmlx.a
+MNAME	= libmlx_Linux.a
 
 # Source Files and Object Files, Header
-SRC		= ./mandatory/ft_so_long.c					\
-		  ./mandatory/ft_so_long_coin.c				\
-		  ./mandatory/ft_so_long_data.c				\
-		  ./mandatory/ft_so_long_image.c			\
-		  ./mandatory/ft_so_long_key.c				\
-		  ./mandatory/ft_so_long_map_check_utils.c	\
-		  ./mandatory/ft_so_long_map_check.c		\
-		  ./mandatory/ft_so_long_map.c				\
-		  ./mandatory/ft_so_long_player.c			\
-		  ./mandatory/ft_so_long_pos.c				\
-		  ./mandatory/ft_so_long_print_terminal.c	\
-		  ./mandatory/ft_so_long_utils.c			\
-		  ./mandatory/ft_so_long_window.c			\
-		  ./mandatory/ft_so_long_free.c				\
+SRC		= ./mandatory/ft_cube3d.c			\
+		  ./mandatory/ft_cube3d_data.c		\
+		  ./mandatory/ft_cube3d_image.c		\
+		  ./mandatory/ft_cube3d_color.c		\
+		  ./mandatory/ft_cube3d_map.c		\
+		  ./mandatory/ft_cube3d_map_check.c	\
+		  ./mandatory/ft_cube3d_map_opt.c	\
+		  ./mandatory/ft_cube3d_free.c		\
+		  ./mandatory/ft_cube3d_malloc.c	\
+		  ./mandatory/ft_cube3d_utils.c		\
+		  ./mandatory/ft_cube3d_err.c		\
 
 OBJ		= $(SRC:.c=.o)
-HEADER	= ./mandatory/ft_so_long.h
+HEADER	= ./mandatory
 
 # Compiler and Flags
 CC		= cc
-CFLAG	= -Wall -Wextra -Werror
+CFLAG	= -Wall -Wextra -Werror -g
+MLX		= ./mlx_linux/$(MNAME)
+LFT		= ./ft_lib/ft_printf/libft/libft.a
+GNL		= ./ft_lib/ft_gnl/libftgnl.a
+INC		= -I $(HEADER) -I ./ft_lib/ft_printf/libft -I ./ft_lib/ft_gnl -I ./mlx_linux
 LFLAG	= -Lft_lib/ft_printf/libft -lft
-PFLAG	= -Lft_lib/ft_printf -lftprintf
 GFLAG	= -Lft_lib/ft_gnl -lftgnl
-MFLAG	= -Lmlx -lmlx -Imlx
-CONFLAG	= -framework OpenGL -framework AppKit
-COMPOPT	= -lm
+MFLAG	= -Lmlx_linux -lmlx_Linux -L/usr/lib/x86_64-linux-gnu -lXext -lX11 -lm
 
 # Rules
-all 	: $(NAME)
+all 	: $(MLX) $(LFT) $(GNL) $(NAME)
 
 $(NAME) : $(OBJ)
-	@$(MAKE) -C ./ft_lib/ft_printf
-	@$(MAKE) -C ./ft_lib/ft_gnl
-	@$(MAKE) -C ./mlx
-	$(CC) $(CFLAG) $(MFLAG) $(LFLAG) $(PFLAG) $(GFLAG) $(CONFLAG) $(COMPOPT) -I $(HEADER) -o $@ $^
+	@echo " [..] | Compiling cub3D.."
+	@$(CC) $(CFLAG) $(OBJ) $(LFT) $(GNL) $(MFLAG) -o $@ $(INC)
+	@echo " [OK] | cub3D is ready!"
 
 %.o		: %.c
-	@$(CC) $(CFLAGS) -c $^ -o $@
+	@$(CC) $(CFLAG) $(INC) -o $@ -c $<
+
+$(MLX)	:
+	@echo " [..] | Compiling minilibx.."
+	@make -s -C mlx_linux
+	@echo " [OK] | minilibx is ready!"
+
+$(LFT)	:
+	@echo " [..] | Compiling libft.."
+	@make -s -C ft_lib/ft_printf/libft
+	@echo " [OK] | libft is ready!"
+
+$(GNL)	:
+	@echo " [..] | Compiling gnl.."
+	@make -s -C ft_lib/ft_gnl
+	@echo " [OK] | gnl is ready!"
 
 fclean 	: clean
-	@rm -f $(NAME) ./mlx/$(MNAME)
-	@$(MAKE) -C ./ft_lib/ft_gnl fclean
-	@$(MAKE) -C ./ft_lib/ft_printf fclean
-	@$(MAKE) -C ./ft_lib/ft_printf/libft fclean
+	@rm -f $(NAME) ./mlx_linux/$(MNAME)
+	@$(MAKE) -C ./ft_lib/ft_gnl fclean -s || exit 1;
+	@$(MAKE) -C ./ft_lib/ft_printf/libft fclean -s || exit 1;
 
 clean 	:
 	@rm -f $(OBJ)
-	@$(MAKE) -C ./ft_lib/ft_gnl clean
-	@$(MAKE) -C ./ft_lib/ft_printf/libft clean
-	@$(MAKE) -C ./mlx clean
+	@$(MAKE) -C ./mlx_linux clean -s || exit 1;
+	@$(MAKE) -C ./ft_lib/ft_gnl clean -s || exit 1;
+	@$(MAKE) -C ./ft_lib/ft_printf/libft clean -s || exit 1;
 
 re 		: fclean all
 
