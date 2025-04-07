@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 00:58:01 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/30 16:06:11 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/07 10:52:05 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_map	*init_map(t_data *data, int map_fd);
 char	**read_map(t_data *data, t_map *map, int map_fd);
 char	**realloc_map(t_data *data, t_map *map, char **map_data, char *tmp_map);
 void	map_checker(t_data *data, t_map *map);
+void	map_dp(t_data *data, int **round_checker, size_t x, size_t y);
 
 t_map	*init_map(t_data *data, int map_fd)
 {
@@ -32,6 +33,7 @@ t_map	*init_map(t_data *data, int map_fd)
 	new_map->map_width = 0;
 	new_map->map_data = read_map(data, new_map, map_fd);
 	map_checker(data, new_map);
+	return (new_map);
 }
 
 char	**read_map(t_data *data, t_map *map, int map_fd)
@@ -43,18 +45,19 @@ char	**read_map(t_data *data, t_map *map, int map_fd)
 	if (total_map == 0)
 		exit_err(data, 0, 0);
 	tmp_map = get_next_line(map_fd);
-	while (!ft_strlen(tmp_map))
+	while (tmp_map && ft_strlen(tmp_map) == 1)
 	{
 		free(tmp_map);
 		tmp_map = get_next_line(map_fd);
 	}
-	while (tmp_map && ft_strlen(tmp_map))
+	while (tmp_map && (ft_strlen(tmp_map) != 1))
 	{
 		if (tmp_map == 0)
-		break ;
+			break ;
 		if (map->map_width < ft_strlen(tmp_map))
 		map->map_width = ft_strlen(tmp_map);
 		total_map = realloc_map(data, map, total_map, tmp_map);
+		free(tmp_map);
 		tmp_map = get_next_line(map_fd);
 	}
 	close(map_fd);
@@ -69,7 +72,7 @@ char	**realloc_map(t_data *data, t_map *map, char **map_data, char *tmp_map)
 	if (tmp_map[0] == '\n')
 		return (map_data);
 	map->map_height++;
-	new_map_data = ft_calloc(map->map_height, sizeof(char *));
+	new_map_data = ft_calloc(map->map_height + 1, sizeof(char *));
 	if (!new_map_data)
 		exit_err(data, 0, 0);
 	height_cnt = 0;
@@ -84,10 +87,37 @@ char	**realloc_map(t_data *data, t_map *map, char **map_data, char *tmp_map)
 		}
 		height_cnt++;
 	}
-	new_map_data[map->map_height - 1] = tmp_map;
-	free_td_str(map_data, height_cnt - 1);
+	new_map_data[height_cnt] = ft_strdup(tmp_map);
+	free_td_str(map_data, height_cnt);
 	map_data = 0;
 	return (new_map_data);
+}
+
+// test code
+
+void	test_print_round_checker(int **round_checker, t_map *map)
+{
+	for (size_t i = 0; i < map->map_height; i++)
+	{
+		for (size_t j = 0; j < map->map_width - 1; j++)
+		printf("%d", round_checker[i][j]);
+		printf("\n");
+	}
+	printf("\n\n");
+}
+
+void	test_print_mapdata(t_map *map)
+{
+	for (size_t i = 0; i < map->map_height; i++)
+	{
+		size_t j = 0;
+		while (map->map_data[i][j])
+		{
+			printf("%c", map->map_data[i][j]);
+			j++;
+		}
+	}
+	printf("\n\n");
 }
 
 void	map_checker(t_data *data, t_map *map)
@@ -100,5 +130,24 @@ void	map_checker(t_data *data, t_map *map)
 		map_check_exit(data, round_checker, "no player info", 1);
 	else if (!map->p_pos->x || !map->p_pos->y)
 		map_check_exit(data, round_checker, "unexpected player pos", 1);
-	map_dp(data, round_checker, (int)map->p_pos->x, (int)map->p_pos->y);
+	test_print_round_checker(round_checker, map);
+	map_dp(data, round_checker, (size_t)map->p_pos->x, (size_t)map->p_pos->y);
+	test_print_round_checker(round_checker, map);
+	test_print_mapdata(map);
+	map_optimizer(map, round_checker);
+	test_print_mapdata(map);
+	free_td_int(round_checker, map->map_height);
+}
+
+void	map_dp(t_data *data, int **round_checker, size_t x, size_t y)
+{
+	if (round_checker[y][x])
+		return ;
+	if (!x || !y || x == data->map->map_width - 1 || y == data->map->map_height - 1)
+		map_check_exit(data, round_checker, "unexpected map shape", 1);
+	round_checker[y][x] = 2;
+	map_dp(data, round_checker, x, y + 1);
+	map_dp(data, round_checker, x, y - 1);
+	map_dp(data, round_checker, x + 1, y);
+	map_dp(data, round_checker, x - 1, y);
 }
