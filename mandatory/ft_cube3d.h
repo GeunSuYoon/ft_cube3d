@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 00:28:05 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/30 15:40:47 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/07 10:53:00 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,20 @@
 # define PSOUTH 'S'
 # define PWEST 'W'
 # define PEAST 'E'
-# define ERR 1
+# define NEWLINE '\n'
 # define MNORTH "NO"
 # define MSOUTH "SO"
 # define MWEST "WE"
 # define MEAST "EA"
 # define MFC "F"
 # define MCC "C"
+# define ERR 1
+# define WSIZE 1
 
 # include "../ft_lib/ft_printf/libft/libft.h"
 # include "../ft_lib/ft_printf/ft_printf.h"
 # include "../ft_lib/ft_gnl/get_next_line.h"
-# include "../mlx/mlx.h"
+# include "../mlx_linux/mlx.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <time.h>
@@ -99,6 +101,8 @@ typedef struct s_data
 	t_mlx		*mlx_ctl;
 }	t_data;
 
+// data
+t_data  *init_data(int map_fd);
 // image
 t_image_con	*init_image_con(t_data *data, int map_fd);
 void	parse_image(t_data *data, int map_fd);
@@ -109,10 +113,12 @@ void	parse_color(t_data *data, int map_fd);
 t_map	*init_map(t_data *data, int map_fd);
 // map checker
 void	wall_copier(t_data *data, t_map *map, int **round_checker);
-void	map_dp(t_data *data, int **round_checker, int x, int y);
+void	map_dp(t_data *data, int **round_checker, size_t x, size_t y);
 int		**init_round_checker(t_data *data, t_map *map);
 int		map_ele_checker(char ele);
 void	map_check_exit(t_data *data, int **round_checker, char *str, int errsig);
+// map opt
+void	map_optimizer(t_map *map, int **round_checker);
 // free
 void    data_free(t_data *data);
 

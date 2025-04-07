@@ -1,6 +1,14 @@
 {
 	"files.associations": {
 		"ft_cube3d.h": "c",
-		"get_next_line.h": "c"
+		"get_next_line.h": "c",
+		"array": "c",
+		"string": "c",
+		"string_view": "c",
+		"span": "c",
+		"charconv": "c",
+		"sstream": "c",
+		"map": "c",
+		"format": "c"
 	}
 }
