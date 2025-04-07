@@ -6,7 +6,7 @@ SRC		= ./ft_printf.c			\
 
 OBJ		= $(SRC:.c=.o)
 AR		= ar
-ARFLAG	= rcus
+ARFLAG	= rcs
 CC		= cc
 CFLAG	= -Wall -Wextra -Werror
 HEADER	= ./

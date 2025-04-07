@@ -47,7 +47,7 @@ BSRC	= ft_lstnew_bonus.c			\
 OBJ		= ${SRC:.c=.o}
 BOBJ	= ${BSRC:.c=.o}
 AR		= ar
-ARFLAG	= -urcs
+ARFLAG	= -rcs
 CC		= cc
 CFLAG	= -Wall -Wextra -Werror
 HEADER	= ./
