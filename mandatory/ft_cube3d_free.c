@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 13:04:55 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/30 13:31:21 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/03/30 16:42:10 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void    map_free(t_map *map)
     if (!map)
         return ;
     if (map->map_data)
-        free_td_str(map, map->map_height);
+        free_td_str(map->map_data, map->map_height);
     map->map_data = 0;
     free(map);
 }
