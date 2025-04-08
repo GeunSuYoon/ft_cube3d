@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 00:28:05 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/07 10:53:00 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/08 08:30:20 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,9 @@ void	map_dp(t_data *data, int **round_checker, size_t x, size_t y);
 int		**init_round_checker(t_data *data, t_map *map);
 int		map_ele_checker(char ele);
 void	map_check_exit(t_data *data, int **round_checker, char *str, int errsig);
+void	map_p_pos_setter(t_data *data, int **round_checker, size_t x, size_t y);
+void    wall_topbot_copier(t_data *data, t_map *map, int **round_checker, size_t h_cnt);
+void    wall_middle_copier(t_data *data, t_map *map, int **round_checker, size_t h_cnt);
 // map opt
 void	map_optimizer(t_map *map, int **round_checker);
 // free
@@ -128,5 +131,9 @@ void	free_td_int(int **ptr, size_t height);
 void	exit_err(t_data *data, char *str, int errsig);
 void	print_err(char *str);
 int		ft_strcmp(char *s1, char *s2);
+
+// test
+void	test_print_round_checker(int **round_checker, t_map *map);
+void	test_print_mapdata(t_map *map);
 
 #endif

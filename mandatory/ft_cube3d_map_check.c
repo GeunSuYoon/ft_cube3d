@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 15:12:31 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/07 09:49:58 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/08 07:25:21 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,26 @@ void	map_p_pos_setter(t_data *data, int **round_checker, size_t x, size_t y);
 
 void	wall_copier(t_data *data, t_map *map, int **round_checker)
 {
+	int		ele_check;
 	size_t	h_cnt;
 	size_t	w_cnt;
-	int		ele_check;
 
 	h_cnt = 0;
 	while (h_cnt < map->map_height)
 	{
 		w_cnt = 0;
-		while (map->map_data[h_cnt][w_cnt])
+	    while (map->map_data[h_cnt][w_cnt])
 		{
 			ele_check = map_ele_checker(map->map_data[h_cnt][w_cnt]);
 			if (!ele_check)
 				map_check_exit(data, round_checker, "unexpected map info", 1);
 			else if (ele_check == 3)
 				round_checker[h_cnt][w_cnt] = 1;
+			else if (ele_check == 1)
+				round_checker[h_cnt][w_cnt] = -1;
 			else if (ele_check == 4)
 				map_p_pos_setter(data, round_checker, w_cnt, h_cnt);
-			w_cnt++;
+        	w_cnt++;
 		}
 		h_cnt++;
 	}
@@ -48,13 +50,13 @@ int	**init_round_checker(t_data *data, t_map *map)
 	int 	**ret_checker;
 	size_t	cnt;
 
-	ret_checker = ft_calloc(map->map_height, sizeof(int *));
+	ret_checker = ft_calloc(map->map_height - 1, sizeof(int *));
 	if (!ret_checker)
 		exit_err(data, 0, 0);
 	cnt = 0;
 	while (cnt < map->map_height)
 	{
-		ret_checker[cnt] = ft_calloc(map->map_width - 1, sizeof(int));
+		ret_checker[cnt] = ft_calloc(map->map_width, sizeof(int));
 		if (!ret_checker[cnt])
 		{
 			free_td_int(ret_checker, cnt);
@@ -65,7 +67,7 @@ int	**init_round_checker(t_data *data, t_map *map)
 	return (ret_checker);
 }
 
-int    map_ele_checker(char ele)
+int	map_ele_checker(char ele)
 {
 	if (ele == EMPTY)
 		return (1);

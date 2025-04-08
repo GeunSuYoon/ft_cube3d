@@ -6,11 +6,13 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 00:28:05 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/30 16:39:49 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/08 09:22:47 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube3d.h"
+
+void	a(){ system("leaks cube3D"); }
 
 int	init_map_fd(char *name);
 
@@ -19,10 +21,12 @@ int	main(int argc, char **argv)
 	t_data	*data;
 	int		map_fd;
 
+	atexit(a);
 	if (argc != 2)
 		exit_err(0, "unexpected program argument", ERR);
 	map_fd = init_map_fd(argv[1]);
 	data = init_data(map_fd);
+	test_print_mapdata(data->map);
 	data_free(data);
 	exit(EXIT_SUCCESS);
 }

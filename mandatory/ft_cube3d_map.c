@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 00:58:01 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/07 10:52:05 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/08 09:12:39 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ t_map	*init_map(t_data *data, int map_fd)
 	new_map->map_height = 0;
 	new_map->map_width = 0;
 	new_map->map_data = read_map(data, new_map, map_fd);
+	test_print_mapdata(new_map);
 	map_checker(data, new_map);
 	return (new_map);
 }
@@ -55,7 +56,7 @@ char	**read_map(t_data *data, t_map *map, int map_fd)
 		if (tmp_map == 0)
 			break ;
 		if (map->map_width < ft_strlen(tmp_map))
-		map->map_width = ft_strlen(tmp_map);
+			map->map_width = ft_strlen(tmp_map);
 		total_map = realloc_map(data, map, total_map, tmp_map);
 		free(tmp_map);
 		tmp_map = get_next_line(map_fd);
@@ -93,49 +94,21 @@ char	**realloc_map(t_data *data, t_map *map, char **map_data, char *tmp_map)
 	return (new_map_data);
 }
 
-// test code
-
-void	test_print_round_checker(int **round_checker, t_map *map)
-{
-	for (size_t i = 0; i < map->map_height; i++)
-	{
-		for (size_t j = 0; j < map->map_width - 1; j++)
-		printf("%d", round_checker[i][j]);
-		printf("\n");
-	}
-	printf("\n\n");
-}
-
-void	test_print_mapdata(t_map *map)
-{
-	for (size_t i = 0; i < map->map_height; i++)
-	{
-		size_t j = 0;
-		while (map->map_data[i][j])
-		{
-			printf("%c", map->map_data[i][j]);
-			j++;
-		}
-	}
-	printf("\n\n");
-}
-
 void	map_checker(t_data *data, t_map *map)
 {
 	int	**round_checker;
 
 	round_checker = init_round_checker(data, map);
 	wall_copier(data, map, round_checker);
+	test_print_round_checker(round_checker, map);
 	if (!map->p_pos->x && !map->p_pos->y)
 		map_check_exit(data, round_checker, "no player info", 1);
 	else if (!map->p_pos->x || !map->p_pos->y)
 		map_check_exit(data, round_checker, "unexpected player pos", 1);
-	test_print_round_checker(round_checker, map);
 	map_dp(data, round_checker, (size_t)map->p_pos->x, (size_t)map->p_pos->y);
 	test_print_round_checker(round_checker, map);
-	test_print_mapdata(map);
 	map_optimizer(map, round_checker);
-	test_print_mapdata(map);
+	// test_print_mapdata(map);
 	free_td_int(round_checker, map->map_height);
 }
 

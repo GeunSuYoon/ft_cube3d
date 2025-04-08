@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 16:33:04 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/30 15:07:17 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/08 09:29:08 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,17 @@ void	free_td_str(char **ptr, size_t height)
 	size_t	height_cnt;
 
 	height_cnt = 0;
+    for (size_t i = 0; i < height; i++)
+    {
+        if (ptr[i] == 0)
+        {
+            printf("null %ld\n", i);
+        }
+    }
 	while (height_cnt < height)
 	{
-		free(ptr[height_cnt]);
+		if (ptr[height_cnt])
+			free(ptr[height_cnt]);
 		ptr[height_cnt] = 0;
 		height_cnt++;
 	}
