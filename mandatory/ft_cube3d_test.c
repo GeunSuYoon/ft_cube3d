@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/08 08:29:51 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/08 08:30:09 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/18 09:08:19 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	test_print_mapdata(t_map *map)
 			printf("%c", map->map_data[i][j]);
 			j++;
 		}
+		printf("\n");
 	}
 	printf("\n\n");
 }
