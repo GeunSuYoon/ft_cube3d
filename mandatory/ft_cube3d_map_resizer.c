@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/18 08:02:25 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/18 09:12:50 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/18 10:07:44 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void    init_cutter(t_map *map, t_cutter *cutter)
 
 void    cutter_h(t_cutter *cutter, size_t h_cnt)
 {
-    if (!cutter->h_s)
+    if (h_cnt <= cutter->h_s)
         cutter->h_s = h_cnt;
     cutter->new_height++;
 }
@@ -82,7 +82,7 @@ char    **init_new_map(t_data *data, t_map *map, t_cutter *cutter)
     if (!new_map)
         exit_err(data, 0, 0);
     h_cnt = 0;
-    while (h_cnt < cutter->new_height)
+    while (cutter->h_s + h_cnt < cutter->new_height)
     {
         empty_flag = 0;
         w_cnt = 0;
