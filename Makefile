@@ -11,6 +11,7 @@ SRC		= ./mandatory/ft_cube3d.c			\
 		  ./mandatory/ft_cube3d_map_check.c	\
 		  ./mandatory/ft_cube3d_map_check_utils.c	\
 		  ./mandatory/ft_cube3d_map_opt.c	\
+		  ./mandatory/ft_cube3d_map_resizer.c	\
 		  ./mandatory/ft_cube3d_free.c		\
 		  ./mandatory/ft_cube3d_malloc.c	\
 		  ./mandatory/ft_cube3d_utils.c		\
