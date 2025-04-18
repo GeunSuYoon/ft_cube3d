@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:34:50 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/07 13:07:59 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/18 07:25:21 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void    wall_topbot_copier(t_data *data, t_map *map, int **round_checker, size_t h_cnt);
 void    wall_middle_copier(t_data *data, t_map *map, int **round_checker, size_t h_cnt);
+void	map_p_pos_setter(t_data *data, int **round_checker, size_t x, size_t y);
 
 void    wall_topbot_copier(t_data *data, t_map *map, int **round_checker, size_t h_cnt)
 {
@@ -23,7 +24,7 @@ void    wall_topbot_copier(t_data *data, t_map *map, int **round_checker, size_t
     while (map->map_data[h_cnt][w_cnt])
     {
         if (map->map_data[h_cnt][w_cnt] != EMPTY && map->map_data[h_cnt][w_cnt] != WALL && map->map_data[h_cnt][w_cnt] != NEWLINE)
-            map_check_exit(data, round_checker, "unexpected map info", 1);
+            map_check_exit(data, round_checker, "unexpected map shape", 1);
         if (map->map_data[h_cnt][w_cnt] == WALL)
             round_checker[h_cnt][w_cnt] = 1;
         w_cnt++;
@@ -57,4 +58,12 @@ void    wall_middle_copier(t_data *data, t_map *map, int **round_checker, size_t
         }
         w_cnt++;
     }
+}
+
+void	map_p_pos_setter(t_data *data, int **round_checker, size_t x, size_t y)
+{
+	if (data->map->p_pos->x || data->map->p_pos->y)
+		map_check_exit(data, round_checker, "duplicate player info", 1);
+	data->map->p_pos->x = x;
+	data->map->p_pos->y = y;
 }

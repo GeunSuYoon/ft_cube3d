@@ -6,43 +6,42 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 15:12:31 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/08 07:25:21 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/18 09:12:01 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cube3d.h"
 
-void	wall_copier(t_data *data, t_map *map, int **round_checker);
+void	map_checker(t_data *data, t_map *map);
 int		**init_round_checker(t_data *data, t_map *map);
 int		map_ele_checker(char ele);
 void	map_check_exit(t_data *data, int **round_checker, char *str, int errsig);
-void	map_p_pos_setter(t_data *data, int **round_checker, size_t x, size_t y);
+void	map_dp(t_data *data, int **round_checker, size_t x, size_t y);
 
-void	wall_copier(t_data *data, t_map *map, int **round_checker)
+void	map_checker(t_data *data, t_map *map)
 {
-	int		ele_check;
+	int		**round_checker;
 	size_t	h_cnt;
-	size_t	w_cnt;
 
+	round_checker = init_round_checker(data, map);
 	h_cnt = 0;
 	while (h_cnt < map->map_height)
 	{
-		w_cnt = 0;
-	    while (map->map_data[h_cnt][w_cnt])
-		{
-			ele_check = map_ele_checker(map->map_data[h_cnt][w_cnt]);
-			if (!ele_check)
-				map_check_exit(data, round_checker, "unexpected map info", 1);
-			else if (ele_check == 3)
-				round_checker[h_cnt][w_cnt] = 1;
-			else if (ele_check == 1)
-				round_checker[h_cnt][w_cnt] = -1;
-			else if (ele_check == 4)
-				map_p_pos_setter(data, round_checker, w_cnt, h_cnt);
-        	w_cnt++;
-		}
+		wall_middle_copier(data, map, round_checker, h_cnt);
 		h_cnt++;
 	}
+	test_print_round_checker(round_checker, map);
+	if (!map->p_pos->x && !map->p_pos->y)
+		map_check_exit(data, round_checker, "no player info", 1);
+	else if (!map->p_pos->x || !map->p_pos->y)
+		map_check_exit(data, round_checker, "unexpected player pos", 1);
+	map_dp(data, round_checker, (size_t)map->p_pos->x, (size_t)map->p_pos->y);
+	test_print_round_checker(round_checker, map);
+	map_optimizer(map, round_checker);
+	test_print_mapdata(map);
+	free_td_int(round_checker, map->map_height);
+	map_resizer(data, map);
+	test_print_mapdata(map);
 }
 
 int	**init_round_checker(t_data *data, t_map *map)
@@ -50,7 +49,7 @@ int	**init_round_checker(t_data *data, t_map *map)
 	int 	**ret_checker;
 	size_t	cnt;
 
-	ret_checker = ft_calloc(map->map_height - 1, sizeof(int *));
+	ret_checker = ft_calloc(map->map_height, sizeof(int *));
 	if (!ret_checker)
 		exit_err(data, 0, 0);
 	cnt = 0;
@@ -94,10 +93,15 @@ void	map_check_exit(t_data *data, int **round_checker, char *str, int errsig)
 	exit_err(data, str, errsig);
 }
 
-void	map_p_pos_setter(t_data *data, int **round_checker, size_t x, size_t y)
+void	map_dp(t_data *data, int **round_checker, size_t x, size_t y)
 {
-	if (data->map->p_pos->x || data->map->p_pos->y)
-		map_check_exit(data, round_checker, "duplicate player info", 1);
-	data->map->p_pos->x = x;
-	data->map->p_pos->y = y;
+	if (round_checker[y][x])
+		return ;
+	if (!x || !y || x == data->map->map_width - 1 || y == data->map->map_height - 1)
+		map_check_exit(data, round_checker, "unexpected map shape", 1);
+	round_checker[y][x] = 2;
+	map_dp(data, round_checker, x, y + 1);
+	map_dp(data, round_checker, x, y - 1);
+	map_dp(data, round_checker, x + 1, y);
+	map_dp(data, round_checker, x - 1, y);
 }
