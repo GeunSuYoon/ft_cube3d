@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 13:04:55 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/08 09:56:26 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/18 11:57:26 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,15 @@ void    data_free(t_data *data)
         return ;
     if (data->mlx_ctl)
     {
-        map_free(data->map);
-        data->map = 0;
         image_con_free(data, data->image_con);
         data->image_con = 0;
         color_con_free(data->color_con);
         data->color_con = 0;
+        if (data->player)
+            free(data->player);
+        data->player = 0;
+        map_free(data->map);
+        data->map = 0;
         if (data->mlx_ctl->win)
             mlx_destroy_window(data->mlx_ctl->mlx, data->mlx_ctl->win);
         data->mlx_ctl->win = 0;
@@ -49,9 +52,6 @@ void    map_free(t_map *map)
     if (map->map_data)
         free_td_str(map->map_data, map->map_height);
     map->map_data = 0;
-    if (map->p_pos)
-        free(map->p_pos);
-    map->p_pos = 0;
     free(map);
 }
 

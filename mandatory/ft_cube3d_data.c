@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 16:14:55 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/03/30 15:41:12 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/18 11:15:21 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_data  *init_data(int map_fd)
         1920, 1060, "cube3D");
     new_data->image_con = init_image_con(new_data, map_fd);
     new_data->color_con = init_color_con(new_data, map_fd);
+    new_data->player = init_player(new_data);
     new_data->map = init_map(new_data, map_fd);
     return (new_data);
 }
