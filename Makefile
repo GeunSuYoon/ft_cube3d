@@ -7,6 +7,7 @@ SRC		= ./mandatory/ft_cube3d.c			\
 		  ./mandatory/ft_cube3d_data.c		\
 		  ./mandatory/ft_cube3d_image.c		\
 		  ./mandatory/ft_cube3d_color.c		\
+		  ./mandatory/ft_cube3d_player.c		\
 		  ./mandatory/ft_cube3d_map.c		\
 		  ./mandatory/ft_cube3d_map_check.c	\
 		  ./mandatory/ft_cube3d_map_check_utils.c	\
