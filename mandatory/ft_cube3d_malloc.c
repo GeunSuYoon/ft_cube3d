@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/29 16:33:04 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/08 09:29:08 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/18 08:56:11 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void    **realloc_td_ptr(void **ptr, size_t data_size, size_t data_len, size_t prev_len);
 void	free_td_str(char **ptr, size_t height);
 void	free_td_int(int **ptr, size_t height);
+char	*ft_strndup(char *str, size_t len);
 
 void    **realloc_td_ptr(void **ptr, size_t data_size, size_t data_len, size_t prev_len)
 {
@@ -38,17 +39,9 @@ void	free_td_str(char **ptr, size_t height)
 	size_t	height_cnt;
 
 	height_cnt = 0;
-    for (size_t i = 0; i < height; i++)
-    {
-        if (ptr[i] == 0)
-        {
-            printf("null %ld\n", i);
-        }
-    }
 	while (height_cnt < height)
 	{
-		if (ptr[height_cnt])
-			free(ptr[height_cnt]);
+		free(ptr[height_cnt]);
 		ptr[height_cnt] = 0;
 		height_cnt++;
 	}
@@ -69,4 +62,21 @@ void	free_td_int(int **ptr, size_t height)
 	}
 	free(ptr);
 	ptr = 0;
+}
+
+char	*ft_strndup(char *str, size_t len)
+{
+	char	*ret_str;
+	size_t	cnt;
+
+	ret_str = ft_calloc(len + 1, sizeof(char));
+	if (!ret_str)
+		return (0);
+	cnt = 0;
+	while (str[cnt] && cnt < len)
+	{
+		ret_str[cnt] = str[cnt];
+		cnt++;
+	}
+	return (ret_str);
 }
