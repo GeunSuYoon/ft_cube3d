@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 15:12:31 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/18 09:12:01 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/18 11:18:04 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void	map_checker(t_data *data, t_map *map)
 		h_cnt++;
 	}
 	test_print_round_checker(round_checker, map);
-	if (!map->p_pos->x && !map->p_pos->y)
+	if (!data->player->pos_x && !data->player->pos_y)
 		map_check_exit(data, round_checker, "no player info", 1);
-	else if (!map->p_pos->x || !map->p_pos->y)
+	else if (!data->player->pos_x || !data->player->pos_y)
 		map_check_exit(data, round_checker, "unexpected player pos", 1);
-	map_dp(data, round_checker, (size_t)map->p_pos->x, (size_t)map->p_pos->y);
+	map_dp(data, round_checker, (size_t)data->player->pos_x, (size_t)data->player->pos_y);
 	test_print_round_checker(round_checker, map);
 	map_optimizer(map, round_checker);
 	test_print_mapdata(map);

@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:34:50 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/18 07:25:21 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/18 11:17:24 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,9 @@ void    wall_middle_copier(t_data *data, t_map *map, int **round_checker, size_t
 
 void	map_p_pos_setter(t_data *data, int **round_checker, size_t x, size_t y)
 {
-	if (data->map->p_pos->x || data->map->p_pos->y)
+	if (data->player->pos_x || data->player->pos_y)
 		map_check_exit(data, round_checker, "duplicate player info", 1);
-	data->map->p_pos->x = x;
-	data->map->p_pos->y = y;
+	data->player->pos_x = (double)x;
+	data->player->pos_y = (double)y;
+    set_player_dir(data->player, data->map->map_data[y][x]);
 }

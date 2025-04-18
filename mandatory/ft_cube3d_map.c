@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 00:58:01 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/18 09:07:31 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/18 11:15:53 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ t_map	*init_map(t_data *data, int map_fd)
 	if (!new_map)
 		exit_err(data, 0, 0);
 	data->map = new_map;
-	new_map->p_pos = ft_calloc(1, sizeof(t_pos));
-	if (!new_map->p_pos)
-		exit_err(data, 0, 0);
+	// new_map->p_pos = ft_calloc(1, sizeof(t_pos));
+	// if (!new_map->p_pos)
+	// 	exit_err(data, 0, 0);
 	new_map->map_height = 0;
 	new_map->map_width = 0;
 	new_map->map_data = read_map(data, new_map, map_fd);
