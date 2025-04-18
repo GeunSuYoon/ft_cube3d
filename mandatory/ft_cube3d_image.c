@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 01:54:26 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/07 07:25:21 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/08 10:05:20 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	parse_image(t_data *data, int map_fd)
 		if (ft_strtdlen(image_info) != 2)
 			exit_err(data, "unexpected image infomation", 1);
 		image_setter(data, image_info);
-		free_td_str(image_info, 2);
+		free_td_str(image_info, ft_strtdlen(image_info));
 		cnt++;
 	}
 }

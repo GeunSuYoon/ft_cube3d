@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/20 02:13:29 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/07 11:13:46 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/08 10:06:38 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	parse_color(t_data *data, int map_fd)
 		if (ft_strtdlen(color_info) != 2)
 			exit_err(data, "unexpected image infomation", 1);
 		color_setter(data, color_info);
-		free_td_str(color_info, 2);
+		free_td_str(color_info, ft_strtdlen(color_info));
 		cnt++;
 	}
 }
@@ -95,5 +95,6 @@ t_color	*init_color(t_data *data, char *rgb)
 	new_color->r = r;
 	new_color->g = g;
 	new_color->b = b;
+	free_td_str(tdrgb, ft_strtdlen(tdrgb));
 	return (new_color);
 }
