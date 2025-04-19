@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/07 12:34:50 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/18 11:17:24 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/20 08:25:16 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void    wall_topbot_copier(t_data *data, t_map *map, int **round_checker, size_t h_cnt);
 void    wall_middle_copier(t_data *data, t_map *map, int **round_checker, size_t h_cnt);
-void	map_p_pos_setter(t_data *data, int **round_checker, size_t x, size_t y);
+void	map_player_setter(t_data *data, int **round_checker, size_t x, size_t y);
 
 void    wall_topbot_copier(t_data *data, t_map *map, int **round_checker, size_t h_cnt)
 {
@@ -53,18 +53,17 @@ void    wall_middle_copier(t_data *data, t_map *map, int **round_checker, size_t
             if (ele_check == 3)
                 round_checker[h_cnt][w_cnt] = 1;
             else if (ele_check == 4)
-                map_p_pos_setter(data, round_checker, w_cnt, h_cnt);
+                map_player_setter(data, round_checker, w_cnt, h_cnt);
             space_checker = 0;
         }
         w_cnt++;
     }
 }
 
-void	map_p_pos_setter(t_data *data, int **round_checker, size_t x, size_t y)
+void	map_player_setter(t_data *data, int **round_checker, size_t x, size_t y)
 {
 	if (data->player->pos_x || data->player->pos_y)
 		map_check_exit(data, round_checker, "duplicate player info", 1);
-	data->player->pos_x = (double)x;
-	data->player->pos_y = (double)y;
+    set_player_pos(data->player, x, y);
     set_player_dir(data->player, data->map->map_data[y][x]);
 }
