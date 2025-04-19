@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/30 15:12:31 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/18 11:18:04 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/20 08:31:56 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	map_checker(t_data *data, t_map *map)
 	h_cnt = 0;
 	while (h_cnt < map->map_height)
 	{
-		wall_middle_copier(data, map, round_checker, h_cnt);
+		wall_copier(data, map, round_checker, h_cnt);
 		h_cnt++;
 	}
 	test_print_round_checker(round_checker, map);

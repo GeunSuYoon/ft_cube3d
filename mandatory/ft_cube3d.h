@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/19 00:28:05 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/18 11:15:05 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/20 08:31:58 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ int			map_ele_checker(char ele);
 void		map_check_exit(t_data *data, int **round_checker, char *str, int errsig);
 void		map_p_pos_setter(t_data *data, int **round_checker, size_t x, size_t y);
 void    	wall_topbot_copier(t_data *data, t_map *map, int **round_checker, size_t h_cnt);
-void    	wall_middle_copier(t_data *data, t_map *map, int **round_checker, size_t h_cnt);
+void    	wall_copier(t_data *data, t_map *map, int **round_checker, size_t h_cnt);
 // map opt
 void		map_optimizer(t_map *map, int **round_checker);
 void    	map_resizer(t_data *data, t_map *map);
