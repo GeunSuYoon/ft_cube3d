@@ -20,7 +20,7 @@ int	main(int argc, char **argv)
 	int		map_fd;
 
 	if (argc != 2)
-		exit_err(0, "unexpected program argument", ERR);
+		exit_err(0, ETPROARG, ERR);
 	map_fd = init_map_fd(argv[1]);
 	data = init_data(map_fd);
 	data_free(data);
@@ -34,9 +34,9 @@ int	init_map_fd(char *name)
 
 	name_len = ft_strlen(name);
 	if (name_len < 4)
-		exit_err(0, "unexpected map name", ERR);
+		exit_err(0, ETMAPNAME, ERR);
 	if (ft_strcmp(name + name_len - 4, ".cub"))
-		exit_err(0, "unexpected map extention", ERR);
+		exit_err(0, ETMAPNAME, ERR);
 	fd = open(name, O_RDONLY);
 	if (fd == -1)
 		exit_err(0, 0, 0);

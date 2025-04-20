@@ -37,11 +37,17 @@
 # define KESC 53
 # define KLEFT 123
 # define KRIGHT 124
-// player size
-# define SIZE 1
 // err code
 # define ERR 1
 # define WSIZE 1
+// err text
+# define ETIMGINFO "unexpected image infomation"
+# define ETCOLINFO "unexpected color infomation"
+// display
+# define WWIDTH 1920
+# define WHEIGHT 1060
+# define SIZE 1
+# define SPEED 0.5
 
 # include "../ft_lib/ft_printf/libft/libft.h"
 # include "../ft_lib/ft_printf/ft_printf.h"

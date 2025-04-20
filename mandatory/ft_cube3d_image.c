@@ -51,7 +51,7 @@ void	parse_image(t_data *data, int map_fd)
 		if (!image_info)
 			exit_err(data, 0, 0);
 		if (ft_strtdlen(image_info) != 2)
-			exit_err(data, "unexpected image infomation", 1);
+			exit_err(data, ETIMGINFO, 1);
 		image_setter(data, image_info);
 		free_td_str(image_info, ft_strtdlen(image_info));
 		cnt++;
@@ -71,7 +71,7 @@ void	image_setter(t_data *data, char **info)
 	else
 	{
 		free_td_str(info, 2);
-		exit_err(data, "unexpected image infomation", 1);
+		exit_err(data, ETIMGINFO, 1);
 	}
 }
 

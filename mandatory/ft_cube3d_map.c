@@ -50,7 +50,7 @@ char	**read_map(t_data *data, t_map *map, int map_fd)
 	while (tmp_map)
 	{
 		if (tmp_map[ft_strlen(tmp_map) - 1] != WALL)
-			exit_err(data, "unexpected map shape", 1);
+			exit_err(data, ETMAPSHAPE, 1);
 		map->map_height++;
 		if (map->map_width < ft_strlen(tmp_map))
 			map->map_width = ft_strlen(tmp_map);

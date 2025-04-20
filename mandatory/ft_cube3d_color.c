@@ -51,7 +51,7 @@ void	parse_color(t_data *data, int map_fd)
 		if (!color_info)
 			exit_err(data, 0, 0);
 		if (ft_strtdlen(color_info) != 2)
-			exit_err(data, "unexpected image infomation", 1);
+			exit_err(data, ETCOLINFO, 1);
 		color_setter(data, color_info);
 		free_td_str(color_info, ft_strtdlen(color_info));
 		cnt++;
@@ -67,7 +67,7 @@ void	color_setter(t_data *data, char **info)
 	else
 	{
 		free_td_str(info, 2);
-		exit_err(data, "unexpected color infomation", 1);
+		exit_err(data, ETCOLINFO, 1);
 	}
 }
 
@@ -86,12 +86,12 @@ t_color	*init_color(t_data *data, char *rgb)
 	if (!tdrgb)
 		exit_err(data, 0, 0);
 	if (ft_strtdlen(tdrgb) != 3)
-		exit_err(data, "unexpected color information", 1);
+		exit_err(data, ETCOLINFO, 1);
 	r = ft_atoi(tdrgb[0]);
 	g = ft_atoi(tdrgb[0]);
 	b = ft_atoi(tdrgb[0]);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-		exit_err(data, "unexpected color information", 1);
+		exit_err(data, ETCOLINFO, 1);
 	new_color->r = r;
 	new_color->g = g;
 	new_color->b = b;
