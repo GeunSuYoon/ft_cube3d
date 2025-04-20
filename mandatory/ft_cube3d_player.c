@@ -15,6 +15,7 @@
 t_player	*init_player(t_data *data);
 void		set_player_pos(t_player *player, size_t x, size_t y);
 void		set_player_dir(t_player *player, char dir);
+void    	move_player(t_player *player, t_map *map, double x, double y);
 
 t_player	*init_player(t_data *data)
 {
@@ -55,4 +56,12 @@ void	set_player_dir(t_player *player, char dir)
 		player->dir_x = -1;
 		player->dir_y = 0;
 	}
+}
+
+void    move_player(t_player *player, t_map *map, double x, double y)
+{
+	if (map->map_data[(size_t)player->pos_y][(size_t)(player->pos_x + x)] != WALL)
+		player->pos_x += x;
+	if (map->map_data[(size_t)(player->pos_y + y)][(size_t)player->pos_x] != WALL)
+		player->pos_y += y;
 }

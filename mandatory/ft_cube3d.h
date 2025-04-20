@@ -45,14 +45,18 @@
 # define ETMAPNAME "unexpected program argument"
 # define ETIMGINFO "unexpected image infomation"
 # define ETCOLINFO "unexpected color infomation"
+# define ETMAPINFO "unexpected map info"
 # define ETMAPSHAPE "unexpected map shape"
+# define ETPLAYERNO "no player info"
+# define ETPLAYERPOS "unexpected player pos"
+# define ETPLAYERDUP "duplicate player info"
 // display
 # define WWIDTH 1920
 # define WHEIGHT 1060
 # define SIZE 1
 // player speed
-# define MOVESPEED 0.5
-# define ROTSPEED 0.5
+# define MOVESPEED 0.1
+# define ROTSPEED 0.1
 
 # include "../ft_lib/ft_printf/libft/libft.h"
 # include "../ft_lib/ft_printf/ft_printf.h"
@@ -145,6 +149,7 @@ void		parse_color(t_data *data, int map_fd);
 t_player	*init_player(t_data *data);
 void		set_player_pos(t_player *player, size_t x, size_t y);
 void		set_player_dir(t_player *player, char dir);
+void    	move_player(t_player *player, t_map *map, double x, double y);
 // map
 t_map		*init_map(t_data *data, int map_fd);
 // map checker
@@ -159,6 +164,8 @@ void		wall_copier(t_data *data, t_map *map, int **round_checker, size_t h_cnt);
 // map opt
 void		map_optimizer(t_map *map, int **round_checker);
 void		map_resizer(t_data *data, t_map *map);
+// key
+void		key_ctl(t_data *data);
 // free
 void		data_free(t_data *data);
 // utils
