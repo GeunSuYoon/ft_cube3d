@@ -29,10 +29,12 @@ void	print_err(char *str)
 {
 	ft_writeerr("Error\n");
 	if (str)
+	{
 		ft_writeerr(str);
+		write(STDERR_FILENO, "\n", 1);
+	}
 	else
 		perror(strerror(errno));
-	write(STDERR_FILENO, "\n", 1);
 }
 
 void	ft_writeerr(char *str)

@@ -41,13 +41,18 @@
 # define ERR 1
 # define WSIZE 1
 // err text
+# define ETPROARG "unexpected program argument"
+# define ETMAPNAME "unexpected program argument"
 # define ETIMGINFO "unexpected image infomation"
 # define ETCOLINFO "unexpected color infomation"
+# define ETMAPSHAPE "unexpected map shape"
 // display
 # define WWIDTH 1920
 # define WHEIGHT 1060
 # define SIZE 1
-# define SPEED 0.5
+// player speed
+# define MOVESPEED 0.5
+# define ROTSPEED 0.5
 
 # include "../ft_lib/ft_printf/libft/libft.h"
 # include "../ft_lib/ft_printf/ft_printf.h"
