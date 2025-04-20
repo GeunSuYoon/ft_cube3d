@@ -32,9 +32,9 @@ void	map_checker(t_data *data, t_map *map)
 	}
 	test_print_round_checker(round_checker, map);
 	if (!data->player->pos_x && !data->player->pos_y)
-		map_check_exit(data, round_checker, "no player info", 1);
+		map_check_exit(data, round_checker, ETPLAYERNO, 1);
 	else if (!data->player->pos_x || !data->player->pos_y)
-		map_check_exit(data, round_checker, "unexpected player pos", 1);
+		map_check_exit(data, round_checker, ETPLAYERPOS, 1);
 	map_dp(data, round_checker, (size_t)data->player->pos_x, (size_t)data->player->pos_y);
 	test_print_round_checker(round_checker, map);
 	map_optimizer(map, round_checker);
@@ -98,7 +98,9 @@ void	map_dp(t_data *data, int **round_checker, size_t x, size_t y)
 	if (round_checker[y][x])
 		return ;
 	if (!x || !y || x == data->map->map_width - 1 || y == data->map->map_height - 1)
-		map_check_exit(data, round_checker, "unexpected map shape", 1);
+		map_check_exit(data, round_checker, ETMAPSHAPE, 1);
+	if (data->map->map_data[y][x] == EMPTY)
+		map_check_exit(data, round_checker, ETMAPSHAPE, 1);
 	round_checker[y][x] = 2;
 	map_dp(data, round_checker, x, y + 1);
 	map_dp(data, round_checker, x, y - 1);
