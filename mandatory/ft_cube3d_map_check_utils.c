@@ -1,25 +1,25 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_cube3d_map_check_utils.c                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/07 12:34:50 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/20 08:32:05 by geuyoon          ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   ft_cube3d_map_check_utils.c						:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: geuyoon <geuyoon@student.42.fr>			+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2025/04/07 12:34:50 by geuyoon		   #+#	#+#			 */
+/*   Updated: 2025/04/20 08:32:05 by geuyoon		  ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "ft_cube3d.h"
 
-void    wall_copier(t_data *data, t_map *map, int **round_checker, size_t h_cnt);
+void	wall_copier(t_data *data, t_map *map, int **round_checker, size_t h_cnt);
 void	map_player_setter(t_data *data, int **round_checker, size_t x, size_t y);
 
-void    wall_copier(t_data *data, t_map *map, int **round_checker, size_t h_cnt)
+void	wall_copier(t_data *data, t_map *map, int **round_checker, size_t h_cnt)
 {
 	int		ele_check;
 	size_t	w_cnt;
-	int     space_checker;
+	int		space_checker;
 
 	w_cnt = 0;
 	space_checker = 1;

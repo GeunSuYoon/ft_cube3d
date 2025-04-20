@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_cube3d_map.c                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/19 00:58:01 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/18 11:15:53 by geuyoon          ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   ft_cube3d_map.c									:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: geuyoon <geuyoon@student.42.fr>			+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2025/03/19 00:58:01 by geuyoon		   #+#	#+#			 */
+/*   Updated: 2025/04/18 11:15:53 by geuyoon		  ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "ft_cube3d.h"
@@ -25,9 +25,6 @@ t_map	*init_map(t_data *data, int map_fd)
 	if (!new_map)
 		exit_err(data, 0, 0);
 	data->map = new_map;
-	// new_map->p_pos = ft_calloc(1, sizeof(t_pos));
-	// if (!new_map->p_pos)
-	// 	exit_err(data, 0, 0);
 	new_map->map_height = 0;
 	new_map->map_width = 0;
 	new_map->map_data = read_map(data, new_map, map_fd);
@@ -53,7 +50,7 @@ char	**read_map(t_data *data, t_map *map, int map_fd)
 	while (tmp_map)
 	{
 		if (tmp_map[ft_strlen(tmp_map) - 1] != WALL)
-		    exit_err(data, "unexpected map shape", 1);
+			exit_err(data, "unexpected map shape", 1);
 		map->map_height++;
 		if (map->map_width < ft_strlen(tmp_map))
 			map->map_width = ft_strlen(tmp_map);

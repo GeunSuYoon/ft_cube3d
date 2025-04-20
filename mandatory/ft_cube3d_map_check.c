@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_cube3d_map_check.c                              :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/30 15:12:31 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/20 08:31:56 by geuyoon          ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   ft_cube3d_map_check.c							  :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: geuyoon <geuyoon@student.42.fr>			+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2025/03/30 15:12:31 by geuyoon		   #+#	#+#			 */
+/*   Updated: 2025/04/20 08:31:56 by geuyoon		  ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "ft_cube3d.h"
@@ -46,7 +46,7 @@ void	map_checker(t_data *data, t_map *map)
 
 int	**init_round_checker(t_data *data, t_map *map)
 {
-	int 	**ret_checker;
+	int		**ret_checker;
 	size_t	cnt;
 
 	ret_checker = ft_calloc(map->map_height, sizeof(int *));

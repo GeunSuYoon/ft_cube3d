@@ -1,25 +1,25 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_cube3d_malloc.c                                 :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/29 16:33:04 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/18 08:56:11 by geuyoon          ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   ft_cube3d_malloc.c								 :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: geuyoon <geuyoon@student.42.fr>			+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2025/03/29 16:33:04 by geuyoon		   #+#	#+#			 */
+/*   Updated: 2025/04/18 08:56:11 by geuyoon		  ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "ft_cube3d.h"
 
-void    **realloc_td_ptr(void **ptr, size_t data_size, size_t data_len, size_t prev_len);
+void	**realloc_td_ptr(void **ptr, size_t data_size, size_t data_len, size_t prev_len);
 void	free_td_str(char **ptr, size_t height);
 void	free_td_int(int **ptr, size_t height);
 char	*ft_strndup(char *str, size_t len);
 
-void    **realloc_td_ptr(void **ptr, size_t data_size, size_t data_len, size_t prev_len)
+void	**realloc_td_ptr(void **ptr, size_t data_size, size_t data_len, size_t prev_len)
 {
-    void	*new_ptr;
+	void	*new_ptr;
 	size_t	copy_size;
 
 	new_ptr = ft_calloc(data_len, data_size);

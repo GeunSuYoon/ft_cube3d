@@ -1,21 +1,21 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_cube3d_color.c                                  :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/20 02:13:29 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/08 10:06:38 by geuyoon          ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   ft_cube3d_color.c								  :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: geuyoon <geuyoon@student.42.fr>			+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2025/03/20 02:13:29 by geuyoon		   #+#	#+#			 */
+/*   Updated: 2025/04/08 10:06:38 by geuyoon		  ###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #include "ft_cube3d.h"
 
 t_color_con	*init_color_con(t_data *data, int map_fd);
-void	parse_color(t_data *data, int map_fd);
-void	color_setter(t_data *data, char **info);
-t_color	*init_color(t_data *data, char *rgb);
+void		parse_color(t_data *data, int map_fd);
+void		color_setter(t_data *data, char **info);
+t_color		*init_color(t_data *data, char *rgb);
 
 t_color_con	*init_color_con(t_data *data, int map_fd)
 {
