@@ -10,7 +10,7 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "ft_cube3d.h"
+#include "../ft_cube3d.h"
 
 size_t	ft_strtdlen(char **tdstr);
 int		ft_strcmp(char *s1, char *s2);

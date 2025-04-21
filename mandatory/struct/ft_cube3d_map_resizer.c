@@ -10,7 +10,7 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "ft_cube3d.h"
+#include "../ft_cube3d.h"
 
 void	map_resizer(t_data *data, t_map *map);
 void	init_cutter(t_map *map, t_cutter *cutter);

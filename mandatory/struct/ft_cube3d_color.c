@@ -10,7 +10,7 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "ft_cube3d.h"
+#include "../ft_cube3d.h"
 
 t_color_con	*init_color_con(t_data *data, int map_fd);
 void		parse_color(t_data *data, int map_fd);

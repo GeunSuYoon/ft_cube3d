@@ -10,7 +10,7 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "ft_cube3d.h"
+#include "../ft_cube3d.h"
 
 void	data_free(t_data *data);
 void	map_free(t_map *map);

@@ -10,7 +10,7 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "ft_cube3d.h"
+#include "../ft_cube3d.h"
 
 t_map	*init_map(t_data *data, int map_fd);
 char	**read_map(t_data *data, t_map *map, int map_fd);

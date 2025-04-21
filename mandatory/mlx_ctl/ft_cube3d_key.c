@@ -10,7 +10,7 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "ft_cube3d.h"
+#include "../ft_cube3d.h"
 
 void		key_ctl(t_data *data);
 static int	key_press(int keycode, t_data *data);
@@ -22,7 +22,7 @@ void	key_ctl(t_data *data)
 {
 	mlx_key_hook(data->mlx_ctl->win, &key_press, data);
 }
-
+ 
 static int	key_press(int keycode, t_data *data)
 {
 	if (keycode == KESC)

@@ -10,7 +10,7 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "ft_cube3d.h"
+#include "../ft_cube3d.h"
 
 void	wall_copier(t_data *data, t_map *map, int **round_checker, size_t h_cnt);
 void	map_player_setter(t_data *data, int **round_checker, size_t x, size_t y);

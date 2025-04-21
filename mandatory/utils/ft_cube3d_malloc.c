@@ -10,7 +10,7 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "ft_cube3d.h"
+#include "../ft_cube3d.h"
 
 void	**realloc_td_ptr(void **ptr, size_t data_size, size_t data_len, size_t prev_len);
 void	free_td_str(char **ptr, size_t height);

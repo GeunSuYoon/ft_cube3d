@@ -10,7 +10,7 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "ft_cube3d.h"
+#include "../ft_cube3d.h"
 
 void	map_optimizer(t_map *map, int **round_checker);
 void	map_player_checker(t_map *map, int **round_checker, size_t x, size_t y);

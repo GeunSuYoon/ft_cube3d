@@ -10,7 +10,7 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "ft_cube3d.h"
+#include "../ft_cube3d.h"
 
 void	exit_err(t_data *data, char *str, int errsig);
 void	print_err(char *str);

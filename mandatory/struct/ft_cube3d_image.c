@@ -10,7 +10,7 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "ft_cube3d.h"
+#include "../ft_cube3d.h"
 
 t_image_con	*init_image_con(t_data *data, int map_fd);
 void		parse_image(t_data *data, int map_fd);

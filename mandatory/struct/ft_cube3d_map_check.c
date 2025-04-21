@@ -10,7 +10,7 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "ft_cube3d.h"
+#include "../ft_cube3d.h"
 
 void	map_checker(t_data *data, t_map *map);
 int		**init_round_checker(t_data *data, t_map *map);
