@@ -150,7 +150,7 @@ t_player	*init_player(t_data *data);
 void		set_player_pos(t_player *player, size_t x, size_t y);
 void		set_player_dir(t_player *player, char dir);
 void		move_player(t_player *player, t_map *map, double x, double y);
-void		rot_player(t_player *player, int p_x, int p_y);
+void		rot_player(t_player *player, double p_x, double p_y);
 // map
 t_map		*init_map(t_data *data, int map_fd);
 // map checker

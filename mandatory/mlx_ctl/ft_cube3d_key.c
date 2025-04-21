@@ -45,8 +45,8 @@ static void	key_player(int keycode, t_data *data)
 
 static void	key_rot(int keycode, t_player *player)
 {
-	int	p_x;
-	int	p_y;
+	double	p_x;
+	double	p_y;
 
 	p_x = 1;
 	p_y = 1;
