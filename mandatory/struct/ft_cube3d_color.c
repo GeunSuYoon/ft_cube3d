@@ -38,11 +38,11 @@ void	parse_color(t_data *data, int map_fd)
 	cnt = 0;
 	while (cnt < 2)
 	{
-		tmp_line = get_next_line(map_fd);
-		while (tmp_line && ft_strlen(tmp_line) == 1)
+		tmp_line = read_line(map_fd);
+		while (tmp_line && !ft_strlen(tmp_line))
 		{
 			free(tmp_line);
-			tmp_line = get_next_line(map_fd);
+			tmp_line = read_line(map_fd);
 		}
 		if (!tmp_line)
 			exit_err(data, 0, 0);

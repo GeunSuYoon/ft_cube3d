@@ -6,6 +6,7 @@ MNAME	= libmlx_Linux.a
 SRC		= ./mandatory/ft_cube3d.c			\
 		  ./mandatory/struct/ft_cube3d_data.c		\
 		  ./mandatory/struct/ft_cube3d_image.c		\
+		  ./mandatory/struct/ft_cube3d_image_utils.c		\
 		  ./mandatory/struct/ft_cube3d_color.c		\
 		  ./mandatory/struct/ft_cube3d_player.c		\
 		  ./mandatory/struct/ft_cube3d_map.c		\

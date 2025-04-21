@@ -38,11 +38,11 @@ void	parse_image(t_data *data, int map_fd)
 	cnt = 0;
 	while (cnt < 4)
 	{
-		tmp_line = get_next_line(map_fd);
-		while (tmp_line && ft_strlen(tmp_line) == 1)
+		tmp_line = read_line(map_fd);
+		while (tmp_line && !ft_strlen(tmp_line))
 		{
 			free(tmp_line);
-			tmp_line = get_next_line(map_fd);
+			tmp_line = read_line(map_fd);
 		}
 		if (!tmp_line)
 			exit_err(data, 0, 0);
@@ -78,21 +78,22 @@ void	image_setter(t_data *data, char **info)
 t_image	*init_image(t_data *data, char *path)
 {
 	t_image	*new_image;
-	// int		image_fd;
 
-	(void)path;
-	// image_fd = open(path, O_RDONLY);
-	// if (image_fd == -1)
-	// 	exit_err(data, 0, 0);
-	// close(image_fd);
 	new_image = ft_calloc(1, sizeof(t_image));
 	if (!new_image)
 		exit_err(data, 0, 0);
-	// new_image->img_ptr = mlx_xpm_file_to_image(data->mlx_ctl->mlx, path, &(new_image->width), &(new_image->height));
-	// if (new_image->img_ptr == 0)
-	// {
-	// 	free(new_image);
-	// 	exit_err(data, 0, 0);
-	// }
+	new_image->img_ptr = mlx_xpm_file_to_image(data->mlx_ctl->mlx, path, &(new_image->width), &(new_image->height));
+	if (new_image->img_ptr == 0)
+	{
+		free(new_image);
+		exit_err(data, 0, 0);
+	}
+	new_image->img_data = mlx_get_data_addr(new_image->img_ptr, &new_image->bpp, &new_image->sizeline, &new_image->endian);
+	if (!new_image->img_data)
+	{
+		image_free(data, new_image);
+		exit_err(data, 0, 0);
+	}
+	image_resizer(data, new_image);
 	return (new_image);
 }

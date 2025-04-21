@@ -14,6 +14,7 @@
 
 size_t	ft_strtdlen(char **tdstr);
 int		ft_strcmp(char *s1, char *s2);
+char	*read_line(int fd);
 
 size_t	ft_strtdlen(char **tdstr)
 {
@@ -37,4 +38,17 @@ int	ft_strcmp(char *s1, char *s2)
 		cnt++;
 	}
 	return (s1[cnt] - s2[cnt]);
+}
+
+char	*read_line(int map_fd)
+{
+	char	*gnl;
+	char	*ret_str;
+
+	gnl = get_next_line(map_fd);
+	if (!gnl)
+		return (0);
+	ret_str = ft_strtrim(gnl, "\n");
+	free(gnl);
+	return (ret_str);
 }

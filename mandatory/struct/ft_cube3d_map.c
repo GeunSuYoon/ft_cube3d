@@ -15,7 +15,6 @@
 t_map	*init_map(t_data *data, int map_fd);
 char	**read_map(t_data *data, t_map *map, int map_fd);
 char	**realloc_map(t_data *data, t_map *map, char **map_data, char *tmp_map);
-char	*read_line(int map_fd);
 
 t_map	*init_map(t_data *data, int map_fd)
 {
@@ -88,17 +87,4 @@ char	**realloc_map(t_data *data, t_map *map, char **map_data, char *tmp_map)
 	free_td_str(map_data, height_cnt);
 	map_data = 0;
 	return (new_map_data);
-}
-
-char	*read_line(int map_fd)
-{
-	char	*gnl;
-	char	*ret_str;
-
-	gnl = get_next_line(map_fd);
-	if (!gnl)
-		return (0);
-	ret_str = ft_strtrim(gnl, "\n");
-	free(gnl);
-	return (ret_str);
 }

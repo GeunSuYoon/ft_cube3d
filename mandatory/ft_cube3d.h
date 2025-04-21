@@ -53,7 +53,7 @@
 // display
 # define WWIDTH 1920
 # define WHEIGHT 1060
-# define SIZE 1
+# define SIZE 100
 // player speed
 # define MOVESPEED 0.1
 # define ROTSPEED 0.1
@@ -75,8 +75,12 @@
 typedef struct s_image
 {
 	void	*img_ptr;
+	char	*img_data;
 	int		height;
 	int		width;
+	int		bpp;
+	int		sizeline;
+	int		endian;
 }	t_image;
 // image container structure
 typedef struct s_image_con
@@ -142,6 +146,7 @@ t_data		*init_data(int map_fd);
 // image
 t_image_con	*init_image_con(t_data *data, int map_fd);
 void		parse_image(t_data *data, int map_fd);
+void		image_resizer(t_data *data, t_image *image);
 // color
 t_color_con	*init_color_con(t_data *data, int map_fd);
 void		parse_color(t_data *data, int map_fd);
@@ -175,6 +180,7 @@ void		key_ctl(t_data *data);
 int			close_window(t_data *data);
 // free
 void		data_free(t_data *data);
+void		image_free(t_data *data, t_image *image);
 // utils
 size_t		ft_strtdlen(char **tdstr);
 void		free_td_str(char **ptr, size_t height);
@@ -183,6 +189,7 @@ void		exit_err(t_data *data, char *str, int errsig);
 void		print_err(char *str);
 int			ft_strcmp(char *s1, char *s2);
 char		*ft_strndup(char *str, size_t len);
+char		*read_line(int fd);
 // test
 void		test_print_round_checker(int **round_checker, t_map *map);
 void		test_print_mapdata(t_map *map);
