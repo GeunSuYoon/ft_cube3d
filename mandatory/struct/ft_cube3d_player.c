@@ -16,6 +16,7 @@ t_player	*init_player(t_data *data);
 void		set_player_pos(t_player *player, size_t x, size_t y);
 void		set_player_dir(t_player *player, char dir);
 void		move_player(t_player *player, t_map *map, double x, double y);
+void		rot_player(t_player *player, int p_x, int p_y);
 
 t_player	*init_player(t_data *data)
 {
@@ -66,4 +67,10 @@ void	move_player(t_player *player, t_map *map, double x, double y)
 	if (map->map_data[(size_t)(player->pos_y + y)][(size_t)player->pos_x] != \
 		WALL)
 		player->pos_y += y;
+}
+
+void	rot_player(t_player *player, int p_x, int p_y)
+{
+	player->dir_x += p_x * ROTSPEED;
+	player->dir_y += p_y * ROTSPEED;
 }
