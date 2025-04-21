@@ -15,7 +15,8 @@
 void	map_checker(t_data *data, t_map *map);
 int		**init_round_checker(t_data *data, t_map *map);
 int		map_ele_checker(char ele);
-void	map_check_exit(t_data *data, int **round_checker, char *str, int errsig);
+void	map_check_exit(t_data *data, int **round_checker, char *str, \
+			int errsig);
 void	map_dp(t_data *data, int **round_checker, size_t x, size_t y);
 
 void	map_checker(t_data *data, t_map *map)
@@ -35,7 +36,8 @@ void	map_checker(t_data *data, t_map *map)
 		map_check_exit(data, round_checker, ETPLAYERNO, 1);
 	else if (!data->player->pos_x || !data->player->pos_y)
 		map_check_exit(data, round_checker, ETPLAYERPOS, 1);
-	map_dp(data, round_checker, (size_t)data->player->pos_x, (size_t)data->player->pos_y);
+	map_dp(data, round_checker, (size_t)data->player->pos_x, \
+			(size_t)data->player->pos_y);
 	test_print_round_checker(round_checker, map);
 	map_optimizer(map, round_checker);
 	test_print_mapdata(map);
@@ -97,7 +99,8 @@ void	map_dp(t_data *data, int **round_checker, size_t x, size_t y)
 {
 	if (round_checker[y][x])
 		return ;
-	if (!x || !y || x == data->map->map_width - 1 || y == data->map->map_height - 1)
+	if (!x || !y || x == data->map->map_width - 1 || \
+		y == data->map->map_height - 1)
 		map_check_exit(data, round_checker, ETMAPSHAPE, 1);
 	if (data->map->map_data[y][x] == EMPTY)
 		map_check_exit(data, round_checker, ETMAPSHAPE, 1);

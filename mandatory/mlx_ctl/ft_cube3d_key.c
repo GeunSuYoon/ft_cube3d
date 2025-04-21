@@ -22,12 +22,12 @@ void	key_ctl(t_data *data)
 {
 	mlx_key_hook(data->mlx_ctl->win, &key_press, data);
 }
- 
+
 static int	key_press(int keycode, t_data *data)
 {
 	if (keycode == KESC)
 		close_window(data);
-	if (keycode == KLEFT || keycode == KRIGHT ||\
+	if (keycode == KLEFT || keycode == KRIGHT || \
 		keycode == KW || keycode == KA || keycode == KS || keycode == KD)
 		key_player(keycode, data);
 	return (0);
@@ -72,11 +72,15 @@ static void	key_rot(int keycode, t_player *player)
 static void	key_move(int keycode, t_player *player, t_map *map)
 {
 	if (keycode == KW)
-		move_player(player, map, player->dir_x * MOVESPEED, player->dir_y * MOVESPEED);
+		move_player(player, map, player->dir_x * MOVESPEED, \
+			player->dir_y * MOVESPEED);
 	else if (keycode == KA)
-		move_player(player, map, -player->dir_x * MOVESPEED, player->dir_y * MOVESPEED);
+		move_player(player, map, -player->dir_x * MOVESPEED, \
+			player->dir_y * MOVESPEED);
 	else if (keycode == KS)
-		move_player(player, map, -player->dir_x * MOVESPEED, -player->dir_y * MOVESPEED);
+		move_player(player, map, -player->dir_x * MOVESPEED, \
+			-player->dir_y * MOVESPEED);
 	else if (keycode == KD)
-		move_player(player, map, player->dir_x * MOVESPEED, -player->dir_y * MOVESPEED);
+		move_player(player, map, player->dir_x * MOVESPEED, \
+			-player->dir_y * MOVESPEED);
 }

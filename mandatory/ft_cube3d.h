@@ -149,7 +149,7 @@ void		parse_color(t_data *data, int map_fd);
 t_player	*init_player(t_data *data);
 void		set_player_pos(t_player *player, size_t x, size_t y);
 void		set_player_dir(t_player *player, char dir);
-void    	move_player(t_player *player, t_map *map, double x, double y);
+void		move_player(t_player *player, t_map *map, double x, double y);
 // map
 t_map		*init_map(t_data *data, int map_fd);
 // map checker
@@ -157,15 +157,21 @@ void		map_checker(t_data *data, t_map *map);
 void		map_dp(t_data *data, int **round_checker, size_t x, size_t y);
 int			**init_round_checker(t_data *data, t_map *map);
 int			map_ele_checker(char ele);
-void		map_check_exit(t_data *data, int **round_checker, char *str, int errsig);
-void		map_p_pos_setter(t_data *data, int **round_checker, size_t x, size_t y);
-void		wall_topbot_copier(t_data *data, t_map *map, int **round_checker, size_t h_cnt);
-void		wall_copier(t_data *data, t_map *map, int **round_checker, size_t h_cnt);
+void		map_check_exit(t_data *data, int **round_checker, char *str, \
+				int errsig);
+void		map_p_pos_setter(t_data *data, int **round_checker, size_t x, \
+				size_t y);
+void		wall_topbot_copier(t_data *data, t_map *map, int **round_checker, \
+				size_t h_cnt);
+void		wall_copier(t_data *data, t_map *map, int **round_checker, \
+				size_t h_cnt);
 // map opt
 void		map_optimizer(t_map *map, int **round_checker);
 void		map_resizer(t_data *data, t_map *map);
 // key
 void		key_ctl(t_data *data);
+// window
+int			close_window(t_data *data);
 // free
 void		data_free(t_data *data);
 // utils

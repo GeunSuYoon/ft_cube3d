@@ -15,7 +15,7 @@
 void	map_resizer(t_data *data, t_map *map);
 void	init_cutter(t_map *map, t_cutter *cutter);
 void	cutter_h(t_cutter *cutter, size_t h_cnt);
-char	**init_new_map(t_data *data, t_map *map, t_cutter *cutter);
+char	**init_new_map(t_data *data, t_map *map, t_cutter *cut);
 void	map_resizer_err(t_data *data, char **new_map, size_t h_cnt);
 
 void	map_resizer(t_data *data, t_map *map)
@@ -73,31 +73,31 @@ void	cutter_h(t_cutter *cutter, size_t h_cnt)
 	cutter->new_height++;
 }
 
-char	**init_new_map(t_data *data, t_map *map, t_cutter *cutter)
+char	**init_new_map(t_data *data, t_map *map, t_cutter *cut)
 {
 	char	**new_map;
-	size_t	h_cnt;
-	size_t	w_cnt;
+	size_t	h;
+	size_t	w;
 	size_t	empty_flag;
 
-	new_map = ft_calloc(cutter->new_height + 1, sizeof(char *));
+	new_map = ft_calloc(cut->new_height + 1, sizeof(char *));
 	if (!new_map)
 		exit_err(data, 0, 0);
-	h_cnt = 0;
-	while (h_cnt < cutter->new_height)
+	h = 0;
+	while (h < cut->new_height)
 	{
 		empty_flag = 0;
-		w_cnt = 0;
-		while (map->map_data[cutter->h_s + h_cnt][cutter->w_s + w_cnt])
+		w = 0;
+		while (map->map_data[cut->h_s + h][cut->w_s + w])
 		{
-			if (empty_flag && !map->map_data[cutter->h_s + h_cnt][cutter->w_s + w_cnt])
+			if (empty_flag && !map->map_data[cut->h_s + h][cut->w_s + w])
 				break ;
-			w_cnt++;
+			w++;
 		}
-		new_map[h_cnt] = ft_strndup(map->map_data[cutter->h_s + h_cnt] + cutter->w_s, w_cnt);
+		new_map[h] = ft_strndup(map->map_data[cut->h_s + h] + cut->w_s, w);
 		if (!new_map)
-			map_resizer_err(data, new_map, h_cnt);
-		h_cnt++;
+			map_resizer_err(data, new_map, h);
+		h++;
 	}
 	return (new_map);
 }
