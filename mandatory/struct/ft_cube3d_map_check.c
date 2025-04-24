@@ -31,19 +31,19 @@ void	map_checker(t_data *data, t_map *map)
 		wall_copier(data, map, round_checker, h_cnt);
 		h_cnt++;
 	}
-	test_print_round_checker(round_checker, map);
+	// test_print_round_checker(round_checker, map);
 	if (!data->player->pos_x && !data->player->pos_y)
 		map_check_exit(data, round_checker, ETPLAYERNO, 1);
 	else if (!data->player->pos_x || !data->player->pos_y)
 		map_check_exit(data, round_checker, ETPLAYERPOS, 1);
 	map_dp(data, round_checker, (size_t)data->player->pos_x, \
 			(size_t)data->player->pos_y);
-	test_print_round_checker(round_checker, map);
+	// test_print_round_checker(round_checker, map);
 	map_optimizer(map, round_checker);
-	test_print_mapdata(map);
+	// test_print_mapdata(map);
 	free_td_int(round_checker, map->map_height);
 	map_resizer(data, map);
-	test_print_mapdata(map);
+	// test_print_mapdata(map);
 }
 
 int	**init_round_checker(t_data *data, t_map *map)

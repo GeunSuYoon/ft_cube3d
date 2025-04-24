@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:05:20 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/21 16:07:15 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/24 14:43:58 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	image_resizer(t_data *data, t_image *image)
 		image_free(data, image);
 		exit_err(data, 0, 0);
 	}
-	printf("bpp: [%d] sizeline: [%d] endian: [%d]\n", bpp, sizeline, endian);
 	image_resizer_loop(image, &resize_data);
 	image_changer(data, image, resize_ptr, resize_data);
 }

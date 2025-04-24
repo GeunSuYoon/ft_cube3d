@@ -65,19 +65,19 @@ void	move_player(t_player *player, t_map *map, double x, double y)
 {
 	if (x < 0)
 	{
-		if (map->map_data[(size_t)player->pos_y][(size_t)(player->pos_x + x)] \
+		if (map->map_data[(size_t)player->pos_y][(size_t)(player->pos_x + x - PSIZE)] \
 			!= WALL)
 			player->pos_x += x;
 	}
-	else if (map->map_data[(size_t)player->pos_y][(size_t)(player->pos_x + x) + 1] != WALL)
+	else if (map->map_data[(size_t)player->pos_y][(size_t)(player->pos_x + x + PSIZE) + 1] != WALL)
 			player->pos_x += x;
 	if (y < 0)
 	{
-		if (map->map_data[(size_t)(player->pos_y + y)][(size_t)player->pos_x] \
+		if (map->map_data[(size_t)(player->pos_y + y - PSIZE)][(size_t)player->pos_x] \
 			!= WALL)
 			player->pos_y += y;
 	}
-	else if (map->map_data[(size_t)(player->pos_y + y) + 1][(size_t)player->pos_x] != WALL)
+	else if (map->map_data[(size_t)(player->pos_y + y + PSIZE) + 1][(size_t)player->pos_x] != WALL)
 		player->pos_y += y;
 }
 

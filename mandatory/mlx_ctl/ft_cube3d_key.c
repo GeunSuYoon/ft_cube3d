@@ -43,8 +43,7 @@ static void	key_player(int keycode, t_data *data, t_rcast *rcast)
 		key_move(keycode, data->player, data->map, rcast);
 	if (mlx_clear_window(data->mlx_ctl->mlx, data->mlx_ctl->win) < 0)
 		exit_err(data, 0, 0);
-	if (mlx_put_image_to_window(data->mlx_ctl->mlx, data->mlx_ctl->win, rcast->window_img, WWIDTH, WHEIGHT) < 0)
-		exit_err(data, 0, 0);
+	cast_window(data);
 }
 
 static void	key_rot(int keycode, t_player *player, t_rcast *rcast)

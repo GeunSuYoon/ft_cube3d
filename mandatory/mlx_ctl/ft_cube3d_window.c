@@ -12,7 +12,18 @@
 
 #include "../ft_cube3d.h"
 
-int	close_window(t_data *data);
+void	cast_window(t_data *data);
+int		close_window(t_data *data);
+
+void	cast_window(t_data *data)
+{
+	if (!data->rcast->window_img || !data->rcast->window_img->img_data)
+		exit_err(data, "Invalid window image", 1);
+	casting_loop(data, data->rcast, data->player);
+	if (mlx_put_image_to_window(data->mlx_ctl->mlx, data->mlx_ctl->win, \
+		data->rcast->window_img, 0, 0) < 0)
+		exit_err(data, 0, 0);
+}
 
 int	close_window(t_data *data)
 {

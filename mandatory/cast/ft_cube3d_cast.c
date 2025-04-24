@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 12:17:21 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/24 11:50:02 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/24 15:21:43 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void    casting_loop(t_data *data, t_rcast *rcast, t_player *player)
 	t_image	*texture;
 
 	rcast->x = 0;
-	while (rcast->x < data->map->map_width)
+	while (rcast->x < WWIDTH)
 	{		
 		cast_cam(rcast, player);
 		cast_side(rcast, player);
@@ -58,41 +58,52 @@ t_image	*get_wall_texture(t_rcast *rcast, t_image_con *image_con)
 		else
 			wall_texture = image_con->we;
 	}
+	return (wall_texture);
 }
 
 void	draw_loop(t_rcast *rcast, t_image *texture)
 {
 	int	draw_start;
 	int	draw_end;
+	int	y;
 
 	draw_start = -rcast->line_height / 2 + SIZE / 2;
 	if (draw_start < 0)
 		draw_start = 0;
 	draw_end = rcast->line_height / 2 + SIZE / 2;
-	if (draw_end >= SIZE)
-		draw_end = SIZE - 1;
+	if (draw_end >= WHEIGHT)
+		draw_end = WHEIGHT - 1;
 	rcast->step = 1.0 * SIZE / rcast->line_height;
 	rcast->tex_pos = ((double)draw_start - (double)WHEIGHT / 2 + \
 		(double)rcast->line_height / 2) * rcast->step;
-	mapping_loop(rcast, texture, draw_start, draw_end);
+	y = 0;
+	while (y < draw_start)
+	{
+		find_buf_addr(rcast, y, rcast->cc);
+		y++;
+	}
+	mapping_loop(rcast, texture, y, draw_end);
 }
 
-void	mapping_loop(t_rcast *rcast, t_image *texture, int draw_start, int draw_end)
+void	mapping_loop(t_rcast *rcast, t_image *texture, int y, int draw_end)
 {
-	int		y;
 	int		tex_y;
 	int		color;
 	char	*pixel;
 
-	y = draw_start;
 	while (y < draw_end)
 	{
-		tex_y = (int)rcast->tex_pos % texture->height;
+		tex_y = ((int)rcast->tex_pos % texture->height + texture->height) % texture->height;
 		rcast->tex_pos += rcast->step;
 		pixel = texture->img_data + \
 			(tex_y * texture->sizeline + rcast->tex_x * (texture->bpp / 8));
 		color = *(int *)pixel;
 		find_buf_addr(rcast, y, color);
+		y++;
+	}
+	while (y < WHEIGHT)
+	{
+		find_buf_addr(rcast, y, rcast->fc);
 		y++;
 	}
 }

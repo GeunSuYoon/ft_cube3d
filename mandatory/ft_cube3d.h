@@ -51,10 +51,11 @@
 # define ETPLAYERPOS "unexpected player pos"
 # define ETPLAYERDUP "duplicate player info"
 // display
-# define WWIDTH 1920
-# define WHEIGHT 1060
+# define WWIDTH 640
+# define WHEIGHT 480
 # define SIZE 100
 // player speed
+# define PSIZE 0.3
 # define MOVESPEED 0.1
 # define ROTSPEED 0.1
 // camera value
@@ -96,6 +97,8 @@ typedef struct s_image
 typedef struct s_rcast
 {
 	t_image	*window_img;
+	int		fc;
+	int		cc;
 	double	now_time;
 	double	old_time;
 	double	fram_time;
@@ -111,7 +114,7 @@ typedef struct s_rcast
 	double	step_x;
 	double	step_y;
 	int		side;
-	double  perp_wall_dist;
+	double	perp_wall_dist;
 	int		line_height;
 	int		tex_x;
 	double	step;
@@ -128,9 +131,7 @@ typedef struct s_image_con
 // color structure
 typedef struct s_color
 {
-	int	r;
-	int	g;
-	int	b;
+	int	color;
 }	t_color;
 // color container structure
 typedef struct s_color_con
@@ -166,7 +167,6 @@ typedef struct s_data
 {
 	t_rcast		*rcast;
 	t_image_con	*image_con;
-	t_color_con	*color_con;
 	t_player	*player;
 	t_map		*map;
 	t_mlx		*mlx_ctl;
@@ -182,20 +182,22 @@ typedef struct s_cutter
 // data
 t_data		*init_data(int map_fd);
 // cast
-t_rcast 	*init_rcast(t_data *data);
+t_rcast		*init_rcast(t_data *data);
 void		get_frame_time(t_rcast *rcast);
+void		casting_loop(t_data *data, t_rcast *rcast, t_player *player);
 void		cast_cam(t_rcast *rcast, t_player *player);
 void		cast_side(t_rcast *rcast, t_player *player);
 void		cast_hit(t_rcast *rcast, char **map_data);
 void		cast_wall_x(t_rcast *rcast, t_player *player, t_image *texture);
 // image
 t_image_con	*init_image_con(t_data *data, int map_fd);
+t_image		*init_rcast_img(t_data *data, t_rcast *rcast);
 void		parse_image(t_data *data, int map_fd);
 void		image_resizer(t_data *data, t_image *image);
 // color
-t_color_con	*init_color_con(t_data *data, int map_fd);
-void		parse_color(t_data *data, int map_fd);
-t_image		*init_rcast_img(t_data *data, t_rcast *rcast);
+void		init_color_con(t_data *data, int map_fd);
+// t_color_con	*init_color_con(t_data *data, int map_fd);
+// void		parse_color(t_data *data, int map_fd);
 // player
 t_player	*init_player(t_data *data);
 void		set_player_pos(t_player *player, size_t x, size_t y);
@@ -223,6 +225,7 @@ void		map_resizer(t_data *data, t_map *map);
 // key
 void		key_ctl(t_data *data);
 // window
+void		cast_window(t_data *data);
 int			close_window(t_data *data);
 // free
 void		data_free(t_data *data);

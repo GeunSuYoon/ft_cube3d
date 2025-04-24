@@ -13,10 +13,10 @@
 #include "../ft_cube3d.h"
 
 void	data_free(t_data *data);
+void	rcast_free(t_data *data, t_rcast *rcast);
 void	map_free(t_map *map);
 void	image_con_free(t_data *data, t_image_con *image_con);
 void	image_free(t_data *data, t_image *image);
-void	color_con_free(t_color_con *color_con);
 
 void	data_free(t_data *data)
 {
@@ -24,10 +24,10 @@ void	data_free(t_data *data)
 		return ;
 	if (data->mlx_ctl)
 	{
+		rcast_free(data, data->rcast);
+		data->rcast = 0;
 		image_con_free(data, data->image_con);
 		data->image_con = 0;
-		color_con_free(data->color_con);
-		data->color_con = 0;
 		if (data->player)
 			free(data->player);
 		data->player = 0;
@@ -43,6 +43,15 @@ void	data_free(t_data *data)
 		data->mlx_ctl = 0;
 	}
 	free(data);
+}
+
+void	rcast_free(t_data *data, t_rcast *rcast)
+{
+	if (!rcast)
+		return ;
+	if (rcast->window_img)
+		image_free(data, rcast->window_img);
+	rcast->window_img = 0;
 }
 
 void	map_free(t_map *map)
@@ -78,17 +87,4 @@ void	image_free(t_data *data, t_image *image)
 		mlx_destroy_image(data->mlx_ctl->mlx, image->img_ptr);
 	image->img_ptr = 0;
 	free(image);
-}
-
-void	color_con_free(t_color_con *color_con)
-{
-	if (!color_con)
-		return ;
-	if (color_con->fc)
-		free(color_con->fc);
-	color_con->fc = 0;
-	if (color_con->cc)
-		free(color_con->cc);
-	color_con->cc = 0;
-	free(color_con);
 }

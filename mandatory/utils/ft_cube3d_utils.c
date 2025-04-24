@@ -58,6 +58,6 @@ double	get_current_time(void)
 {
 	struct timeval	tv;
 
-	gettimeifday(&tv, 0);
+	gettimeofday(&tv, 0);
 	return (tv.tv_sec + tv.tv_usec * 1e-6);
 }

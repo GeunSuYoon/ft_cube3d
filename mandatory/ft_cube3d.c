@@ -23,6 +23,11 @@ int	main(int argc, char **argv)
 		exit_err(0, ETPROARG, ERR);
 	map_fd = init_map_fd(argv[1]);
 	data = init_data(map_fd);
+	cast_window(data);
+	key_ctl(data);
+	if (!data->mlx_ctl->win || !data->mlx_ctl->mlx)
+		exit_err(data, "mlx init or window failed", 1);
+	mlx_loop(data->mlx_ctl->mlx);
 	data_free(data);
 	exit(EXIT_SUCCESS);
 }

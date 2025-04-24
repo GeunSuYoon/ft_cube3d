@@ -31,8 +31,9 @@ t_data	*init_data(int map_fd)
 		1920, 1060, "cube3D");
 	new_data->rcast = init_rcast(new_data);
 	new_data->image_con = init_image_con(new_data, map_fd);
-	new_data->color_con = init_color_con(new_data, map_fd);
+	init_color_con(new_data, map_fd);
 	new_data->player = init_player(new_data);
 	new_data->map = init_map(new_data, map_fd);
+	printf("fc:[%x], cc:[%x]\n", new_data->rcast->fc, new_data->rcast->cc);
 	return (new_data);
 }

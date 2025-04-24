@@ -111,5 +111,7 @@ t_image	*init_rcast_img(t_data *data, t_rcast *rcast)
 	if (!new_image->img_ptr)
 		exit_err(data, 0, 0);
 	new_image->img_data = mlx_get_data_addr(new_image->img_ptr, &new_image->bpp, &new_image->sizeline, &new_image->endian);
+	if (!new_image->img_data)
+		exit_err(data, "image creation failed", 1);
 	return (new_image);
 }
