@@ -27,7 +27,6 @@ t_map	*init_map(t_data *data, int map_fd)
 	new_map->map_height = 0;
 	new_map->map_width = 0;
 	new_map->map_data = read_map(data, new_map, map_fd);
-	// test_print_mapdata(new_map);
 	map_checker(data, new_map);
 	return (new_map);
 }

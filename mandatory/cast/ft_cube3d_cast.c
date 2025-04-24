@@ -6,19 +6,20 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 12:17:21 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/24 15:21:43 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/24 15:40:45 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_cube3d.h"
 
-void    casting_loop(t_data *data, t_rcast *rcast, t_player *player);
+void	casting_loop(t_data *data, t_rcast *rcast, t_player *player);
 t_image	*get_wall_texture(t_rcast *rcast, t_image_con *img_con);
 void	draw_loop(t_rcast *rcast, t_image *texture);
-void	mapping_loop(t_rcast *rcast, t_image *texture, int draw_start, int draw_end);
+void	mapping_loop(t_rcast *rcast, t_image *texture, int draw_start, \
+	int draw_end);
 void	find_buf_addr(t_rcast *rcast, int y, int color);
 
-void    casting_loop(t_data *data, t_rcast *rcast, t_player *player)
+void	casting_loop(t_data *data, t_rcast *rcast, t_player *player)
 {
 	t_image	*texture;
 
@@ -29,9 +30,9 @@ void    casting_loop(t_data *data, t_rcast *rcast, t_player *player)
 		cast_side(rcast, player);
 		cast_hit(rcast, data->map->map_data);
 		if (rcast->side)
-			rcast->perp_wall_dist = (rcast->side_dist_y - rcast->delta_dist_y);
+			rcast->perp_wall_dist = rcast->side_dist_y - rcast->delta_dist_y;
 		else
-			rcast->perp_wall_dist = (rcast->side_dist_x - rcast->delta_dist_x);
+			rcast->perp_wall_dist = rcast->side_dist_x - rcast->delta_dist_x;
 		rcast->line_height = (int)(SIZE / rcast->perp_wall_dist);
 		texture = get_wall_texture(rcast, data->image_con);
 		cast_wall_x(rcast, player, texture);
@@ -85,7 +86,8 @@ void	draw_loop(t_rcast *rcast, t_image *texture)
 	mapping_loop(rcast, texture, y, draw_end);
 }
 
-void	mapping_loop(t_rcast *rcast, t_image *texture, int y, int draw_end)
+void	mapping_loop(t_rcast *rcast, t_image *texture, int y, \
+	int draw_end)
 {
 	int		tex_y;
 	int		color;
@@ -93,7 +95,8 @@ void	mapping_loop(t_rcast *rcast, t_image *texture, int y, int draw_end)
 
 	while (y < draw_end)
 	{
-		tex_y = ((int)rcast->tex_pos % texture->height + texture->height) % texture->height;
+		tex_y = ((int)rcast->tex_pos % texture->height + texture->height) \
+			% texture->height;
 		rcast->tex_pos += rcast->step;
 		pixel = texture->img_data + \
 			(tex_y * texture->sizeline + rcast->tex_x * (texture->bpp / 8));

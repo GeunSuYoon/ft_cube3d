@@ -6,18 +6,18 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:51:17 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/24 12:11:01 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/24 15:37:50 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_cube3d.h"
 
-t_rcast *init_rcast(t_data *data);
+t_rcast	*init_rcast(t_data *data);
 void	get_frame_time(t_rcast *rcast);
 
-t_rcast *init_rcast(t_data *data)
+t_rcast	*init_rcast(t_data *data)
 {
-	t_rcast *new_rcast;
+	t_rcast	*new_rcast;
 
 	new_rcast = ft_calloc(1, sizeof(t_rcast));
 	if (!new_rcast)

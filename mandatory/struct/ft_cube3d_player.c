@@ -15,7 +15,7 @@
 t_player	*init_player(t_data *data);
 void		set_player_pos(t_player *player, size_t x, size_t y);
 void		set_player_dir(t_player *player, char dir);
-void		move_player(t_player *player, t_map *map, double x, double y);
+void		move_player(t_player *p, char **map_data, double x, double y);
 void		rot_player(t_player *player, double dir, double rot_speed);
 
 t_player	*init_player(t_data *data)
@@ -61,24 +61,24 @@ void	set_player_dir(t_player *player, char dir)
 	player->plane_y = player->dir_x * FOV;
 }
 
-void	move_player(t_player *player, t_map *map, double x, double y)
+void	move_player(t_player *p, char **map_data, double x, double y)
 {
 	if (x < 0)
 	{
-		if (map->map_data[(size_t)player->pos_y][(size_t)(player->pos_x + x - PSIZE)] \
-			!= WALL)
-			player->pos_x += x;
+		if (map_data[(size_t)p->pos_y][(size_t)(p->pos_x + x - PSIZE)] != WALL)
+			p->pos_x += x;
 	}
-	else if (map->map_data[(size_t)player->pos_y][(size_t)(player->pos_x + x + PSIZE) + 1] != WALL)
-			player->pos_x += x;
+	else if (map_data[(size_t)p->pos_y][(size_t)(p->pos_x + x + PSIZE) + 1] \
+		!= WALL)
+		p->pos_x += x;
 	if (y < 0)
 	{
-		if (map->map_data[(size_t)(player->pos_y + y - PSIZE)][(size_t)player->pos_x] \
-			!= WALL)
-			player->pos_y += y;
+		if (map_data[(size_t)(p->pos_y + y - PSIZE)][(size_t)p->pos_x] != WALL)
+			p->pos_y += y;
 	}
-	else if (map->map_data[(size_t)(player->pos_y + y + PSIZE) + 1][(size_t)player->pos_x] != WALL)
-		player->pos_y += y;
+	else if (map_data[(size_t)(p->pos_y + y + PSIZE) + 1][(size_t)p->pos_x] \
+		!= WALL)
+		p->pos_y += y;
 }
 
 void	rot_player(t_player *player, double dir, double rot_speed)

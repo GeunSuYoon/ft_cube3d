@@ -6,16 +6,18 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:05:20 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/24 14:43:58 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/04/24 15:37:19 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_cube3d.h"
 
 void	image_resizer(t_data *data, t_image *image);
-void    image_resizer_loop(t_image *image, char **resize_data);
-void    image_resizer_size(t_image *image, char **resize_data, int h_cnt, int w_cnt);
-void	image_changer(t_data *data, t_image *image, void *resize_ptr, char *resize_data);
+void	image_resizer_loop(t_image *image, char **resize_data);
+void	image_resizer_size(t_image *image, char **resize_data, int h_cnt, \
+	int w_cnt);
+void	image_changer(t_data *data, t_image *image, void *resize_ptr, \
+	char *resize_data);
 
 void	image_resizer(t_data *data, t_image *image)
 {
@@ -41,10 +43,10 @@ void	image_resizer(t_data *data, t_image *image)
 	image_changer(data, image, resize_ptr, resize_data);
 }
 
-void    image_resizer_loop(t_image *image, char **resize_data)
+void	image_resizer_loop(t_image *image, char **resize_data)
 {
-	int  h_cnt;
-	int  w_cnt;
+	int	h_cnt;
+	int	w_cnt;
 
 	h_cnt = 0;
 	while (h_cnt < SIZE)
@@ -59,12 +61,13 @@ void    image_resizer_loop(t_image *image, char **resize_data)
 	}
 }
 
-void    image_resizer_size(t_image *image, char **resize_data, int h_cnt, int w_cnt)
+void	image_resizer_size(t_image *image, char **resize_data, int h_cnt, \
+	int w_cnt)
 {
-	int src_w;
-	int src_h;
-	int src_idx;
-	int resize_idx;
+	int	src_w;
+	int	src_h;
+	int	src_idx;
+	int	resize_idx;
 
 	src_w = w_cnt * image->width / SIZE;
 	src_h = h_cnt * image->height / SIZE;
@@ -73,7 +76,8 @@ void    image_resizer_size(t_image *image, char **resize_data, int h_cnt, int w_
 	*(int *)(*resize_data + resize_idx) = *(int *)(image->img_data + src_idx);
 }
 
-void	image_changer(t_data *data, t_image *image, void *resize_ptr, char *resize_data)
+void	image_changer(t_data *data, t_image *image, void *resize_ptr, \
+	char *resize_data)
 {
 	mlx_destroy_image(data->mlx_ctl->mlx, image->img_ptr);
 	image->img_ptr = resize_ptr;

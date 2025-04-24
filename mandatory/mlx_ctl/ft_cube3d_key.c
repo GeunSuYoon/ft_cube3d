@@ -63,15 +63,15 @@ static void	key_move(int keycode, t_player *player, t_map *map, t_rcast *rcast)
 
 	move_speed = rcast->fram_time * (double)MOVESPEED;
 	if (keycode == KW)
-		move_player(player, map, player->dir_x * move_speed, \
+		move_player(player, map->map_data, player->dir_x * move_speed, \
 			player->dir_y * move_speed);
 	else if (keycode == KA)
-		move_player(player, map, -player->dir_x * move_speed, \
+		move_player(player, map->map_data, -player->dir_x * move_speed, \
 			player->dir_y * move_speed);
 	else if (keycode == KS)
-		move_player(player, map, -player->dir_x * move_speed, \
+		move_player(player, map->map_data, -player->dir_x * move_speed, \
 			-player->dir_y * move_speed);
 	else if (keycode == KD)
-		move_player(player, map, player->dir_x * move_speed, \
+		move_player(player, map->map_data, player->dir_x * move_speed, \
 			-player->dir_y * move_speed);
 }

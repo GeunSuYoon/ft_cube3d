@@ -196,13 +196,11 @@ void		parse_image(t_data *data, int map_fd);
 void		image_resizer(t_data *data, t_image *image);
 // color
 void		init_color_con(t_data *data, int map_fd);
-// t_color_con	*init_color_con(t_data *data, int map_fd);
-// void		parse_color(t_data *data, int map_fd);
 // player
 t_player	*init_player(t_data *data);
 void		set_player_pos(t_player *player, size_t x, size_t y);
 void		set_player_dir(t_player *player, char dir);
-void		move_player(t_player *player, t_map *map, double x, double y);
+void		move_player(t_player *p, char **map_data, double x, double y);
 void		rot_player(t_player *player, double dir, double rot_speed);
 // map
 t_map		*init_map(t_data *data, int map_fd);
