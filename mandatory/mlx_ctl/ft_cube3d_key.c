@@ -14,13 +14,14 @@
 
 void		key_ctl(t_data *data);
 static int	key_press(int keycode, t_data *data);
-static void	key_player(int keycode, t_data *data);
-static void	key_rot(int keycode, t_player *player);
-static void	key_move(int keycode, t_player *player, t_map *map);
+static void	key_player(int keycode, t_data *data, t_rcast *rcast);
+static void	key_rot(int keycode, t_player *player, t_rcast *rcast);
+static void	key_move(int keycode, t_player *player, t_map *map, t_rcast *rcast);
 
 void	key_ctl(t_data *data)
 {
 	mlx_key_hook(data->mlx_ctl->win, &key_press, data);
+	mlx_hook(data->mlx_ctl->mlx, 17, 0, &close_window, data);
 }
 
 static int	key_press(int keycode, t_data *data)
@@ -29,55 +30,49 @@ static int	key_press(int keycode, t_data *data)
 		close_window(data);
 	if (keycode == KLEFT || keycode == KRIGHT || \
 		keycode == KW || keycode == KA || keycode == KS || keycode == KD)
-		key_player(keycode, data);
+		key_player(keycode, data, data->rcast);
 	return (0);
 }
 
-static void	key_player(int keycode, t_data *data)
+static void	key_player(int keycode, t_data *data, t_rcast *rcast)
 {
+	get_frame_time(rcast);
 	if (keycode == KLEFT || keycode == KRIGHT)
-		key_rot(keycode, data->player);
+		key_rot(keycode, data->player, rcast);
 	else if (keycode == KW || keycode == KA || keycode == KS || keycode == KD)
-		key_move(keycode, data->player, data->map);
+		key_move(keycode, data->player, data->map, rcast);
 	if (mlx_clear_window(data->mlx_ctl->mlx, data->mlx_ctl->win) < 0)
+		exit_err(data, 0, 0);
+	if (mlx_put_image_to_window(data->mlx_ctl->mlx, data->mlx_ctl->win, rcast->window_img, WWIDTH, WHEIGHT) < 0)
 		exit_err(data, 0, 0);
 }
 
-static void	key_rot(int keycode, t_player *player)
+static void	key_rot(int keycode, t_player *player, t_rcast *rcast)
 {
-	double	p_x;
-	double	p_y;
+	double	rot_speed;
 
-	p_x = 1;
-	p_y = 1;
+	rot_speed = rcast->fram_time * (double)ROTSPEED;
 	if (keycode == KLEFT)
-	{
-		if (0 > player->dir_y)
-			p_x *= -1;
-		if (0 <= player->dir_x)
-			p_y *= -1;
-	}
+		rot_player(player, 1, rot_speed);
 	else if (keycode == KRIGHT)
-	{
-		if (0 <= player->dir_y)
-			p_x *= -1;
-		if (0 > player->dir_x)
-			p_y *= -1;
-	}
+		rot_player(player, -1, rot_speed);
 }
 
-static void	key_move(int keycode, t_player *player, t_map *map)
+static void	key_move(int keycode, t_player *player, t_map *map, t_rcast *rcast)
 {
+	double	move_speed;
+
+	move_speed = rcast->fram_time * (double)MOVESPEED;
 	if (keycode == KW)
-		move_player(player, map, player->dir_x * MOVESPEED, \
-			player->dir_y * MOVESPEED);
+		move_player(player, map, player->dir_x * move_speed, \
+			player->dir_y * move_speed);
 	else if (keycode == KA)
-		move_player(player, map, -player->dir_x * MOVESPEED, \
-			player->dir_y * MOVESPEED);
+		move_player(player, map, -player->dir_x * move_speed, \
+			player->dir_y * move_speed);
 	else if (keycode == KS)
-		move_player(player, map, -player->dir_x * MOVESPEED, \
-			-player->dir_y * MOVESPEED);
+		move_player(player, map, -player->dir_x * move_speed, \
+			-player->dir_y * move_speed);
 	else if (keycode == KD)
-		move_player(player, map, player->dir_x * MOVESPEED, \
-			-player->dir_y * MOVESPEED);
+		move_player(player, map, player->dir_x * move_speed, \
+			-player->dir_y * move_speed);
 }

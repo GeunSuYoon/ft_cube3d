@@ -16,7 +16,7 @@ t_player	*init_player(t_data *data);
 void		set_player_pos(t_player *player, size_t x, size_t y);
 void		set_player_dir(t_player *player, char dir);
 void		move_player(t_player *player, t_map *map, double x, double y);
-void		rot_player(t_player *player, double p_x, double p_y);
+void		rot_player(t_player *player, double dir, double rot_speed);
 
 t_player	*init_player(t_data *data)
 {
@@ -52,7 +52,7 @@ void	set_player_dir(t_player *player, char dir)
 		player->dir_x = 1;
 		player->dir_y = 0;
 	}
-	else if (dir == PEAST)
+	else if (dir == PWEST)
 	{
 		player->dir_x = -1;
 		player->dir_y = 0;
@@ -65,24 +65,35 @@ void	move_player(t_player *player, t_map *map, double x, double y)
 {
 	if (x < 0)
 	{
-		if (map->map_data[(size_t)player->pos_y][(size_t)(player->pos_x + x)] != WALL)
+		if (map->map_data[(size_t)player->pos_y][(size_t)(player->pos_x + x)] \
+			!= WALL)
 			player->pos_x += x;
 	}
 	else if (map->map_data[(size_t)player->pos_y][(size_t)(player->pos_x + x) + 1] != WALL)
 			player->pos_x += x;
 	if (y < 0)
 	{
-		if (map->map_data[(size_t)(player->pos_y + y)][(size_t)player->pos_x] != WALL)
+		if (map->map_data[(size_t)(player->pos_y + y)][(size_t)player->pos_x] \
+			!= WALL)
 			player->pos_y += y;
 	}
 	else if (map->map_data[(size_t)(player->pos_y + y) + 1][(size_t)player->pos_x] != WALL)
 		player->pos_y += y;
 }
 
-void	rot_player(t_player *player, double p_x, double p_y)
+void	rot_player(t_player *player, double dir, double rot_speed)
 {
-	player->dir_x += p_x * ROTSPEED;
-	player->dir_y += p_y * ROTSPEED;
-	player->plane_x = -1 * player->dir_y * FOV;
-	player->plane_y = player->dir_x * FOV;
+	double	old_dir_x;
+	double	old_plane_x;
+	double	cos_val;
+	double	sin_val;
+
+	old_dir_x = player->dir_x;
+	old_plane_x = player->plane_x;
+	cos_val = cos(dir * rot_speed);
+	sin_val = sin(dir * rot_speed);
+	player->dir_x = player->dir_x * cos_val - player->dir_y * sin_val;
+	player->dir_y = old_dir_x * sin_val + player->dir_y * cos_val;
+	player->plane_x = player->plane_x * cos_val - player->plane_y * sin_val;
+	player->plane_y = old_plane_x * sin_val + player->plane_y * cos_val;
 }

@@ -72,6 +72,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <fcntl.h>
+# include <sys/time.h>
 
 // pos structure
 typedef struct s_pos
@@ -95,6 +96,9 @@ typedef struct s_image
 typedef struct s_rcast
 {
 	t_image	*window_img;
+	double	now_time;
+	double	old_time;
+	double	fram_time;
 	int		x;
 	double	ray_dir_x;
 	double	ray_dir_y;
@@ -179,6 +183,7 @@ typedef struct s_cutter
 t_data		*init_data(int map_fd);
 // cast
 t_rcast 	*init_rcast(t_data *data);
+void		get_frame_time(t_rcast *rcast);
 void		cast_cam(t_rcast *rcast, t_player *player);
 void		cast_side(t_rcast *rcast, t_player *player);
 void		cast_hit(t_rcast *rcast, char **map_data);
@@ -196,7 +201,7 @@ t_player	*init_player(t_data *data);
 void		set_player_pos(t_player *player, size_t x, size_t y);
 void		set_player_dir(t_player *player, char dir);
 void		move_player(t_player *player, t_map *map, double x, double y);
-void		rot_player(t_player *player, double p_x, double p_y);
+void		rot_player(t_player *player, double dir, double rot_speed);
 // map
 t_map		*init_map(t_data *data, int map_fd);
 // map checker
@@ -231,6 +236,7 @@ void		print_err(char *str);
 int			ft_strcmp(char *s1, char *s2);
 char		*ft_strndup(char *str, size_t len);
 char		*read_line(int fd);
+double		get_current_time(void);
 // test
 void		test_print_round_checker(int **round_checker, t_map *map);
 void		test_print_mapdata(t_map *map);

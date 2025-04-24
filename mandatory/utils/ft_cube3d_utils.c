@@ -15,6 +15,7 @@
 size_t	ft_strtdlen(char **tdstr);
 int		ft_strcmp(char *s1, char *s2);
 char	*read_line(int fd);
+double	get_current_time(void);
 
 size_t	ft_strtdlen(char **tdstr)
 {
@@ -51,4 +52,12 @@ char	*read_line(int map_fd)
 	ret_str = ft_strtrim(gnl, "\n");
 	free(gnl);
 	return (ret_str);
+}
+
+double	get_current_time(void)
+{
+	struct timeval	tv;
+
+	gettimeifday(&tv, 0);
+	return (tv.tv_sec + tv.tv_usec * 1e-6);
 }
