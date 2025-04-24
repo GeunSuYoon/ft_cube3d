@@ -10,7 +10,7 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "ft_cube3d.h"
+#include "../ft_cube3d.h"
 
 void	test_print_round_checker(int **round_checker, t_map *map);
 void	test_print_mapdata(t_map *map);

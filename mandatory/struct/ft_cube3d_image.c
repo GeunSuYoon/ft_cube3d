@@ -16,6 +16,7 @@ t_image_con	*init_image_con(t_data *data, int map_fd);
 void		parse_image(t_data *data, int map_fd);
 void		image_setter(t_data *data, char **info);
 t_image		*init_image(t_data *data, char *path);
+t_image		*init_rcast_img(t_data *data, t_rcast *rcast);
 
 t_image_con	*init_image_con(t_data *data, int map_fd)
 {
@@ -95,5 +96,20 @@ t_image	*init_image(t_data *data, char *path)
 		exit_err(data, 0, 0);
 	}
 	image_resizer(data, new_image);
+	return (new_image);
+}
+
+t_image	*init_rcast_img(t_data *data, t_rcast *rcast)
+{
+	t_image	*new_image;
+
+	new_image = ft_calloc(1, sizeof(t_image));
+	if (!new_image)
+		exit_err(data, 0, 0);
+	rcast->window_img = new_image;
+	new_image->img_ptr = mlx_new_image(data->mlx_ctl->mlx, WWIDTH, WHEIGHT);
+	if (!new_image->img_ptr)
+		exit_err(data, 0, 0);
+	new_image->img_data = mlx_get_data_addr(new_image->img_ptr, &new_image->bpp, &new_image->sizeline, &new_image->endian);
 	return (new_image);
 }

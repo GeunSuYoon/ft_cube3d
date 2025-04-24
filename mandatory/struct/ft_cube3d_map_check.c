@@ -97,12 +97,12 @@ void	map_check_exit(t_data *data, int **round_checker, char *str, int errsig)
 
 void	map_dp(t_data *data, int **round_checker, size_t x, size_t y)
 {
-	if (round_checker[y][x])
+	if (round_checker[y][x] > 0)
 		return ;
 	if (!x || !y || x == data->map->map_width - 1 || \
 		y == data->map->map_height - 1)
 		map_check_exit(data, round_checker, ETMAPSHAPE, 1);
-	if (data->map->map_data[y][x] == EMPTY)
+	if (round_checker[y][x] < 0)
 		map_check_exit(data, round_checker, ETMAPSHAPE, 1);
 	round_checker[y][x] = 2;
 	map_dp(data, round_checker, x, y + 1);

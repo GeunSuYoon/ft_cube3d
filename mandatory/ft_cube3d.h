@@ -57,6 +57,8 @@
 // player speed
 # define MOVESPEED 0.1
 # define ROTSPEED 0.1
+// camera value
+# define FOV 0.66
 
 # include "../ft_lib/ft_printf/libft/libft.h"
 # include "../ft_lib/ft_printf/ft_printf.h"
@@ -71,6 +73,13 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
+// pos structure
+typedef struct s_pos
+{
+	double	x;
+	double	y;
+	double	z;
+}	t_pos;
 // image structure
 typedef struct s_image
 {
@@ -82,6 +91,28 @@ typedef struct s_image
 	int		sizeline;
 	int		endian;
 }	t_image;
+// casting window structure
+typedef struct s_rcast
+{
+	t_image	*window_img;
+	int		x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	int		map_x;
+	int		map_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	step_x;
+	double	step_y;
+	int		side;
+	double  perp_wall_dist;
+	int		line_height;
+	int		tex_x;
+	double	step;
+	double	tex_pos;
+}	t_rcast;
 // image container structure
 typedef struct s_image_con
 {
@@ -110,6 +141,8 @@ typedef struct s_player
 	double	pos_y;
 	double	dir_x;
 	double	dir_y;
+	double	plane_x;
+	double	plane_y;
 }	t_player;
 // map structure
 typedef struct s_map
@@ -127,6 +160,7 @@ typedef struct s_mlx
 // data structure
 typedef struct s_data
 {
+	t_rcast		*rcast;
 	t_image_con	*image_con;
 	t_color_con	*color_con;
 	t_player	*player;
@@ -143,6 +177,12 @@ typedef struct s_cutter
 
 // data
 t_data		*init_data(int map_fd);
+// cast
+t_rcast 	*init_rcast(t_data *data);
+void		cast_cam(t_rcast *rcast, t_player *player);
+void		cast_side(t_rcast *rcast, t_player *player);
+void		cast_hit(t_rcast *rcast, char **map_data);
+void		cast_wall_x(t_rcast *rcast, t_player *player, t_image *texture);
 // image
 t_image_con	*init_image_con(t_data *data, int map_fd);
 void		parse_image(t_data *data, int map_fd);
@@ -150,6 +190,7 @@ void		image_resizer(t_data *data, t_image *image);
 // color
 t_color_con	*init_color_con(t_data *data, int map_fd);
 void		parse_color(t_data *data, int map_fd);
+t_image		*init_rcast_img(t_data *data, t_rcast *rcast);
 // player
 t_player	*init_player(t_data *data);
 void		set_player_pos(t_player *player, size_t x, size_t y);

@@ -57,15 +57,25 @@ void	set_player_dir(t_player *player, char dir)
 		player->dir_x = -1;
 		player->dir_y = 0;
 	}
+	player->plane_x = -1 * player->dir_y * FOV;
+	player->plane_y = player->dir_x * FOV;
 }
 
 void	move_player(t_player *player, t_map *map, double x, double y)
 {
-	if (map->map_data[(size_t)player->pos_y][(size_t)(player->pos_x + x)] != \
-		WALL)
-		player->pos_x += x;
-	if (map->map_data[(size_t)(player->pos_y + y)][(size_t)player->pos_x] != \
-		WALL)
+	if (x < 0)
+	{
+		if (map->map_data[(size_t)player->pos_y][(size_t)(player->pos_x + x)] != WALL)
+			player->pos_x += x;
+	}
+	else if (map->map_data[(size_t)player->pos_y][(size_t)(player->pos_x + x) + 1] != WALL)
+			player->pos_x += x;
+	if (y < 0)
+	{
+		if (map->map_data[(size_t)(player->pos_y + y)][(size_t)player->pos_x] != WALL)
+			player->pos_y += y;
+	}
+	else if (map->map_data[(size_t)(player->pos_y + y) + 1][(size_t)player->pos_x] != WALL)
 		player->pos_y += y;
 }
 
@@ -73,4 +83,6 @@ void	rot_player(t_player *player, double p_x, double p_y)
 {
 	player->dir_x += p_x * ROTSPEED;
 	player->dir_y += p_y * ROTSPEED;
+	player->plane_x = -1 * player->dir_y * FOV;
+	player->plane_y = player->dir_x * FOV;
 }

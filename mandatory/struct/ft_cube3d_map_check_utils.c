@@ -29,6 +29,8 @@ void	wall_copier(t_data *data, t_map *map, int **round_checker, \
 		ele_check = map_ele_checker(map->map_data[h_cnt][w_cnt]);
 		if (!ele_check)
 			map_check_exit(data, round_checker, ETMAPINFO, 1);
+		else if (ele_check == 1)
+			round_checker[h_cnt][w_cnt] = -1;
 		else if (ele_check == 3)
 			round_checker[h_cnt][w_cnt] = 1;
 		else if (ele_check == 4)

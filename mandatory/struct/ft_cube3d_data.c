@@ -29,6 +29,7 @@ t_data	*init_data(int map_fd)
 		exit_err(new_data, 0, 0);
 	new_data->mlx_ctl->win = mlx_new_window(new_data->mlx_ctl->mlx, \
 		1920, 1060, "cube3D");
+	new_data->rcast = init_rcast(new_data);
 	new_data->image_con = init_image_con(new_data, map_fd);
 	new_data->color_con = init_color_con(new_data, map_fd);
 	new_data->player = init_player(new_data);
