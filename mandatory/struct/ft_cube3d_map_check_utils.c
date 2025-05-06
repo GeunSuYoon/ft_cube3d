@@ -44,6 +44,6 @@ void	map_player_setter(t_data *data, int **round_checker, size_t x, \
 {
 	if (data->player->pos_x || data->player->pos_y)
 		map_check_exit(data, round_checker, ETPLAYERDUP, 1);
-	set_player_pos(data->player, x, y);
-	set_player_dir(data->player, data->map->map_data[y][x]);
+	init_player_pos(data->player, x, y);
+	init_player_dir(data->player, data->map->map_data[y][x]);
 }

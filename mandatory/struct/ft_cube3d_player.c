@@ -13,10 +13,10 @@
 #include "../ft_cube3d.h"
 
 t_player	*init_player(t_data *data);
-void		set_player_pos(t_player *player, size_t x, size_t y);
-void		set_player_dir(t_player *player, char dir);
-void		move_player(t_player *p, char **map_data, double x, double y);
-void		rot_player(t_player *player, double dir, double rot_speed);
+void		init_player_pos(t_player *player, size_t x, size_t y);
+void		init_player_dir(t_player *player, char dir);
+void		set_player_pos(t_player *p, char **map_data, double x, double y);
+void		set_player_dir(t_player *player, double dir, double rot_speed);
 
 t_player	*init_player(t_data *data)
 {
@@ -29,13 +29,13 @@ t_player	*init_player(t_data *data)
 	return (new_player);
 }
 
-void	set_player_pos(t_player *player, size_t x, size_t y)
+void	init_player_pos(t_player *player, size_t x, size_t y)
 {
-	player->pos_x = (double)x;
-	player->pos_y = (double)y;
+	player->pos_x = (double)x + 0.5;
+	player->pos_y = (double)y + 0.5;
 }
 
-void	set_player_dir(t_player *player, char dir)
+void	init_player_dir(t_player *player, char dir)
 {
 	if (dir == PNORTH)
 	{
@@ -61,7 +61,7 @@ void	set_player_dir(t_player *player, char dir)
 	player->plane_y = player->dir_x * FOV;
 }
 
-void	move_player(t_player *p, char **map_data, double x, double y)
+void	set_player_pos(t_player *p, char **map_data, double x, double y)
 {
 	if (x < 0)
 	{
@@ -81,7 +81,7 @@ void	move_player(t_player *p, char **map_data, double x, double y)
 		p->pos_y += y;
 }
 
-void	rot_player(t_player *player, double dir, double rot_speed)
+void	set_player_dir(t_player *player, double dir, double rot_speed)
 {
 	double	old_dir_x;
 	double	old_plane_x;

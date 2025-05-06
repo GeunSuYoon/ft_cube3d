@@ -29,14 +29,6 @@
 # define MEAST "EA"
 # define MFC "F"
 # define MCC "C"
-// key symbol
-# define KW 13
-# define KA 0
-# define KS 1
-# define KD 2
-# define KESC 53
-# define KLEFT 123
-# define KRIGHT 124
 // err code
 # define ERR 1
 # define WSIZE 1
@@ -51,8 +43,8 @@
 # define ETPLAYERPOS "unexpected player pos"
 # define ETPLAYERDUP "duplicate player info"
 // display
-# define WWIDTH 640
-# define WHEIGHT 480
+# define WWIDTH 1920
+# define WHEIGHT 1080
 # define SIZE 100
 // player speed
 # define PSIZE 0.3
@@ -74,6 +66,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include <sys/time.h>
+# include <X11/keysym.h>
 
 // pos structure
 typedef struct s_pos
@@ -105,8 +98,8 @@ typedef struct s_rcast
 	int		x;
 	double	ray_dir_x;
 	double	ray_dir_y;
-	int		map_x;
-	int		map_y;
+	double	map_x;
+	double	map_y;
 	double	delta_dist_x;
 	double	delta_dist_y;
 	double	side_dist_x;
@@ -184,6 +177,7 @@ t_data		*init_data(int map_fd);
 // cast
 t_rcast		*init_rcast(t_data *data);
 void		get_frame_time(t_rcast *rcast);
+void		init_rcast_cf(t_rcast *rcast);
 void		casting_loop(t_data *data, t_rcast *rcast, t_player *player);
 void		cast_cam(t_rcast *rcast, t_player *player);
 void		cast_side(t_rcast *rcast, t_player *player);
@@ -198,10 +192,10 @@ void		image_resizer(t_data *data, t_image *image);
 void		init_color_con(t_data *data, int map_fd);
 // player
 t_player	*init_player(t_data *data);
-void		set_player_pos(t_player *player, size_t x, size_t y);
-void		set_player_dir(t_player *player, char dir);
-void		move_player(t_player *p, char **map_data, double x, double y);
-void		rot_player(t_player *player, double dir, double rot_speed);
+void		init_player_pos(t_player *player, size_t x, size_t y);
+void		init_player_dir(t_player *player, char dir);
+void		set_player_pos(t_player *p, char **map_data, double x, double y);
+void		set_player_dir(t_player *player, double dir, double rot_speed);
 // map
 t_map		*init_map(t_data *data, int map_fd);
 // map checker
