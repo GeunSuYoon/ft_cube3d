@@ -10,46 +10,47 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "../ft_cube3d.h"
+#include "../ft_cube3d_struct.h"
 
-void	map_checker(t_data *data, t_map *map);
-int		**init_round_checker(t_data *data, t_map *map);
+void	map_checker(t_game *game, t_map *map);
+int		**init_round_checker(t_game *game, t_map *map);
 int		map_ele_checker(char ele);
-void	map_check_exit(t_data *data, int **round_checker, char *str, \
+void	map_check_exit(t_game *game, int **round_checker, char *str, \
 			int errsig);
-void	map_dp(t_data *data, int **round_checker, size_t x, size_t y);
+void	map_dp(t_game *game, int **round_checker, size_t x, size_t y);
 
-void	map_checker(t_data *data, t_map *map)
+void	map_checker(t_game *game, t_map *map)
 {
 	int		**round_checker;
 	size_t	h_cnt;
 
-	round_checker = init_round_checker(data, map);
+	round_checker = init_round_checker(game, map);
 	h_cnt = 0;
 	while (h_cnt < map->map_height)
 	{
-		wall_copier(data, map, round_checker, h_cnt);
+		wall_copier(game, map, round_checker, h_cnt);
 		h_cnt++;
 	}
-	if (!data->player->pos_x && !data->player->pos_y)
-		map_check_exit(data, round_checker, ETPLAYERNO, 1);
-	else if (!data->player->pos_x || !data->player->pos_y)
-		map_check_exit(data, round_checker, ETPLAYERPOS, 1);
-	map_dp(data, round_checker, (size_t)data->player->pos_x, \
-			(size_t)data->player->pos_y);
+	if (!game->player->pos_x && !game->player->pos_y)
+		map_check_exit(game, round_checker, ETPLAYERNO, 1);
+	else if (!game->player->pos_x || !game->player->pos_y)
+		map_check_exit(game, round_checker, ETPLAYERPOS, 1);
+	map_dp(game, round_checker, (size_t)game->player->pos_x, \
+			(size_t)game->player->pos_y);
 	map_optimizer(map, round_checker);
 	free_td_int(round_checker, map->map_height);
-	map_resizer(data, map);
+	map_resizer(game, map);
+	test_print_mapdata(map);
 }
 
-int	**init_round_checker(t_data *data, t_map *map)
+int	**init_round_checker(t_game *game, t_map *map)
 {
 	int		**ret_checker;
 	size_t	cnt;
 
 	ret_checker = ft_calloc(map->map_height, sizeof(int *));
 	if (!ret_checker)
-		exit_err(data, 0, 0);
+		exit_err(game, 0, 0);
 	cnt = 0;
 	while (cnt < map->map_height)
 	{
@@ -57,7 +58,7 @@ int	**init_round_checker(t_data *data, t_map *map)
 		if (!ret_checker[cnt])
 		{
 			free_td_int(ret_checker, cnt);
-			exit_err(data, 0, 0);
+			exit_err(game, 0, 0);
 		}
 		cnt++;
 	}
@@ -85,24 +86,24 @@ int	map_ele_checker(char ele)
 	return (0);
 }
 
-void	map_check_exit(t_data *data, int **round_checker, char *str, int errsig)
+void	map_check_exit(t_game *game, int **round_checker, char *str, int errsig)
 {
-	free_td_int(round_checker, data->map->map_height);
-	exit_err(data, str, errsig);
+	free_td_int(round_checker, game->map->map_height);
+	exit_err(game, str, errsig);
 }
 
-void	map_dp(t_data *data, int **round_checker, size_t x, size_t y)
+void	map_dp(t_game *game, int **round_checker, size_t x, size_t y)
 {
 	if (round_checker[y][x] > 0)
 		return ;
-	if (!x || !y || x == data->map->map_width - 1 || \
-		y == data->map->map_height - 1)
-		map_check_exit(data, round_checker, ETMAPSHAPE, 1);
+	if (!x || !y || x == game->map->map_width - 1 || \
+		y == game->map->map_height - 1)
+		map_check_exit(game, round_checker, ETMAPSHAPE, 1);
 	if (round_checker[y][x] < 0)
-		map_check_exit(data, round_checker, ETMAPSHAPE, 1);
+		map_check_exit(game, round_checker, ETMAPSHAPE, 1);
 	round_checker[y][x] = 2;
-	map_dp(data, round_checker, x, y + 1);
-	map_dp(data, round_checker, x, y - 1);
-	map_dp(data, round_checker, x + 1, y);
-	map_dp(data, round_checker, x - 1, y);
+	map_dp(game, round_checker, x, y + 1);
+	map_dp(game, round_checker, x, y - 1);
+	map_dp(game, round_checker, x + 1, y);
+	map_dp(game, round_checker, x - 1, y);
 }

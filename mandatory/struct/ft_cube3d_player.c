@@ -10,22 +10,22 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "../ft_cube3d.h"
+#include "../ft_cube3d_struct.h"
 
-t_player	*init_player(t_data *data);
+t_player	*init_player(t_game *game);
 void		init_player_pos(t_player *player, size_t x, size_t y);
 void		init_player_dir(t_player *player, char dir);
 void		set_player_pos(t_player *p, char **map_data, double x, double y);
 void		set_player_dir(t_player *player, double dir, double rot_speed);
 
-t_player	*init_player(t_data *data)
+t_player	*init_player(t_game *game)
 {
 	t_player	*new_player;
 
 	new_player = ft_calloc(1, sizeof(t_player));
 	if (!new_player)
-		exit_err(data, 0, 0);
-	data->player = new_player;
+		exit_err(game, 0, 0);
+	game->player = new_player;
 	return (new_player);
 }
 
@@ -40,12 +40,12 @@ void	init_player_dir(t_player *player, char dir)
 	if (dir == PNORTH)
 	{
 		player->dir_x = 0;
-		player->dir_y = 1;
+		player->dir_y = -1;
 	}
 	else if (dir == PSOUTH)
 	{
 		player->dir_x = 0;
-		player->dir_y = -1;
+		player->dir_y = 1;
 	}
 	else if (dir == PEAST)
 	{
@@ -63,22 +63,17 @@ void	init_player_dir(t_player *player, char dir)
 
 void	set_player_pos(t_player *p, char **map_data, double x, double y)
 {
-	if (x < 0)
-	{
-		if (map_data[(size_t)p->pos_y][(size_t)(p->pos_x + x - PSIZE)] != WALL)
-			p->pos_x += x;
-	}
-	else if (map_data[(size_t)p->pos_y][(size_t)(p->pos_x + x + PSIZE) + 1] \
-		!= WALL)
-		p->pos_x += x;
-	if (y < 0)
-	{
-		if (map_data[(size_t)(p->pos_y + y - PSIZE)][(size_t)p->pos_x] != WALL)
-			p->pos_y += y;
-	}
-	else if (map_data[(size_t)(p->pos_y + y + PSIZE) + 1][(size_t)p->pos_x] \
-		!= WALL)
-		p->pos_y += y;
+	double	new_x;
+	double	new_y;
+
+	new_x = p->pos_x + x;
+	new_y = p->pos_y + y;
+	if (is_move_safe(new_x, p->pos_y, map_data))
+		p->pos_x = new_x;
+	if (is_move_safe(p->pos_x, new_y, map_data))
+		p->pos_y = new_y;
+	// printf("TEST: player pos [%f, %f]\n", p->pos_x, p->pos_y);
+	// printf("TEST: player dir [%f, %f]\n", p->dir_x, p->dir_y);
 }
 
 void	set_player_dir(t_player *player, double dir, double rot_speed)

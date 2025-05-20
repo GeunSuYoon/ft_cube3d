@@ -16,19 +16,17 @@ int	init_map_fd(char *name);
 
 int	main(int argc, char **argv)
 {
-	t_data	*data;
+	t_game	*game;
 	int		map_fd;
 
 	if (argc != 2)
 		exit_err(0, ETPROARG, ERR);
 	map_fd = init_map_fd(argv[1]);
-	data = init_data(map_fd);
-	cast_window(data);
-	key_ctl(data);
-	if (!data->mlx_ctl->win || !data->mlx_ctl->mlx)
-		exit_err(data, "mlx init or window failed", 1);
-	mlx_loop(data->mlx_ctl->mlx);
-	data_free(data);
+	game = init_game(map_fd);
+	cast_window(game);
+	key_ctl(game);
+	mlx_loop(game->mlx_ctl->mlx);
+	game_free(game);
 	exit(EXIT_SUCCESS);
 }
 

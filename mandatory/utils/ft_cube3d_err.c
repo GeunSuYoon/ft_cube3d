@@ -12,14 +12,14 @@
 
 #include "../ft_cube3d.h"
 
-void	exit_err(t_data *data, char *str, int errsig);
+void	exit_err(t_game *game, char *str, int errsig);
 void	print_err(char *str);
 void	ft_writeerr(char *str);
 
-void	exit_err(t_data *data, char *str, int errsig)
+void	exit_err(t_game *game, char *str, int errsig)
 {
 	print_err(str);
-	data_free(data);
+	game_free(game);
 	if (errsig)
 		exit(errsig);
 	exit(errno);

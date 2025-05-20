@@ -6,55 +6,60 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 10:14:19 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/04/24 15:43:26 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 17:21:36 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../ft_cube3d.h"
+#include "../ft_cube3d_cast.h"
 
 void	cast_cam(t_rcast *rcast, t_player *player);
 void	cast_side(t_rcast *rcast, t_player *player);
 void	cast_hit(t_rcast *rcast, char **map_data);
+void	cast_dist(t_rcast *rcast, t_player *player);
 void	cast_wall_x(t_rcast *rcast, t_player *player, t_image *texture);
 
 void	cast_cam(t_rcast *rcast, t_player *player)
 {
 	double	camera_x;
 
-	camera_x = 2 * (double)rcast->x / (double)SIZE - 1;
+	camera_x = 2 * (double)rcast->x / (double)WWIDTH - 1;
 	rcast->ray_dir_x = player->dir_x + player->plane_x * camera_x;
 	rcast->ray_dir_y = player->dir_y + player->plane_y * camera_x;
-	rcast->map_x = (int)player->pos_x;
-	rcast->map_y = (int)player->pos_y;
-	rcast->delta_dist_x = sqrt(1 + (rcast->ray_dir_y * rcast->ray_dir_y) / \
-		(rcast->ray_dir_x * rcast->ray_dir_x));
-	rcast->delta_dist_y = sqrt(1 + (rcast->ray_dir_x * rcast->ray_dir_x) / \
-		(rcast->ray_dir_y * rcast->ray_dir_y));
+	rcast->map_x = player->pos_x;
+	rcast->map_y = player->pos_y;
+	if (rcast->ray_dir_x)
+		rcast->delta_dist_x = fabs(1.0 / rcast->ray_dir_x);
+	else
+		rcast->delta_dist_x = 1e30;
+	if (rcast->ray_dir_y)
+		rcast->delta_dist_y = fabs(1 / rcast->ray_dir_y);
+	else
+		rcast->delta_dist_y = 1e30;
 }
 
 void	cast_side(t_rcast *rcast, t_player *player)
 {
 	if (rcast->ray_dir_x < 0)
 	{
-		rcast->step_x = -1;
+		rcast->step_x = -1.0;
 		rcast->side_dist_x = (player->pos_x - (double)rcast->map_x) * \
 			rcast->delta_dist_x;
 	}
 	else
 	{
-		rcast->step_x = 1;
+		rcast->step_x = 1.0;
 		rcast->side_dist_x = ((double)rcast->map_x + 1.0 - player->pos_x) * \
 			rcast->delta_dist_x;
 	}
 	if (rcast->ray_dir_y < 0)
 	{
-		rcast->step_y = -1;
+		rcast->step_y = -1.0;
 		rcast->side_dist_y = (player->pos_y - (double)rcast->map_y) * \
 			rcast->delta_dist_y;
 	}
 	else
 	{
-		rcast->step_y = 1;
+		rcast->step_y = 1.0;
 		rcast->side_dist_y = ((double)rcast->map_y + 1.0 - player->pos_y) * \
 			rcast->delta_dist_y;
 	}
@@ -79,9 +84,37 @@ void	cast_hit(t_rcast *rcast, char **map_data)
 			rcast->map_y += rcast->step_y;
 			rcast->side = 1;
 		}
-		if (map_data[rcast->map_y][rcast->map_x] == WALL)
+		if (map_data[(int)rcast->map_y][(int)rcast->map_x] == WALL)
 			hit = 1;
 	}
+}
+
+void	cast_dist(t_rcast *rcast, t_player *player)
+{
+	double	hit_x;
+	double	hit_y;
+	double	dx;
+	double	dy;
+
+	if (rcast->side)
+	{
+		hit_y = rcast->map_y;
+		hit_x = player->pos_x + rcast->ray_dir_x * \
+			(rcast->side_dist_y - rcast->delta_dist_y);
+		if (rcast->step_y < 0)
+			hit_y += 1.0;
+	}
+	else
+	{
+		hit_x = rcast->map_x;
+		hit_y = player->pos_y + rcast->ray_dir_y * \
+			(rcast->side_dist_x - rcast->delta_dist_x);
+		if (rcast->step_x < 0)
+			hit_x += 1.0;
+	}
+	dx = hit_x - player->pos_x;
+	dy = hit_y - player->pos_y;
+	rcast->perp_wall_dist = sqrt(dx * dx + dy * dy);
 }
 
 void	cast_wall_x(t_rcast *rcast, t_player *player, t_image *texture)
@@ -94,6 +127,10 @@ void	cast_wall_x(t_rcast *rcast, t_player *player, t_image *texture)
 		wall_x = player->pos_y + rcast->perp_wall_dist * rcast->ray_dir_y;
 	wall_x -= floor(wall_x);
 	rcast->tex_x = (int)(wall_x * (double)texture->width);
+	if (rcast->tex_x < 0)
+		rcast->tex_x = 0;
+	if (rcast->tex_x >= texture->width)
+		rcast->tex_x = texture->width - 1;
 	if ((!rcast->side && rcast->ray_dir_x > 0) || \
 		(rcast->side && rcast->ray_dir_y < 0))
 		rcast->tex_x = texture->width - rcast->tex_x - 1;

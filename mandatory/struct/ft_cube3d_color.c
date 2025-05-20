@@ -10,13 +10,13 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "../ft_cube3d.h"
+#include "../ft_cube3d_struct.h"
 
-void	init_color_con(t_data *data, int map_fd);
-void	color_setter(t_data *data, t_rcast *rcast, char **info);
-int		init_color(t_data *data, char *rgb);
+void	init_color_con(t_game *game, int map_fd);
+void	color_setter(t_game *game, t_rcast *rcast, char **info);
+int		init_color(t_game *game, char *rgb);
 
-void	init_color_con(t_data *data, int map_fd)
+void	init_color_con(t_game *game, int map_fd)
 {
 	char	*tmp_line;
 	char	**color_info;
@@ -32,33 +32,33 @@ void	init_color_con(t_data *data, int map_fd)
 			tmp_line = read_line(map_fd);
 		}
 		if (!tmp_line)
-			exit_err(data, 0, 0);
+			exit_err(game, 0, 0);
 		color_info = ft_split(tmp_line, ' ');
 		free(tmp_line);
 		if (!color_info)
-			exit_err(data, 0, 0);
+			exit_err(game, 0, 0);
 		if (ft_strtdlen(color_info) != 2)
-			exit_err(data, ETCOLINFO, 1);
-		color_setter(data, data->rcast, color_info);
+			exit_err(game, ETCOLINFO, 1);
+		color_setter(game, game->rcast, color_info);
 		free_td_str(color_info, ft_strtdlen(color_info));
 		cnt++;
 	}
 }
 
-void	color_setter(t_data *data, t_rcast *rcast, char **info)
+void	color_setter(t_game *game, t_rcast *rcast, char **info)
 {
 	if (!ft_strcmp(info[0], MFC))
-		rcast->fc = init_color(data, info[1]);
+		rcast->fc = init_color(game, info[1]);
 	else if (!ft_strcmp(info[0], MCC))
-		rcast->cc = init_color(data, info[1]);
+		rcast->cc = init_color(game, info[1]);
 	else
 	{
 		free_td_str(info, 2);
-		exit_err(data, ETCOLINFO, 1);
+		exit_err(game, ETCOLINFO, 1);
 	}
 }
 
-int	init_color(t_data *data, char *rgb)
+int	init_color(t_game *game, char *rgb)
 {
 	char	**tdrgb;
 	int		r;
@@ -68,14 +68,14 @@ int	init_color(t_data *data, char *rgb)
 
 	tdrgb = ft_split(rgb, ',');
 	if (!tdrgb)
-		exit_err(data, 0, 0);
+		exit_err(game, 0, 0);
 	if (ft_strtdlen(tdrgb) != 3)
-		exit_err(data, ETCOLINFO, 1);
+		exit_err(game, ETCOLINFO, 1);
 	r = ft_atoi(tdrgb[0]);
 	g = ft_atoi(tdrgb[1]);
 	b = ft_atoi(tdrgb[2]);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-		exit_err(data, ETCOLINFO, 1);
+		exit_err(game, ETCOLINFO, 1);
 	free_td_str(tdrgb, ft_strtdlen(tdrgb));
 	ret_val = r << 16 | g << 8 | b;
 	return (ret_val);

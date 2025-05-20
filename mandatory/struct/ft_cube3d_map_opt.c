@@ -10,10 +10,12 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "../ft_cube3d.h"
+#include "../ft_cube3d_struct.h"
 
 void	map_optimizer(t_map *map, int **round_checker);
 void	map_player_checker(t_map *map, int **round_checker, size_t x, size_t y);
+int		map_player_ida_checker(t_map *map, int **round_checker, size_t x, \
+	size_t y);
 
 void	map_optimizer(t_map *map, int **round_checker)
 {
@@ -57,5 +59,32 @@ void	map_player_checker(t_map *map, int **round_checker, size_t x, size_t y)
 		if (round_checker[y + 1][x] == 2)
 			return ;
 	}
+	if (map_player_ida_checker(map, round_checker, x, y))
+		return ;
 	map->map_data[y][x] = ' ';
+}
+
+int	map_player_ida_checker(t_map *map, int **round_checker, size_t x, size_t y)
+{
+	if (x && y)
+	{
+		if (round_checker[y - 1][x - 1] == 2)
+			return (1);
+	}
+	if (x && y < map->map_height - 1)
+	{
+		if (round_checker[y + 1][x - 1] == 2)
+			return (1);
+	}
+	if (x < map->map_width - 1 && y)
+	{
+		if (round_checker[y - 1][x + 1] == 2)
+			return (1);
+	}
+	if (x < map->map_width - 1 && y < map->map_height - 1)
+	{
+		if (round_checker[y + 1][x + 1] == 2)
+			return (1);
+	}
+	return (0);
 }

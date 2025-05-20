@@ -10,35 +10,36 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "../ft_cube3d.h"
+#include "../ft_cube3d_struct.h"
 
-t_map	*init_map(t_data *data, int map_fd);
-char	**read_map(t_data *data, t_map *map, int map_fd);
-char	**realloc_map(t_data *data, t_map *map, char **map_data, char *tmp_map);
+t_map	*init_map(t_game *game, int map_fd);
+char	**read_map(t_game *game, t_map *map, int map_fd);
+char	**realloc_map(t_game *game, t_map *map, char **map_data, char *tmp_map);
 
-t_map	*init_map(t_data *data, int map_fd)
+t_map	*init_map(t_game *game, int map_fd)
 {
 	t_map	*new_map;
 
 	new_map = ft_calloc(1, sizeof(t_map));
 	if (!new_map)
-		exit_err(data, 0, 0);
-	data->map = new_map;
+		exit_err(game, 0, 0);
+	game->map = new_map;
 	new_map->map_height = 0;
 	new_map->map_width = 0;
-	new_map->map_data = read_map(data, new_map, map_fd);
-	map_checker(data, new_map);
+	new_map->map_data = read_map(game, new_map, map_fd);
+	map_checker(game, new_map);
+	new_map->minimap = init_minimap(game, new_map);
 	return (new_map);
 }
 
-char	**read_map(t_data *data, t_map *map, int map_fd)
+char	**read_map(t_game *game, t_map *map, int map_fd)
 {
 	char	**total_map;
 	char	*tmp_map;
 
 	total_map = ft_calloc(1, sizeof(char *));
 	if (total_map == 0)
-		exit_err(data, 0, 0);
+		exit_err(game, 0, 0);
 	tmp_map = read_line(map_fd);
 	while (tmp_map && !ft_strlen(tmp_map))
 	{
@@ -48,11 +49,11 @@ char	**read_map(t_data *data, t_map *map, int map_fd)
 	while (tmp_map)
 	{
 		if (tmp_map[ft_strlen(tmp_map) - 1] != WALL)
-			exit_err(data, ETMAPSHAPE, 1);
+			exit_err(game, ETMAPSHAPE, 1);
 		map->map_height++;
 		if (map->map_width < ft_strlen(tmp_map))
 			map->map_width = ft_strlen(tmp_map);
-		total_map = realloc_map(data, map, total_map, tmp_map);
+		total_map = realloc_map(game, map, total_map, tmp_map);
 		free(tmp_map);
 		tmp_map = read_line(map_fd);
 	}
@@ -60,7 +61,7 @@ char	**read_map(t_data *data, t_map *map, int map_fd)
 	return (total_map);
 }
 
-char	**realloc_map(t_data *data, t_map *map, char **map_data, char *tmp_map)
+char	**realloc_map(t_game *game, t_map *map, char **map_data, char *tmp_map)
 {
 	char	**new_map_data;
 	size_t	height_cnt;
@@ -69,7 +70,7 @@ char	**realloc_map(t_data *data, t_map *map, char **map_data, char *tmp_map)
 		return (map_data);
 	new_map_data = ft_calloc(map->map_height + 1, sizeof(char *));
 	if (!new_map_data)
-		exit_err(data, 0, 0);
+		exit_err(game, 0, 0);
 	height_cnt = 0;
 	while (height_cnt < map->map_height - 1)
 	{
@@ -78,7 +79,7 @@ char	**realloc_map(t_data *data, t_map *map, char **map_data, char *tmp_map)
 		{
 			free_td_str(new_map_data, height_cnt - 1);
 			free_td_str(map_data, map->map_height - 1);
-			exit_err(data, 0, 0);
+			exit_err(game, 0, 0);
 		}
 		height_cnt++;
 	}

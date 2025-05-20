@@ -13,60 +13,8 @@
 #ifndef FT_CUBE3D_H
 # define FT_CUBE3D_H
 
-// map symbol
-# define EMPTY ' '
-# define SPACE '0'
-# define WALL '1'
-# define PNORTH 'N'
-# define PSOUTH 'S'
-# define PWEST 'W'
-# define PEAST 'E'
-# define NEWLINE '\n'
-// p_fix symbol
-# define MNORTH "NO"
-# define MSOUTH "SO"
-# define MWEST "WE"
-# define MEAST "EA"
-# define MFC "F"
-# define MCC "C"
-// err code
-# define ERR 1
-# define WSIZE 1
-// err text
-# define ETPROARG "unexpected program argument"
-# define ETMAPNAME "unexpected program argument"
-# define ETIMGINFO "unexpected image infomation"
-# define ETCOLINFO "unexpected color infomation"
-# define ETMAPINFO "unexpected map info"
-# define ETMAPSHAPE "unexpected map shape"
-# define ETPLAYERNO "no player info"
-# define ETPLAYERPOS "unexpected player pos"
-# define ETPLAYERDUP "duplicate player info"
-// display
-# define WWIDTH 1920
-# define WHEIGHT 1080
-# define SIZE 100
-// player speed
-# define PSIZE 0.3
-# define MOVESPEED 0.1
-# define ROTSPEED 0.1
-// camera value
-# define FOV 0.66
-
-# include "../ft_lib/ft_printf/libft/libft.h"
-# include "../ft_lib/ft_printf/ft_printf.h"
-# include "../ft_lib/ft_gnl/get_next_line.h"
-# include "../mlx_linux/mlx.h"
-# include <unistd.h>
-# include <stdio.h>
-# include <time.h>
-# include <errno.h>
-# include <math.h>
-# include <string.h>
-# include <stdlib.h>
-# include <fcntl.h>
-# include <sys/time.h>
-# include <X11/keysym.h>
+# include "ft_cube3d_includes.h"
+# include "ft_cube3d_defines.h"
 
 // pos structure
 typedef struct s_pos
@@ -142,12 +90,20 @@ typedef struct s_player
 	double	plane_x;
 	double	plane_y;
 }	t_player;
+// minimap structure
+typedef struct s_minimap
+{
+	double	scale;
+	int		offset_x;
+	int		offset_y;
+}	t_minimap;
 // map structure
 typedef struct s_map
 {
 	char		**map_data;
 	size_t		map_height;
 	size_t		map_width;
+	t_minimap	*minimap;
 }	t_map;
 // mlx structure
 typedef struct s_mlx
@@ -155,15 +111,15 @@ typedef struct s_mlx
 	void	*mlx;
 	void	*win;
 }	t_mlx;
-// data structure
-typedef struct s_data
+// game structure
+typedef struct s_game
 {
 	t_rcast		*rcast;
 	t_image_con	*image_con;
 	t_player	*player;
 	t_map		*map;
 	t_mlx		*mlx_ctl;
-}	t_data;
+}	t_game;
 // resizer structure
 typedef struct s_cutter
 {
@@ -172,61 +128,30 @@ typedef struct s_cutter
 	size_t	new_height;
 }	t_cutter;
 
-// data
-t_data		*init_data(int map_fd);
+// game
+t_game		*init_game(int map_fd);
 // cast
-t_rcast		*init_rcast(t_data *data);
 void		get_frame_time(t_rcast *rcast);
 void		init_rcast_cf(t_rcast *rcast);
-void		casting_loop(t_data *data, t_rcast *rcast, t_player *player);
-void		cast_cam(t_rcast *rcast, t_player *player);
-void		cast_side(t_rcast *rcast, t_player *player);
-void		cast_hit(t_rcast *rcast, char **map_data);
-void		cast_wall_x(t_rcast *rcast, t_player *player, t_image *texture);
-// image
-t_image_con	*init_image_con(t_data *data, int map_fd);
-t_image		*init_rcast_img(t_data *data, t_rcast *rcast);
-void		parse_image(t_data *data, int map_fd);
-void		image_resizer(t_data *data, t_image *image);
-// color
-void		init_color_con(t_data *data, int map_fd);
-// player
-t_player	*init_player(t_data *data);
-void		init_player_pos(t_player *player, size_t x, size_t y);
-void		init_player_dir(t_player *player, char dir);
+void		casting_loop(t_game *game, t_rcast *rcast, t_player *player);
+// player info
 void		set_player_pos(t_player *p, char **map_data, double x, double y);
 void		set_player_dir(t_player *player, double dir, double rot_speed);
-// map
-t_map		*init_map(t_data *data, int map_fd);
-// map checker
-void		map_checker(t_data *data, t_map *map);
-void		map_dp(t_data *data, int **round_checker, size_t x, size_t y);
-int			**init_round_checker(t_data *data, t_map *map);
-int			map_ele_checker(char ele);
-void		map_check_exit(t_data *data, int **round_checker, char *str, \
-				int errsig);
-void		map_p_pos_setter(t_data *data, int **round_checker, size_t x, \
-				size_t y);
-void		wall_topbot_copier(t_data *data, t_map *map, int **round_checker, \
-				size_t h_cnt);
-void		wall_copier(t_data *data, t_map *map, int **round_checker, \
-				size_t h_cnt);
-// map opt
-void		map_optimizer(t_map *map, int **round_checker);
-void		map_resizer(t_data *data, t_map *map);
+int			is_move_safe(double x, double y, char **map_data);
+int			is_wall(double x, double y, char **map_data);
 // key
-void		key_ctl(t_data *data);
+void		key_ctl(t_game *game);
 // window
-void		cast_window(t_data *data);
-int			close_window(t_data *data);
+void		cast_window(t_game *game);
+int			close_window(t_game *game);
 // free
-void		data_free(t_data *data);
-void		image_free(t_data *data, t_image *image);
+void		game_free(t_game *game);
+void		image_free(t_game *game, t_image *image);
 // utils
 size_t		ft_strtdlen(char **tdstr);
 void		free_td_str(char **ptr, size_t height);
 void		free_td_int(int **ptr, size_t height);
-void		exit_err(t_data *data, char *str, int errsig);
+void		exit_err(t_game *game, char *str, int errsig);
 void		print_err(char *str);
 int			ft_strcmp(char *s1, char *s2);
 char		*ft_strndup(char *str, size_t len);

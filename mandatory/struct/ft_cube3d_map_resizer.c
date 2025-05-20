@@ -10,29 +10,38 @@
 /*																			*/
 /* ************************************************************************** */
 
-#include "../ft_cube3d.h"
+#include "../ft_cube3d_struct.h"
 
-void	map_resizer(t_data *data, t_map *map);
+void	map_resizer(t_game *game, t_map *map);
 void	init_cutter(t_map *map, t_cutter *cutter);
 void	cutter_h(t_cutter *cutter, size_t h_cnt);
-char	**init_new_map(t_data *data, t_map *map, t_cutter *cut);
-void	map_resizer_err(t_data *data, char **new_map, size_t h_cnt);
+char	**init_new_map(t_game *game, t_map *map, t_cutter *cut);
+void	map_resizer_err(t_game *game, char **new_map, size_t h_cnt);
 
-void	map_resizer(t_data *data, t_map *map)
+void	map_resizer(t_game *game, t_map *map)
 {
 	t_cutter	new_cutter;
 	char		**new_map;
+	size_t		h_cnt;
 
 	new_cutter.h_s = 0;
 	new_cutter.new_height = 0;
 	new_cutter.w_s = 0;
 	init_cutter(map, &new_cutter);
-	new_map = init_new_map(data, map, &new_cutter);
+	new_map = init_new_map(game, map, &new_cutter);
 	free_td_str(map->map_data, map->map_height);
 	map->map_height = new_cutter.new_height;
+	map->map_width = 0;
+	h_cnt = 0;
+	while (h_cnt < map->map_height)
+	{
+		if (map->map_width < ft_strlen(new_map[h_cnt]))
+			map->map_width = ft_strlen(new_map[h_cnt]);
+		h_cnt++;
+	}
 	map->map_data = new_map;
-	data->player->pos_x -= (float)new_cutter.w_s;
-	data->player->pos_y -= (float)new_cutter.h_s;
+	game->player->pos_x -= (float)new_cutter.w_s;
+	game->player->pos_y -= (float)new_cutter.h_s;
 }
 
 void	init_cutter(t_map *map, t_cutter *cutter)
@@ -73,7 +82,7 @@ void	cutter_h(t_cutter *cutter, size_t h_cnt)
 	cutter->new_height++;
 }
 
-char	**init_new_map(t_data *data, t_map *map, t_cutter *cut)
+char	**init_new_map(t_game *game, t_map *map, t_cutter *cut)
 {
 	char	**new_map;
 	size_t	h;
@@ -82,7 +91,7 @@ char	**init_new_map(t_data *data, t_map *map, t_cutter *cut)
 
 	new_map = ft_calloc(cut->new_height + 1, sizeof(char *));
 	if (!new_map)
-		exit_err(data, 0, 0);
+		exit_err(game, 0, 0);
 	h = 0;
 	while (h < cut->new_height)
 	{
@@ -96,14 +105,14 @@ char	**init_new_map(t_data *data, t_map *map, t_cutter *cut)
 		}
 		new_map[h] = ft_strndup(map->map_data[cut->h_s + h] + cut->w_s, w);
 		if (!new_map)
-			map_resizer_err(data, new_map, h);
+			map_resizer_err(game, new_map, h);
 		h++;
 	}
 	return (new_map);
 }
 
-void	map_resizer_err(t_data *data, char **new_map, size_t h_cnt)
+void	map_resizer_err(t_game *game, char **new_map, size_t h_cnt)
 {
 	free_td_str(new_map, h_cnt);
-	exit_err(data, 0, 0);
+	exit_err(game, 0, 0);
 }
