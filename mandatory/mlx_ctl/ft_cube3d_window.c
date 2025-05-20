@@ -17,15 +17,14 @@ int		close_window(t_game *game);
 
 void	cast_window(t_game *game)
 {
-	if (!game->rcast->window_img || !game->rcast->window_img->img_ptr || \
-		!game->rcast->window_img->img_data)
+	if (!game->window_img || !game->window_img->img_ptr || \
+		!game->window_img->img_data)
 		exit_err(game, "Invalid window image", 1);
 	if (mlx_clear_window(game->mlx_ctl->mlx, game->mlx_ctl->win) < 0)
 		exit_err(game, 0, 0);
-	// minimap(game);
-	casting_loop(game, game->rcast, game->player);
+	casting_loop(game, game->player);
 	if (mlx_put_image_to_window(game->mlx_ctl->mlx, game->mlx_ctl->win, \
-		game->rcast->window_img->img_ptr, 0, 0) < 0)
+		game->window_img->img_ptr, 0, 0) < 0)
 		exit_err(game, 0, 0);
 }
 

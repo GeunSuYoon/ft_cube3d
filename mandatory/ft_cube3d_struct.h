@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:35:42 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 19:41:06 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 20:48:16 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,14 @@
 
 # include "ft_cube3d.h"
 
-// rcast
-t_ray		*init_rcast(t_game *game);
+// resizer structure
+typedef struct s_cutter
+{
+	size_t	w_s;
+	size_t	h_s;
+	size_t	new_height;
+}	t_cutter;
+
 // map
 t_map		*init_map(t_game *game, int map_fd);
 // minimap
@@ -27,7 +33,7 @@ void		init_color_con(t_game *game, int map_fd);
 t_player	*init_player(t_game *game);
 // image
 t_image_con	*init_image_con(t_game *game, int map_fd);
-t_image		*init_rcast_img(t_game *game, t_ray *rcast);
+t_image		*init_window_img(t_game *game);
 // image utils
 void		parse_image(t_game *game, int map_fd);
 void		image_resizer(t_game *game, t_image *image);

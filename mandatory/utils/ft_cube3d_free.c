@@ -13,7 +13,6 @@
 #include "../ft_cube3d.h"
 
 void	game_free(t_game *game);
-void	rcast_free(t_game *game, t_ray *rcast);
 void	map_free(t_map *map);
 void	image_con_free(t_game *game, t_image_con *image_con);
 void	image_free(t_game *game, t_image *image);
@@ -24,8 +23,6 @@ void	game_free(t_game *game)
 		return ;
 	if (game->mlx_ctl)
 	{
-		rcast_free(game, game->rcast);
-		game->rcast = 0;
 		image_con_free(game, game->image_con);
 		game->image_con = 0;
 		if (game->player)
@@ -33,6 +30,9 @@ void	game_free(t_game *game)
 		game->player = 0;
 		map_free(game->map);
 		game->map = 0;
+		if (game->window_img)
+			image_free(game, game->window_img);
+		game->window_img = 0;
 		if (game->mlx_ctl->win)
 			mlx_destroy_window(game->mlx_ctl->mlx, game->mlx_ctl->win);
 		game->mlx_ctl->win = 0;
@@ -43,15 +43,6 @@ void	game_free(t_game *game)
 		game->mlx_ctl = 0;
 	}
 	free(game);
-}
-
-void	rcast_free(t_game *game, t_ray *rcast)
-{
-	if (!rcast)
-		return ;
-	if (rcast->window_img)
-		image_free(game, rcast->window_img);
-	rcast->window_img = 0;
 }
 
 void	map_free(t_map *map)

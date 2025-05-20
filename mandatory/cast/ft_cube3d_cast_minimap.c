@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 13:28:10 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 17:34:37 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 20:34:38 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	cast_minimap(t_game *game)
 	t_map		*map;
 	t_minimap	*minimap;
 
-	img = game->rcast->window_img;
+	img = game->window_img;
 	player = game->player;
 	map = game->map;
 	minimap = map->minimap;

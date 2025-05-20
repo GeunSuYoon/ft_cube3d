@@ -34,33 +34,6 @@ typedef struct s_image
 	int		sizeline;
 	int		endian;
 }	t_image;
-// casting window structure
-typedef struct s_ray
-{
-	t_image	*window_img;
-	int		fc;
-	int		cc;
-	double	now_time;
-	double	old_time;
-	double	fram_time;
-	int		x;
-	double	ray_dir_x;
-	double	ray_dir_y;
-	int		map_x;
-	int		map_y;
-	double	delta_dist_x;
-	double	delta_dist_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	int		step_x;
-	int		step_y;
-	int		side;
-	double	perp_wall_dist;
-	int		line_height;
-	int		tex_x;
-	double	step;
-	double	tex_pos;
-}	t_ray;
 // image container structure
 typedef struct s_image_con
 {
@@ -68,6 +41,8 @@ typedef struct s_image_con
 	t_image	*so;
 	t_image	*we;
 	t_image	*ea;
+	int		fc;
+	int		cc;
 }	t_image_con;
 // color structure
 typedef struct s_color
@@ -114,26 +89,21 @@ typedef struct s_mlx
 // game structure
 typedef struct s_game
 {
-	t_ray		*rcast;
 	t_image_con	*image_con;
 	t_player	*player;
 	t_map		*map;
 	t_mlx		*mlx_ctl;
+	t_image		*window_img;
+	double		now_time;
+	double		old_time;
+	double		fram_time;
 }	t_game;
-// resizer structure
-typedef struct s_cutter
-{
-	size_t	w_s;
-	size_t	h_s;
-	size_t	new_height;
-}	t_cutter;
 
 // game
 t_game		*init_game(int map_fd);
 // cast
-void		get_frame_time(t_ray *rcast);
-void		init_rcast_cf(t_ray *rcast);
-void		casting_loop(t_game *game, t_ray *rcast, t_player *player);
+void		get_frame_time(t_game *game);
+void		casting_loop(t_game *game, t_player *player);
 // player info
 void		set_player_pos(t_player *p, char **map_data, double x, double y);
 void		set_player_dir(t_player *player, double dir, double rot_speed);

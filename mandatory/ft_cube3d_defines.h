@@ -6,13 +6,16 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:07 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 20:01:28 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 20:44:45 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_CUBE3D_DEFINES_H
 # define FT_CUBE3D_DEFINES_H
 
+# ifndef M_PI
+#  define M_PI 3.14159265358979323846
+# endif
 // map symbol
 # define EMPTY   ' '
 # define SPACE   '0'
@@ -68,8 +71,5 @@
 # define COLORWHITE 0xFFFFFF
 # define COLORBLACK 0x000000
 # define COLORGRAY  0xAAAAAA
-#ifndef M_PI
-# define M_PI 3.14159265358979323846
-#endif
 
 #endif

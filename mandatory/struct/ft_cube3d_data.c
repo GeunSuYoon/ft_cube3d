@@ -29,7 +29,7 @@ t_game	*init_game(int map_fd)
 		exit_err(new_game, 0, 0);
 	new_game->mlx_ctl->win = mlx_new_window(new_game->mlx_ctl->mlx, \
 		WWIDTH, WHEIGHT, "cube3D");
-	new_game->rcast = init_rcast(new_game);
+	new_game->window_img = init_window_img(new_game);
 	new_game->image_con = init_image_con(new_game, map_fd);
 	init_color_con(new_game, map_fd);
 	new_game->player = init_player(new_game);

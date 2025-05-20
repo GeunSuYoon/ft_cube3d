@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 14:45:56 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 19:38:54 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 20:47:36 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	init_line(t_dline *dline, t_player *player, int offset_x, int offset_y)
 {
 	int	dir_x;
 	int	dir_y;
-	
+
 	dir_x = (int)(player->dir_x * MPLINE);
 	dir_y = (int)(player->dir_y * MPLINE);
 	dline->x0 = offset_x + MWIDTH / 2;

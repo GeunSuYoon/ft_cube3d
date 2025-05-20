@@ -6,58 +6,58 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 12:17:21 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 20:03:47 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 20:47:17 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_cube3d_cast.h"
 
-void	casting_loop(t_game *game, t_ray *rcast, t_player *player);
-t_image	*get_wall_texture(t_ray *rcast, t_image_con *img_con);
-void	draw_loop(t_ray *rcast, t_image *texture);
-void	mapping_loop(t_ray *rcast, t_image *texture, int draw_start, \
+void	casting_loop(t_game *game, t_player *player);
+t_image	*get_wall_texture(t_ray *ray, t_image_con *img_con);
+void	draw_loop(t_game *game, t_ray *ray);
+void	mapping_loop(t_game *game, t_ray *ray, int draw_start, \
 	int draw_end);
 
-void	casting_loop(t_game *game, t_ray *rcast, t_player *player)
+void	casting_loop(t_game *game, t_player *player)
 {
-	t_image	*texture;
+	t_ray	ray;
 
-	init_rcast_cf(rcast);
-	rcast->x = 0;
-	while (rcast->x < WWIDTH)
+	init_rcast_cf(game, game->image_con);
+	ray.x = 0;
+	while (ray.x < WWIDTH)
 	{
-		cast_init_val(rcast, player);
-		cast_side(rcast, player);
-		cast_hit(rcast, game->map->map_data);
-		if (rcast->side)
-			rcast->perp_wall_dist = rcast->side_dist_y - rcast->delta_dist_y;
+		cast_init_val(&ray, player);
+		cast_side(&ray, player);
+		cast_hit(&ray, game->map->map_data);
+		if (ray.side)
+			ray.perp_wall_dist = ray.side_dist_y - ray.delta_dist_y;
 		else
-			rcast->perp_wall_dist = rcast->side_dist_x - rcast->delta_dist_x;
-		rcast->line_height = (int)(WHEIGHT / rcast->perp_wall_dist);
-		if (rcast->line_height > WHEIGHT)
-			rcast->line_height = WHEIGHT;
-		texture = get_wall_texture(rcast, game->image_con);
-		cast_wall_x(rcast, player, texture);
-		draw_loop(rcast, texture);
-		rcast->x++;
+			ray.perp_wall_dist = ray.side_dist_x - ray.delta_dist_x;
+		ray.line_height = (int)(WHEIGHT / ray.perp_wall_dist);
+		if (ray.line_height > WHEIGHT)
+			ray.line_height = WHEIGHT;
+		ray.texture = get_wall_texture(&ray, game->image_con);
+		cast_wall_x(&ray, player, ray.texture);
+		draw_loop(game, &ray);
+		ray.x++;
 	}
 	cast_minimap(game);
 }
 
-t_image	*get_wall_texture(t_ray *rcast, t_image_con *image_con)
+t_image	*get_wall_texture(t_ray *ray, t_image_con *image_con)
 {
 	t_image	*wall_texture;
 
-	if (rcast->side)
+	if (ray->side)
 	{
-		if (rcast->ray_dir_y > 0)
+		if (ray->ray_dir_y > 0)
 			wall_texture = image_con->so;
 		else
 			wall_texture = image_con->no;
 	}
 	else
 	{
-		if (rcast->ray_dir_x > 0)
+		if (ray->ray_dir_x > 0)
 			wall_texture = image_con->we;
 		else
 			wall_texture = image_con->ea;
@@ -65,29 +65,29 @@ t_image	*get_wall_texture(t_ray *rcast, t_image_con *image_con)
 	return (wall_texture);
 }
 
-void	draw_loop(t_ray *rcast, t_image *texture)
+void	draw_loop(t_game *game, t_ray *ray)
 {
 	int	draw_start;
 	int	draw_end;
 	int	y;
 
-	draw_start = -rcast->line_height / 2 + WHEIGHT / 2;
-	draw_end = rcast->line_height / 2 + WHEIGHT / 2;
+	draw_start = -ray->line_height / 2 + WHEIGHT / 2;
+	draw_end = ray->line_height / 2 + WHEIGHT / 2;
 	if (draw_end >= WHEIGHT)
 		draw_end = WHEIGHT - 1;
-	rcast->step = 1.0 * SIZE / rcast->line_height;
+	ray->step = 1.0 * SIZE / ray->line_height;
 	if (draw_start < 0)
 	{
-		rcast->tex_pos = -draw_start * (1.0 * WHEIGHT / rcast->line_height);
+		ray->tex_pos = -draw_start * (1.0 * WHEIGHT / ray->line_height);
 		draw_start = 0;
 	}
 	else
-		rcast->tex_pos = 0;
+		ray->tex_pos = 0;
 	y = draw_start;
-	mapping_loop(rcast, texture, y, draw_end);
+	mapping_loop(game, ray, y, draw_end);
 }
 
-void	mapping_loop(t_ray *rcast, t_image *texture, int y, \
+void	mapping_loop(t_game *game, t_ray *ray, int y, \
 	int draw_end)
 {
 	int		tex_y;
@@ -96,12 +96,13 @@ void	mapping_loop(t_ray *rcast, t_image *texture, int y, \
 
 	while (y < draw_end)
 	{
-		tex_y = (int)(rcast->tex_pos) % texture->height;
-		rcast->tex_pos += rcast->step;
-		pixel = texture->img_data + \
-			(tex_y * texture->sizeline + rcast->tex_x * (texture->bpp / 8));
+		tex_y = (int)(ray->tex_pos) % ray->texture->height;
+		ray->tex_pos += ray->step;
+		pixel = ray->texture->img_data + \
+			(tex_y * ray->texture->sizeline + \
+			ray->tex_x * (ray->texture->bpp / 8));
 		color = *(int *)pixel;
-		draw_pixel(rcast->window_img, rcast->x, y, color);
+		draw_pixel(game->window_img, ray->x, y, color);
 		y++;
 	}
 }

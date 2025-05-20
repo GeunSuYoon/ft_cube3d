@@ -14,9 +14,9 @@
 
 void		key_ctl(t_game *game);
 static int	key_press(int keycode, t_game *game);
-static void	key_player(int keycode, t_game *game, t_ray *rcast);
-static void	key_rot(int keycode, t_player *player, t_ray *rcast);
-static void	key_move(int keycode, t_player *player, t_map *map, t_ray *rcast);
+static void	key_player(int keycode, t_game *game);
+static void	key_rot(int keycode, t_game *game, t_player *player);
+static void	key_move(int keycode, t_game *game, t_player *player, t_map *map);
 
 void	key_ctl(t_game *game)
 {
@@ -33,40 +33,42 @@ static int	key_press(int keycode, t_game *game)
 		keycode == XK_S || keycode == XK_D || \
 		keycode == XK_w || keycode == XK_a || \
 		keycode == XK_s || keycode == XK_d)
-		key_player(keycode, game, game->rcast);
+		key_player(keycode, game);
 	return (0);
 }
 
-static void	key_player(int keycode, t_game *game, t_ray *rcast)
+static void	key_player(int keycode, t_game *game)
 {
-	get_frame_time(rcast);
+	get_frame_time(game);
 	if (keycode == XK_Left || keycode == XK_Right)
-		key_rot(keycode, game->player, rcast);
+		key_rot(keycode, game, game->player);
 	else if (keycode == XK_W || keycode == XK_A || \
 		keycode == XK_S || keycode == XK_D || \
 		keycode == XK_w || keycode == XK_a || \
 		keycode == XK_s || keycode == XK_d)
-		key_move(keycode, game->player, game->map, rcast);
+		key_move(keycode, game, game->player, game->map);
 	cast_window(game);
 }
 
-static void	key_rot(int keycode, t_player *player, t_ray *rcast)
+static void	key_rot(int keycode, t_game *game, t_player *player)
 {
 	double	rot_speed;
 
-	rot_speed = rcast->fram_time * (double)ROTSPEED;
+	(void)game;
+	// rot_speed = game->fram_time * (double)ROTSPEED;
+	rot_speed = (double)ROTSPEED;
 	if (keycode == XK_Left)
 		set_player_dir(player, -1, rot_speed);
 	else if (keycode == XK_Right)
 		set_player_dir(player, 1, rot_speed);
 }
 
-static void	key_move(int keycode, t_player *player, t_map *map, t_ray *rcast)
+static void	key_move(int keycode, t_game *game, t_player *player, t_map *map)
 {
 	double	move_speed;
 
+	(void)game;
 	// move_speed = rcast->fram_time * (double)MOVESPEED;
-	(void)rcast;
 	move_speed = (double)MOVESPEED;
 	if (keycode == XK_W || keycode == XK_w)
 		set_player_pos(player, map->map_data, player->dir_x * move_speed, \

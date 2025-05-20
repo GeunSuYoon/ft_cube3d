@@ -16,7 +16,7 @@ t_image_con	*init_image_con(t_game *game, int map_fd);
 void		parse_image(t_game *game, int map_fd);
 void		image_setter(t_game *game, char **info);
 t_image		*init_image(t_game *game, char *path);
-t_image		*init_rcast_img(t_game *game, t_ray *rcast);
+t_image		*init_window_img(t_game *game);
 
 t_image_con	*init_image_con(t_game *game, int map_fd)
 {
@@ -102,14 +102,14 @@ t_image	*init_image(t_game *game, char *path)
 	return (new_image);
 }
 
-t_image	*init_rcast_img(t_game *game, t_ray *rcast)
+t_image	*init_window_img(t_game *game)
 {
 	t_image	*new_image;
 
 	new_image = ft_calloc(1, sizeof(t_image));
 	if (!new_image)
 		exit_err(game, 0, 0);
-	rcast->window_img = new_image;
+	game->window_img = new_image;
 	new_image->img_ptr = mlx_new_image(game->mlx_ctl->mlx, WWIDTH, WHEIGHT);
 	if (!new_image->img_ptr)
 		exit_err(game, 0, 0);
