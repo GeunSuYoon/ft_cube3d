@@ -130,8 +130,5 @@ int			ft_strcmp(char *s1, char *s2);
 char		*ft_strndup(char *str, size_t len);
 char		*read_line(int fd);
 double		get_current_time(void);
-// test
-void		test_print_round_checker(int **round_checker, t_map *map);
-void		test_print_mapdata(t_map *map);
 
 #endif

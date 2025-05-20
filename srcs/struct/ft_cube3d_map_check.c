@@ -40,7 +40,6 @@ void	map_checker(t_game *game, t_map *map)
 	map_optimizer(map, round_checker);
 	free_td_int(round_checker, map->map_height);
 	map_resizer(game, map);
-	test_print_mapdata(map);
 }
 
 int	**init_round_checker(t_game *game, t_map *map)

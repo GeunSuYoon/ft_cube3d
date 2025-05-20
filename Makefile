@@ -20,7 +20,6 @@ SRC		= ./srcs/ft_cube3d.c						\
 		  ./srcs/utils/ft_cube3d_malloc.c			\
 		  ./srcs/utils/ft_cube3d_utils.c			\
 		  ./srcs/utils/ft_cube3d_err.c				\
-		  ./srcs/test/ft_cube3d_test.c				\
 		  ./srcs/cast/ft_cube3d_cast.c				\
 		  ./srcs/cast/ft_cube3d_cast_value.c		\
 		  ./srcs/cast/ft_cube3d_cast_minimap.c		\
