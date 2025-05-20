@@ -13,7 +13,7 @@
 #include "../ft_cube3d_struct.h"
 
 void	init_color_con(t_game *game, int map_fd);
-void	color_setter(t_game *game, t_rcast *rcast, char **info);
+void	color_setter(t_game *game, t_ray *rcast, char **info);
 int		init_color(t_game *game, char *rgb);
 
 void	init_color_con(t_game *game, int map_fd)
@@ -45,7 +45,7 @@ void	init_color_con(t_game *game, int map_fd)
 	}
 }
 
-void	color_setter(t_game *game, t_rcast *rcast, char **info)
+void	color_setter(t_game *game, t_ray *rcast, char **info)
 {
 	if (!ft_strcmp(info[0], MFC))
 		rcast->fc = init_color(game, info[1]);

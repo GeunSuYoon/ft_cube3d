@@ -14,9 +14,9 @@
 
 void		key_ctl(t_game *game);
 static int	key_press(int keycode, t_game *game);
-static void	key_player(int keycode, t_game *game, t_rcast *rcast);
-static void	key_rot(int keycode, t_player *player, t_rcast *rcast);
-static void	key_move(int keycode, t_player *player, t_map *map, t_rcast *rcast);
+static void	key_player(int keycode, t_game *game, t_ray *rcast);
+static void	key_rot(int keycode, t_player *player, t_ray *rcast);
+static void	key_move(int keycode, t_player *player, t_map *map, t_ray *rcast);
 
 void	key_ctl(t_game *game)
 {
@@ -37,7 +37,7 @@ static int	key_press(int keycode, t_game *game)
 	return (0);
 }
 
-static void	key_player(int keycode, t_game *game, t_rcast *rcast)
+static void	key_player(int keycode, t_game *game, t_ray *rcast)
 {
 	get_frame_time(rcast);
 	if (keycode == XK_Left || keycode == XK_Right)
@@ -50,7 +50,7 @@ static void	key_player(int keycode, t_game *game, t_rcast *rcast)
 	cast_window(game);
 }
 
-static void	key_rot(int keycode, t_player *player, t_rcast *rcast)
+static void	key_rot(int keycode, t_player *player, t_ray *rcast)
 {
 	double	rot_speed;
 
@@ -61,7 +61,7 @@ static void	key_rot(int keycode, t_player *player, t_rcast *rcast)
 		set_player_dir(player, 1, rot_speed);
 }
 
-static void	key_move(int keycode, t_player *player, t_map *map, t_rcast *rcast)
+static void	key_move(int keycode, t_player *player, t_map *map, t_ray *rcast)
 {
 	double	move_speed;
 

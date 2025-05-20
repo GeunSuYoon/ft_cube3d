@@ -6,19 +6,19 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 10:14:19 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 19:35:55 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 19:41:06 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_cube3d_cast.h"
 
-void	cast_cam(t_rcast *rcast, t_player *player);
-void	cast_side(t_rcast *rcast, t_player *player);
-void	cast_hit(t_rcast *rcast, char **map_data);
-void	cast_dist(t_rcast *rcast, t_player *player);
-void	cast_wall_x(t_rcast *rcast, t_player *player, t_image *texture);
+void	cast_cam(t_ray *rcast, t_player *player);
+void	cast_side(t_ray *rcast, t_player *player);
+void	cast_hit(t_ray *rcast, char **map_data);
+void	cast_dist(t_ray *rcast, t_player *player);
+void	cast_wall_x(t_ray *rcast, t_player *player, t_image *texture);
 
-void	cast_cam(t_rcast *rcast, t_player *player)
+void	cast_cam(t_ray *rcast, t_player *player)
 {
 	double	camera_x;
 
@@ -31,7 +31,7 @@ void	cast_cam(t_rcast *rcast, t_player *player)
 	rcast->delta_dist_y = fabs(1 / rcast->ray_dir_y);
 }
 
-void	cast_side(t_rcast *rcast, t_player *player)
+void	cast_side(t_ray *rcast, t_player *player)
 {
 	if (rcast->ray_dir_x < 0)
 	{
@@ -59,7 +59,7 @@ void	cast_side(t_rcast *rcast, t_player *player)
 	}
 }
 
-void	cast_hit(t_rcast *rcast, char **map_data)
+void	cast_hit(t_ray *rcast, char **map_data)
 {
 	int	hit;
 
@@ -83,7 +83,7 @@ void	cast_hit(t_rcast *rcast, char **map_data)
 	}
 }
 
-void	cast_dist(t_rcast *rcast, t_player *player)
+void	cast_dist(t_ray *rcast, t_player *player)
 {
 	double	hit_x;
 	double	hit_y;
@@ -111,7 +111,7 @@ void	cast_dist(t_rcast *rcast, t_player *player)
 	rcast->perp_wall_dist = sqrt(dx * dx + dy * dy);
 }
 
-void	cast_wall_x(t_rcast *rcast, t_player *player, t_image *texture)
+void	cast_wall_x(t_ray *rcast, t_player *player, t_image *texture)
 {
 	double	wall_x;
 

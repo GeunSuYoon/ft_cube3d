@@ -16,7 +16,7 @@ t_image_con	*init_image_con(t_game *game, int map_fd);
 void		parse_image(t_game *game, int map_fd);
 void		image_setter(t_game *game, char **info);
 t_image		*init_image(t_game *game, char *path);
-t_image		*init_rcast_img(t_game *game, t_rcast *rcast);
+t_image		*init_rcast_img(t_game *game, t_ray *rcast);
 
 t_image_con	*init_image_con(t_game *game, int map_fd)
 {
@@ -102,7 +102,7 @@ t_image	*init_image(t_game *game, char *path)
 	return (new_image);
 }
 
-t_image	*init_rcast_img(t_game *game, t_rcast *rcast)
+t_image	*init_rcast_img(t_game *game, t_ray *rcast)
 {
 	t_image	*new_image;
 

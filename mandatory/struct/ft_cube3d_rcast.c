@@ -6,22 +6,22 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/24 10:51:17 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 17:41:12 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 19:41:06 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_cube3d_struct.h"
 #include "../ft_cube3d_cast.h"
 
-t_rcast	*init_rcast(t_game *game);
-void	get_frame_time(t_rcast *rcast);
-void	init_rcast_cf(t_rcast *rcast);
+t_ray	*init_rcast(t_game *game);
+void	get_frame_time(t_ray *rcast);
+void	init_rcast_cf(t_ray *rcast);
 
-t_rcast	*init_rcast(t_game *game)
+t_ray	*init_rcast(t_game *game)
 {
-	t_rcast	*new_rcast;
+	t_ray	*new_rcast;
 
-	new_rcast = ft_calloc(1, sizeof(t_rcast));
+	new_rcast = ft_calloc(1, sizeof(t_ray));
 	if (!new_rcast)
 		exit_err(game, 0, 0);
 	game->rcast = new_rcast;
@@ -30,14 +30,14 @@ t_rcast	*init_rcast(t_game *game)
 	return (new_rcast);
 }
 
-void	get_frame_time(t_rcast *rcast)
+void	get_frame_time(t_ray *rcast)
 {
 	rcast->old_time = rcast->now_time;
 	rcast->now_time = get_current_time();
 	rcast->fram_time = rcast->now_time - rcast->old_time;
 }
 
-void	init_rcast_cf(t_rcast *rcast)
+void	init_rcast_cf(t_ray *rcast)
 {
 	size_t	h_cnt;
 	size_t	w_cnt;

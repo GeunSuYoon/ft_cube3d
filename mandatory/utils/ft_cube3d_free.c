@@ -13,7 +13,7 @@
 #include "../ft_cube3d.h"
 
 void	game_free(t_game *game);
-void	rcast_free(t_game *game, t_rcast *rcast);
+void	rcast_free(t_game *game, t_ray *rcast);
 void	map_free(t_map *map);
 void	image_con_free(t_game *game, t_image_con *image_con);
 void	image_free(t_game *game, t_image *image);
@@ -45,7 +45,7 @@ void	game_free(t_game *game)
 	free(game);
 }
 
-void	rcast_free(t_game *game, t_rcast *rcast)
+void	rcast_free(t_game *game, t_ray *rcast)
 {
 	if (!rcast)
 		return ;

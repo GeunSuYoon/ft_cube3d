@@ -35,7 +35,7 @@ typedef struct s_image
 	int		endian;
 }	t_image;
 // casting window structure
-typedef struct s_rcast
+typedef struct s_ray
 {
 	t_image	*window_img;
 	int		fc;
@@ -60,7 +60,7 @@ typedef struct s_rcast
 	int		tex_x;
 	double	step;
 	double	tex_pos;
-}	t_rcast;
+}	t_ray;
 // image container structure
 typedef struct s_image_con
 {
@@ -114,7 +114,7 @@ typedef struct s_mlx
 // game structure
 typedef struct s_game
 {
-	t_rcast		*rcast;
+	t_ray		*rcast;
 	t_image_con	*image_con;
 	t_player	*player;
 	t_map		*map;
@@ -131,9 +131,9 @@ typedef struct s_cutter
 // game
 t_game		*init_game(int map_fd);
 // cast
-void		get_frame_time(t_rcast *rcast);
-void		init_rcast_cf(t_rcast *rcast);
-void		casting_loop(t_game *game, t_rcast *rcast, t_player *player);
+void		get_frame_time(t_ray *rcast);
+void		init_rcast_cf(t_ray *rcast);
+void		casting_loop(t_game *game, t_ray *rcast, t_player *player);
 // player info
 void		set_player_pos(t_player *p, char **map_data, double x, double y);
 void		set_player_dir(t_player *player, double dir, double rot_speed);
