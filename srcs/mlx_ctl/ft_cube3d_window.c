@@ -58,7 +58,6 @@ static void	key_rot(t_game *game, t_player *player)
 {
 	double	rot_speed;
 
-	(void)game;
 	rot_speed = (double)ROTSPEED * game->fram_time;
 	if (game->rot[0])
 		set_player_dir(player, -1, rot_speed);
@@ -70,7 +69,6 @@ static void	key_move(t_game *game, t_player *player, t_map *map)
 {
 	double	move_speed;
 
-	(void)game;
 	move_speed = (double)MOVESPEED * game->fram_time;
 	if (game->run_flag)
 		move_speed *= 1.5;
