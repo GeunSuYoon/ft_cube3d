@@ -3,33 +3,33 @@ NAME	= cub3D
 MNAME	= libmlx_Linux.a
 
 # Source Files and Object Files, Header
-SRC		= ./mandatory/ft_cube3d.c						\
-		  ./mandatory/struct/ft_cube3d_data.c			\
-		  ./mandatory/struct/ft_cube3d_image.c			\
-		  ./mandatory/struct/ft_cube3d_image_utils.c	\
-		  ./mandatory/struct/ft_cube3d_color.c			\
-		  ./mandatory/struct/ft_cube3d_player.c			\
-		  ./mandatory/struct/ft_cube3d_player_utils.c	\
-		  ./mandatory/struct/ft_cube3d_map.c			\
-		  ./mandatory/struct/ft_cube3d_map_check.c		\
-		  ./mandatory/struct/ft_cube3d_map_check_utils.c\
-		  ./mandatory/struct/ft_cube3d_map_opt.c		\
-		  ./mandatory/struct/ft_cube3d_map_resizer.c	\
-		  ./mandatory/struct/ft_cube3d_minimap.c		\
-		  ./mandatory/utils/ft_cube3d_free.c			\
-		  ./mandatory/utils/ft_cube3d_malloc.c			\
-		  ./mandatory/utils/ft_cube3d_utils.c			\
-		  ./mandatory/utils/ft_cube3d_err.c				\
-		  ./mandatory/test/ft_cube3d_test.c				\
-		  ./mandatory/cast/ft_cube3d_cast.c				\
-		  ./mandatory/cast/ft_cube3d_cast_value.c		\
-		  ./mandatory/cast/ft_cube3d_cast_minimap.c		\
-		  ./mandatory/cast/ft_cube3d_cast_draw.c		\
-		  ./mandatory/mlx_ctl/ft_cube3d_key.c			\
-		  ./mandatory/mlx_ctl/ft_cube3d_window.c		\
+SRC		= ./srcs/ft_cube3d.c						\
+		  ./srcs/struct/ft_cube3d_data.c			\
+		  ./srcs/struct/ft_cube3d_image.c			\
+		  ./srcs/struct/ft_cube3d_image_utils.c		\
+		  ./srcs/struct/ft_cube3d_color.c			\
+		  ./srcs/struct/ft_cube3d_player.c			\
+		  ./srcs/struct/ft_cube3d_player_utils.c	\
+		  ./srcs/struct/ft_cube3d_map.c				\
+		  ./srcs/struct/ft_cube3d_map_check.c		\
+		  ./srcs/struct/ft_cube3d_map_check_utils.c	\
+		  ./srcs/struct/ft_cube3d_map_opt.c			\
+		  ./srcs/struct/ft_cube3d_map_resizer.c		\
+		  ./srcs/struct/ft_cube3d_minimap.c			\
+		  ./srcs/utils/ft_cube3d_free.c				\
+		  ./srcs/utils/ft_cube3d_malloc.c			\
+		  ./srcs/utils/ft_cube3d_utils.c			\
+		  ./srcs/utils/ft_cube3d_err.c				\
+		  ./srcs/test/ft_cube3d_test.c				\
+		  ./srcs/cast/ft_cube3d_cast.c				\
+		  ./srcs/cast/ft_cube3d_cast_value.c		\
+		  ./srcs/cast/ft_cube3d_cast_minimap.c		\
+		  ./srcs/cast/ft_cube3d_cast_draw.c			\
+		  ./srcs/mlx_ctl/ft_cube3d_key.c			\
+		  ./srcs/mlx_ctl/ft_cube3d_window.c			\
 
 OBJ		= $(SRC:.c=.o)
-HEADER	= ./mandatory
+HEADER	= ./includes
 
 # Compiler and Flags
 CC		= cc

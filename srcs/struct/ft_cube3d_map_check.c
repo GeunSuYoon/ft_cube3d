@@ -1,0 +1,109 @@
+/* ************************************************************************** */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   ft_cube3d_map_check.c							  :+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: geuyoon <geuyoon@student.42.fr>			+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2025/03/30 15:12:31 by geuyoon		   #+#	#+#			 */
+/*   Updated: 2025/04/20 08:31:56 by geuyoon		  ###   ########.fr	   */
+/*																			*/
+/* ************************************************************************** */
+
+#include "../includes/ft_cube3d_struct.h"
+
+void	map_checker(t_game *game, t_map *map);
+int		**init_round_checker(t_game *game, t_map *map);
+int		map_ele_checker(char ele);
+void	map_check_exit(t_game *game, int **round_checker, char *str, \
+			int errsig);
+void	map_dp(t_game *game, int **round_checker, size_t x, size_t y);
+
+void	map_checker(t_game *game, t_map *map)
+{
+	int		**round_checker;
+	size_t	h_cnt;
+
+	round_checker = init_round_checker(game, map);
+	h_cnt = 0;
+	while (h_cnt < map->map_height)
+	{
+		wall_copier(game, map, round_checker, h_cnt);
+		h_cnt++;
+	}
+	if (!game->player->pos_x && !game->player->pos_y)
+		map_check_exit(game, round_checker, ETPLAYERNO, 1);
+	else if (!game->player->pos_x || !game->player->pos_y)
+		map_check_exit(game, round_checker, ETPLAYERPOS, 1);
+	map_dp(game, round_checker, (size_t)game->player->pos_x, \
+			(size_t)game->player->pos_y);
+	map_optimizer(map, round_checker);
+	free_td_int(round_checker, map->map_height);
+	map_resizer(game, map);
+	test_print_mapdata(map);
+}
+
+int	**init_round_checker(t_game *game, t_map *map)
+{
+	int		**ret_checker;
+	size_t	cnt;
+
+	ret_checker = ft_calloc(map->map_height, sizeof(int *));
+	if (!ret_checker)
+		exit_err(game, 0, 0);
+	cnt = 0;
+	while (cnt < map->map_height)
+	{
+		ret_checker[cnt] = ft_calloc(map->map_width, sizeof(int));
+		if (!ret_checker[cnt])
+		{
+			free_td_int(ret_checker, cnt);
+			exit_err(game, 0, 0);
+		}
+		cnt++;
+	}
+	return (ret_checker);
+}
+
+int	map_ele_checker(char ele)
+{
+	if (ele == EMPTY)
+		return (1);
+	if (ele == SPACE)
+		return (2);
+	if (ele == WALL)
+		return (3);
+	if (ele == PNORTH)
+		return (4);
+	if (ele == PSOUTH)
+		return (4);
+	if (ele == PEAST)
+		return (4);
+	if (ele == PWEST)
+		return (4);
+	if (ele == NEWLINE)
+		return (5);
+	return (0);
+}
+
+void	map_check_exit(t_game *game, int **round_checker, char *str, int errsig)
+{
+	free_td_int(round_checker, game->map->map_height);
+	exit_err(game, str, errsig);
+}
+
+void	map_dp(t_game *game, int **round_checker, size_t x, size_t y)
+{
+	if (round_checker[y][x] > 0)
+		return ;
+	if (!x || !y || x == game->map->map_width - 1 || \
+		y == game->map->map_height - 1)
+		map_check_exit(game, round_checker, ETMAPSHAPE, 1);
+	if (round_checker[y][x] < 0)
+		map_check_exit(game, round_checker, ETMAPSHAPE, 1);
+	round_checker[y][x] = 2;
+	map_dp(game, round_checker, x, y + 1);
+	map_dp(game, round_checker, x, y - 1);
+	map_dp(game, round_checker, x + 1, y);
+	map_dp(game, round_checker, x - 1, y);
+}
