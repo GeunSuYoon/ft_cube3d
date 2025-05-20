@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 12:17:21 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 22:19:04 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 22:57:53 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,8 @@ void	draw_loop(t_game *game, t_ray *ray)
 	if (draw_end >= WHEIGHT)
 		draw_end = WHEIGHT - 1;
 	ray->step = (double)ray->texture->height / ray->line_height;
-	ray->tex_pos = (draw_start - (WHEIGHT / 2 - ray->line_height / 2)) * ray->step;
+	ray->tex_pos = (draw_start - (WHEIGHT / 2 - ray->line_height / 2)) * \
+		ray->step;
 	y = draw_start;
 	mapping_loop(game, ray, y, draw_end);
 }
@@ -121,9 +122,9 @@ void	mapping_loop(t_game *game, t_ray *ray, int y, \
 	{
 		tex_y = (int)(ray->tex_pos);
 		if (tex_y < 0)
-		    tex_y = 0;
+			tex_y = 0;
 		else if (tex_y >= ray->texture->height)
-    		tex_y = ray->texture->height - 1;
+			tex_y = ray->texture->height - 1;
 		pixel = ray->texture->img_data + \
 			(tex_y * ray->texture->sizeline + \
 			ray->tex_x * (ray->texture->bpp / 8));

@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:18:42 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 21:04:52 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 23:07:59 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,6 @@ typedef struct s_wall
 	int	start_x;
 	int	start_y;
 }	t_wall;
-// draw circle structure
-typedef struct s_dcircle
-{
-	int	x;
-	int	y;
-	int	err;
-}	t_dcircle;
 // draw line structure
 typedef struct s_dline
 {

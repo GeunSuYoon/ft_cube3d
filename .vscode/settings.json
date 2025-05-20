@@ -18,6 +18,7 @@
 		"ft_cube3d_struct.h": "c",
 		"ft_cube3d_cast.h": "c",
 		"ft_cube3d_defines.h": "c",
-		"ft_cube3d_includes.h": "c"
+		"ft_cube3d_includes.h": "c",
+		"random": "c"
 	}
 }

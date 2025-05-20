@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/14 14:45:56 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 20:47:36 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 23:09:45 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	draw_pixel(t_image *img, int x, int y, int color);
 void	draw_circle(t_image *img, int cx, int cy, int color);
 void	draw_line(t_image *img, t_player *player, int offset_x, int offset_y);
-void	init_circle(t_dcircle *dcircle);
 void	init_line(t_dline *dline, t_player *player, int offset_x, int offset_y);
 
 void	draw_pixel(t_image *img, int x, int y, int color)
@@ -30,27 +29,26 @@ void	draw_pixel(t_image *img, int x, int y, int color)
 
 void	draw_circle(t_image *img, int cx, int cy, int color)
 {
-	t_dcircle	dcircle;
+	int		angle_cnt;
+	double	angle;
+	int		dist_a;
+	int		dist_b;
 
-	init_circle(&dcircle);
-	while (dcircle.y <= dcircle.x)
+	angle_cnt = 0;
+	while (angle_cnt < 45)
 	{
-		draw_pixel(img, cx + dcircle.x, cy + dcircle.y, color);
-		draw_pixel(img, cx + dcircle.y, cy + dcircle.x, color);
-		draw_pixel(img, cx + dcircle.y, cy - dcircle.x, color);
-		draw_pixel(img, cx + dcircle.x, cy - dcircle.y, color);
-		draw_pixel(img, cx - dcircle.y, cy + dcircle.x, color);
-		draw_pixel(img, cx - dcircle.x, cy + dcircle.y, color);
-		draw_pixel(img, cx - dcircle.x, cy - dcircle.y, color);
-		draw_pixel(img, cx - dcircle.y, cy - dcircle.x, color);
-		dcircle.y += 1;
-		if (dcircle.err <= 0)
-			dcircle.err += 2 * dcircle.y + 1;
-		if (dcircle.err > 0)
-		{
-			dcircle.x -= 1;
-			dcircle.err -= 2 * dcircle.x + 1;
-		}
+		angle = angle_cnt * M_PI / 180;
+		dist_a = cos(angle) * MPLAYER;
+		dist_b = sin(angle) * MPLAYER;
+		draw_pixel(img, cx + dist_a, cy + dist_b, color);
+		draw_pixel(img, cx + dist_a, cy - dist_b, color);
+		draw_pixel(img, cx - dist_a, cy + dist_b, color);
+		draw_pixel(img, cx - dist_a, cy - dist_b, color);
+		draw_pixel(img, cx + dist_b, cy + dist_a, color);
+		draw_pixel(img, cx + dist_b, cy - dist_a, color);
+		draw_pixel(img, cx - dist_b, cy + dist_a, color);
+		draw_pixel(img, cx - dist_b, cy - dist_a, color);
+		angle_cnt++;
 	}
 }
 
@@ -77,13 +75,6 @@ void	draw_line(t_image *img, t_player *player, int offset_x, int offset_y)
 			dline.y0 += dline.sy;
 		}
 	}
-}
-
-void	init_circle(t_dcircle *dcircle)
-{
-	dcircle->x = MPLAYER;
-	dcircle->y = 0;
-	dcircle->err = 0;
 }
 
 void	init_line(t_dline *dline, t_player *player, int offset_x, int offset_y)
