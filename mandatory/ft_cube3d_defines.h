@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:07 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 18:17:16 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 20:01:28 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,8 @@
 # define COLORWHITE 0xFFFFFF
 # define COLORBLACK 0x000000
 # define COLORGRAY  0xAAAAAA
+#ifndef M_PI
+# define M_PI 3.14159265358979323846
+#endif
 
 #endif

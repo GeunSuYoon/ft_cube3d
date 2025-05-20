@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 12:17:21 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 19:41:06 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 20:03:47 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,13 @@ void	casting_loop(t_game *game, t_ray *rcast, t_player *player)
 	rcast->x = 0;
 	while (rcast->x < WWIDTH)
 	{
-		cast_cam(rcast, player);
+		cast_init_val(rcast, player);
 		cast_side(rcast, player);
 		cast_hit(rcast, game->map->map_data);
 		if (rcast->side)
 			rcast->perp_wall_dist = rcast->side_dist_y - rcast->delta_dist_y;
 		else
 			rcast->perp_wall_dist = rcast->side_dist_x - rcast->delta_dist_x;
-		if (rcast->perp_wall_dist < 0.01)
-			rcast->perp_wall_dist = 0.01;
 		rcast->line_height = (int)(WHEIGHT / rcast->perp_wall_dist);
 		if (rcast->line_height > WHEIGHT)
 			rcast->line_height = WHEIGHT;

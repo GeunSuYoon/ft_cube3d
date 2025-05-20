@@ -6,19 +6,19 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 10:14:19 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 19:41:06 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 20:03:47 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_cube3d_cast.h"
 
-void	cast_cam(t_ray *rcast, t_player *player);
+void	cast_init_val(t_ray *rcast, t_player *player);
 void	cast_side(t_ray *rcast, t_player *player);
 void	cast_hit(t_ray *rcast, char **map_data);
 void	cast_dist(t_ray *rcast, t_player *player);
 void	cast_wall_x(t_ray *rcast, t_player *player, t_image *texture);
 
-void	cast_cam(t_ray *rcast, t_player *player)
+void	cast_init_val(t_ray *rcast, t_player *player)
 {
 	double	camera_x;
 
