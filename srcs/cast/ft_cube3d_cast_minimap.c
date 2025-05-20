@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 13:28:10 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 22:25:37 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 23:28:30 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,22 +65,22 @@ void	minimap_wall(t_image *img, t_map *map, t_player *player, \
 
 	init_wall(&wall, player, minimap);
 	y_cnt = 0;
-	while (y_cnt < MHEIGHT)
+	while (y_cnt++ < MHEIGHT)
 	{
 		world_y = (int)floor((wall.start_y + y_cnt) / minimap->scale);
 		x_cnt = 0;
 		while (x_cnt++ < MWIDTH)
 		{
 			world_x = (int)floor((wall.start_x + x_cnt) / minimap->scale);
-			if (world_x >= 0 && world_x < (int)map->map_width && \
-				world_y >= 0 && world_y < (int)map->map_height)
+			if (world_y >= 0 && world_y < (int)map->map_height && \
+				world_x >= 0 && world_x < \
+				(int)ft_strlen(map->map_data[world_y]))
 			{
 				if ((map->map_data[world_y][world_x] == WALL))
 					draw_pixel(img, minimap->offset_x + x_cnt, \
 						minimap->offset_y + y_cnt, COLORGRAY);
 			}
 		}
-		y_cnt++;
 	}
 }
 

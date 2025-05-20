@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:35:42 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 20:48:16 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 23:16:03 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 // resizer structure
 typedef struct s_cutter
 {
+	int		h_flag;
+	int		w_flag;
 	size_t	w_s;
 	size_t	h_s;
 	size_t	new_height;

@@ -72,6 +72,8 @@ static void	key_move(t_game *game, t_player *player, t_map *map)
 
 	(void)game;
 	move_speed = (double)MOVESPEED * game->fram_time;
+	if (game->run_flag)
+		move_speed *= 1.5;
 	if (game->move[0])
 		set_player_pos(player, map->map_data, player->dir_x * move_speed, \
 			player->dir_y * move_speed);

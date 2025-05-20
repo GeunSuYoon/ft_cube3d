@@ -99,6 +99,7 @@ typedef struct s_game
 	double		fram_time;
 	int			move[4];
 	int			rot[2];
+	int			run_flag;
 }	t_game;
 
 // game

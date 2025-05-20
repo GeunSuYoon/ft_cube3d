@@ -14,7 +14,7 @@
 
 void	map_resizer(t_game *game, t_map *map);
 void	init_cutter(t_map *map, t_cutter *cutter);
-void	cutter_h(t_cutter *cutter, size_t h_cnt);
+void	cutter_h(t_cutter *cutter, size_t w_cnt, size_t h_cnt, int flag);
 char	**init_new_map(t_game *game, t_map *map, t_cutter *cut);
 void	map_resizer_err(t_game *game, char **new_map, size_t h_cnt);
 
@@ -59,27 +59,38 @@ void	init_cutter(t_map *map, t_cutter *cutter)
 		{
 			if (map->map_data[h_cnt][w_cnt] != EMPTY)
 			{
-				if (!cutter->w_s || w_cnt < cutter->w_s)
-					cutter->w_s = w_cnt;
+				cutter_h(cutter, w_cnt, h_cnt, 0);
 				is_map++;
 			}
 			w_cnt++;
 		}
 		if (is_map)
-			cutter_h(cutter, h_cnt);
+			cutter_h(cutter, w_cnt, h_cnt, 1);
 		else if (cutter->new_height)
 			return ;
 		h_cnt++;
 	}
 }
 
-void	cutter_h(t_cutter *cutter, size_t h_cnt)
+void	cutter_h(t_cutter *cutter, size_t w_cnt, size_t h_cnt, int flag)
 {
-	if (!h_cnt)
-		cutter->h_s = h_cnt;
-	else if (!cutter->h_s)
-		cutter->h_s = h_cnt;
-	cutter->new_height++;
+	if (flag)
+	{
+		if (!cutter->h_flag)
+		{
+			cutter->h_s = h_cnt;
+			cutter->h_flag = 1;
+		}
+		cutter->new_height++;
+	}
+	else
+	{
+		if (!cutter->w_flag || w_cnt < cutter->w_s)
+		{
+			cutter->w_s = w_cnt;
+			cutter->w_flag = 1;
+		}
+	}
 }
 
 char	**init_new_map(t_game *game, t_map *map, t_cutter *cut)
