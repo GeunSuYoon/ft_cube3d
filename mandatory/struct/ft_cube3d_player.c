@@ -72,8 +72,6 @@ void	set_player_pos(t_player *p, char **map_data, double x, double y)
 		p->pos_x = new_x;
 	if (is_move_safe(p->pos_x, new_y, map_data))
 		p->pos_y = new_y;
-	// printf("TEST: player pos [%f, %f]\n", p->pos_x, p->pos_y);
-	// printf("TEST: player dir [%f, %f]\n", p->dir_x, p->dir_y);
 }
 
 void	set_player_dir(t_player *player, double dir, double rot_speed)

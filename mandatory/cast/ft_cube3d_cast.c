@@ -6,13 +6,14 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 12:17:21 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 20:47:17 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 21:06:20 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_cube3d_cast.h"
 
 void	casting_loop(t_game *game, t_player *player);
+void	init_window_cf(t_game *game, t_image_con *img_con);
 t_image	*get_wall_texture(t_ray *ray, t_image_con *img_con);
 void	draw_loop(t_game *game, t_ray *ray);
 void	mapping_loop(t_game *game, t_ray *ray, int draw_start, \
@@ -22,7 +23,7 @@ void	casting_loop(t_game *game, t_player *player)
 {
 	t_ray	ray;
 
-	init_rcast_cf(game, game->image_con);
+	init_window_cf(game, game->image_con);
 	ray.x = 0;
 	while (ray.x < WWIDTH)
 	{
@@ -42,6 +43,34 @@ void	casting_loop(t_game *game, t_player *player)
 		ray.x++;
 	}
 	cast_minimap(game);
+}
+
+void	init_window_cf(t_game *game, t_image_con *img_con)
+{
+	size_t	h_cnt;
+	size_t	w_cnt;
+
+	h_cnt = 0;
+	while (h_cnt < WHEIGHT / 2)
+	{
+		w_cnt = 0;
+		while (w_cnt < WWIDTH)
+		{
+			draw_pixel(game->window_img, w_cnt, h_cnt, img_con->cc);
+			w_cnt++;
+		}
+		h_cnt++;
+	}
+	while (h_cnt < WHEIGHT)
+	{
+		w_cnt = 0;
+		while (w_cnt < WWIDTH)
+		{
+			draw_pixel(game->window_img, w_cnt, h_cnt, img_con->fc);
+			w_cnt++;
+		}
+		h_cnt++;
+	}
 }
 
 t_image	*get_wall_texture(t_ray *ray, t_image_con *image_con)

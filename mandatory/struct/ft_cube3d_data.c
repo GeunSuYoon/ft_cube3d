@@ -13,6 +13,7 @@
 #include "../ft_cube3d_struct.h"
 
 t_game	*init_game(int map_fd);
+void	get_frame_time(t_game *game);
 
 t_game	*init_game(int map_fd)
 {
@@ -35,4 +36,11 @@ t_game	*init_game(int map_fd)
 	new_game->player = init_player(new_game);
 	new_game->map = init_map(new_game, map_fd);
 	return (new_game);
+}
+
+void	get_frame_time(t_game *game)
+{
+	game->old_time = game->now_time;
+	game->now_time = get_current_time();
+	game->fram_time = game->now_time - game->old_time;
 }

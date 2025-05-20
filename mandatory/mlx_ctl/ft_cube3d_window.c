@@ -19,7 +19,7 @@ void	cast_window(t_game *game)
 {
 	if (!game->window_img || !game->window_img->img_ptr || \
 		!game->window_img->img_data)
-		exit_err(game, "Invalid window image", 1);
+		exit_err(game, ETWINDOWIMG, 1);
 	if (mlx_clear_window(game->mlx_ctl->mlx, game->mlx_ctl->win) < 0)
 		exit_err(game, 0, 0);
 	casting_loop(game, game->player);

@@ -55,7 +55,6 @@ static void	key_rot(int keycode, t_game *game, t_player *player)
 	double	rot_speed;
 
 	(void)game;
-	// rot_speed = game->fram_time * (double)ROTSPEED;
 	rot_speed = (double)ROTSPEED;
 	if (keycode == XK_Left)
 		set_player_dir(player, -1, rot_speed);
@@ -68,7 +67,6 @@ static void	key_move(int keycode, t_game *game, t_player *player, t_map *map)
 	double	move_speed;
 
 	(void)game;
-	// move_speed = rcast->fram_time * (double)MOVESPEED;
 	move_speed = (double)MOVESPEED;
 	if (keycode == XK_W || keycode == XK_w)
 		set_player_pos(player, map->map_data, player->dir_x * move_speed, \

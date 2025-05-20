@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:18:42 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 20:47:03 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 21:04:52 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ void	cast_minimap(t_game *game);
 void	draw_pixel(t_image *img, int x, int y, int color);
 void	draw_circle(t_image *img, int cx, int cy, int color);
 void	draw_line(t_image *img, t_player *player, int offset_x, int offset_y);
-void	init_rcast_cf(t_game *game, t_image_con *img_con);
+void	init_window_cf(t_game *game, t_image_con *img_con);
 
 #endif
