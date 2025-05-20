@@ -34,16 +34,21 @@ int	main(int argc, char **argv)
 
 int	init_map_fd(char *name)
 {
-	int		fd;
+	size_t	name_parse_len;
+	char	**name_parse;
 	size_t	name_len;
+	int		fd;
 
-	name_len = ft_strlen(name);
-	if (name_len < 4)
+	name_parse = ft_split(name, '/');
+	name_parse_len = ft_strtdlen(name_parse);
+	name_len = ft_strlen(name_parse[name_parse_len - 1]);
+	if (name_len <= 4 || name_parse[name_parse_len - 1][0] == '.')
 		exit_err(0, ETMAPNAME, ERR);
-	if (ft_strcmp(name + name_len - 4, ".cub"))
+	if (ft_strcmp(name_parse[name_parse_len - 1] + name_len - 4, ".cub"))
 		exit_err(0, ETMAPNAME, ERR);
 	fd = open(name, O_RDONLY);
 	if (fd == -1)
 		exit_err(0, 0, 0);
+	free_td_str(name_parse, name_parse_len);
 	return (fd);
 }
