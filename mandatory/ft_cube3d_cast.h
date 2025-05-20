@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:18:42 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 18:13:51 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 18:53:04 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ typedef struct s_dline
 {
 	int	x0;
 	int	y0;
-	int	dir_x;
-	int	dir_y;
 	int	x1;
 	int	y1;
 	int	dx;
@@ -42,7 +40,6 @@ typedef struct s_dline
 	int	sx;
 	int	sy;
 	int	err;
-	int	e2;
 }	t_dline;
 
 void	cast_cam(t_rcast *rcast, t_player *player);

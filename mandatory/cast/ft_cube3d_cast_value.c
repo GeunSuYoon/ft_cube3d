@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 10:14:19 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 17:21:36 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/20 19:35:55 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,41 +25,35 @@ void	cast_cam(t_rcast *rcast, t_player *player)
 	camera_x = 2 * (double)rcast->x / (double)WWIDTH - 1;
 	rcast->ray_dir_x = player->dir_x + player->plane_x * camera_x;
 	rcast->ray_dir_y = player->dir_y + player->plane_y * camera_x;
-	rcast->map_x = player->pos_x;
-	rcast->map_y = player->pos_y;
-	if (rcast->ray_dir_x)
-		rcast->delta_dist_x = fabs(1.0 / rcast->ray_dir_x);
-	else
-		rcast->delta_dist_x = 1e30;
-	if (rcast->ray_dir_y)
-		rcast->delta_dist_y = fabs(1 / rcast->ray_dir_y);
-	else
-		rcast->delta_dist_y = 1e30;
+	rcast->map_x = (int)player->pos_x;
+	rcast->map_y = (int)player->pos_y;
+	rcast->delta_dist_x = fabs(1.0 / rcast->ray_dir_x);
+	rcast->delta_dist_y = fabs(1 / rcast->ray_dir_y);
 }
 
 void	cast_side(t_rcast *rcast, t_player *player)
 {
 	if (rcast->ray_dir_x < 0)
 	{
-		rcast->step_x = -1.0;
+		rcast->step_x = -1;
 		rcast->side_dist_x = (player->pos_x - (double)rcast->map_x) * \
 			rcast->delta_dist_x;
 	}
 	else
 	{
-		rcast->step_x = 1.0;
+		rcast->step_x = 1;
 		rcast->side_dist_x = ((double)rcast->map_x + 1.0 - player->pos_x) * \
 			rcast->delta_dist_x;
 	}
 	if (rcast->ray_dir_y < 0)
 	{
-		rcast->step_y = -1.0;
+		rcast->step_y = -1;
 		rcast->side_dist_y = (player->pos_y - (double)rcast->map_y) * \
 			rcast->delta_dist_y;
 	}
 	else
 	{
-		rcast->step_y = 1.0;
+		rcast->step_y = 1;
 		rcast->side_dist_y = ((double)rcast->map_y + 1.0 - player->pos_y) * \
 			rcast->delta_dist_y;
 	}
@@ -84,7 +78,7 @@ void	cast_hit(t_rcast *rcast, char **map_data)
 			rcast->map_y += rcast->step_y;
 			rcast->side = 1;
 		}
-		if (map_data[(int)rcast->map_y][(int)rcast->map_x] == WALL)
+		if (map_data[rcast->map_y][rcast->map_x] == WALL)
 			hit = 1;
 	}
 }
