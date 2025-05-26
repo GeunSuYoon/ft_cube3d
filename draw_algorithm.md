@@ -17,11 +17,6 @@
 
 ## Draw Circle
 
-### Midpoint Circle Algorithm
-
-[SRC](https://en.wikipedia.org/wiki/Midpoint_circle_algorithm)
-
-- 플레이어를 표시할 픽셀 값을 이용해 시작 좌표를 저장한다. $(\PPIXEL,\ 0)$
+- 0부터 44까지 돌며 각도를 맞춘다. $angle\ =\ [0,\ 45)$
+- $x\ =\ cos(angle)\ *\ PPIXEL,\ y\ =\ sin(angle)\ *\ PPIXEL$로 설정한다.
 - 미니맵의 가운데를 기준으로 $(x,\ y)$좌표를 8방향 찍어준다. $(+-x,\ +-y)$, $(+-y,\ +-x)$
-- y좌표를 1 올린 뒤, 오차를 이용해 x값을 내릴지 말지 결정한다.
-- y좌표가 x좌표보다 작거나 같을 때 종료한다.
