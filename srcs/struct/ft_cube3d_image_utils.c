@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:05:20 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 17:37:17 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/26 11:17:35 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	image_resizer_size(t_image *image, char **resize_data, int h_cnt, \
 	int w_cnt);
 void	image_changer(t_game *data, t_image *image, void *resize_ptr, \
 	char *resize_data);
+void	image_err(t_game *game, t_image *image, char *path);
 
 void	image_resizer(t_game *game, t_image *image)
 {
@@ -89,4 +90,27 @@ void	image_changer(t_game *game, t_image *image, void *resize_ptr, \
 	image->width = SIZE;
 	image->height = SIZE;
 	image->sizeline = SIZE * image->bpp / 8;
+}
+
+void	image_err(t_game *game, t_image *image, char *path)
+{
+	int		img_fd;
+	char	buf[1024];
+
+	img_fd = open(path, O_RDONLY);
+	image_free(game, image);
+	if (img_fd < 0)
+		exit_err(game, ETIMGINFO, 1);
+	if (read(img_fd, (void *)buf, 1024) < 0)
+	{
+		close(img_fd);
+		exit_err(game, 0, 0);
+	}
+	if (ft_strcmp(buf, "/* XPM */\nstatic char *"))
+	{
+		close(img_fd);
+		exit_err(game, ETIMGINFO, 1);
+	}
+	close(img_fd);
+	exit_err(game, 0, 0);
 }

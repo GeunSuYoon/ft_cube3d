@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:35:42 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 23:16:03 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/26 11:18:42 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ t_image		*init_window_img(t_game *game);
 // image utils
 void		parse_image(t_game *game, int map_fd);
 void		image_resizer(t_game *game, t_image *image);
+void		image_err(t_game *game, t_image *image, char *path);
 // map checker
 void		map_checker(t_game *game, t_map *map);
 void		map_dp(t_game *game, int **round_checker, size_t x, size_t y);
