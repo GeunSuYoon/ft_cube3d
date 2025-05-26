@@ -1,0 +1,43 @@
+/* ************************************************************************** */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   ft_cube3d_err.c									:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: geuyoon <geuyoon@student.42.fr>			+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2025/03/29 16:31:41 by geuyoon		   #+#	#+#			 */
+/*   Updated: 2025/04/18 09:31:14 by geuyoon		  ###   ########.fr	   */
+/*																			*/
+/* ************************************************************************** */
+
+#include "../includes_bonus/ft_cube3d_bonus.h"
+
+void	exit_err(t_game *game, char *str, int errsig);
+void	print_err(char *str);
+void	ft_writeerr(char *str);
+
+void	exit_err(t_game *game, char *str, int errsig)
+{
+	print_err(str);
+	game_free(game);
+	if (errsig)
+		exit(errsig);
+	exit(errno);
+}
+
+void	print_err(char *str)
+{
+	ft_writeerr("Error\n");
+	if (str)
+	{
+		ft_writeerr(str);
+		write(STDERR_FILENO, "\n", 1);
+	}
+	else
+		perror(strerror(errno));
+}
+
+void	ft_writeerr(char *str)
+{
+	write(STDERR_FILENO, str, ft_strlen(str));
+}
