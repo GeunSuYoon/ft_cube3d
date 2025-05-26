@@ -15,6 +15,7 @@
 void	init_color_con(t_game *game, int map_fd);
 void	color_setter(t_game *game, t_image_con *img_con, char **info);
 int		init_color(t_game *game, char *rgb);
+int		check_dot(char *rgb);
 
 void	init_color_con(t_game *game, int map_fd)
 {
@@ -66,6 +67,8 @@ int	init_color(t_game *game, char *rgb)
 	int		b;
 	int		ret_val;
 
+	if (check_dot(rgb) != 2)
+		exit_err(game, ETCOLINFO, 1);
 	tdrgb = ft_split(rgb, ',');
 	if (!tdrgb)
 		exit_err(game, 0, 0);
@@ -78,5 +81,23 @@ int	init_color(t_game *game, char *rgb)
 		exit_err(game, ETCOLINFO, 1);
 	free_td_str(tdrgb, ft_strtdlen(tdrgb));
 	ret_val = r << 16 | g << 8 | b;
+	return (ret_val);
+}
+
+int	check_dot(char *rgb)
+{
+	int		ret_val;
+	size_t	str_cnt;
+	size_t	str_len;
+
+	ret_val = 0;
+	str_cnt = 0;
+	str_len = ft_strlen(rgb);
+	while (str_cnt < str_len)
+	{
+		if (rgb[str_cnt] == ',')
+			ret_val++;
+		str_cnt++;
+	}
 	return (ret_val);
 }
