@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cube3d_image_utils.c                            :+:      :+:    :+:   */
+/*   ft_cube3d_image_utils_bonus.c                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/21 15:05:20 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/26 11:17:35 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/26 14:14:21 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	image_resizer(t_game *game, t_image *image)
 	int		sizeline;
 	int		endian;
 
+	if (image->width == SIZE && image->height == SIZE)
+		return ;
 	resize_ptr = mlx_new_image(game->mlx_ctl->mlx, SIZE, SIZE);
 	if (!resize_ptr)
 	{

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cube3d_cast.c                                   :+:      :+:    :+:   */
+/*   ft_cube3d_cast_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 12:17:21 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 22:57:53 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/26 15:11:57 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,9 +78,9 @@ t_image	*get_wall_texture(t_ray *ray, t_image_con *image_con)
 	if (ray->side)
 	{
 		if (ray->ray_dir_y > 0)
-			wall_texture = image_con->so;
-		else
 			wall_texture = image_con->no;
+		else
+			wall_texture = image_con->so;
 	}
 	else
 	{
