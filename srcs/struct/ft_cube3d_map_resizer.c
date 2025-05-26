@@ -25,8 +25,10 @@ void	map_resizer(t_game *game, t_map *map)
 	size_t		h_cnt;
 
 	new_cutter.h_s = 0;
-	new_cutter.new_height = 0;
 	new_cutter.w_s = 0;
+	new_cutter.new_height = 0;
+	new_cutter.h_flag = 0;
+	new_cutter.w_flag = 0;
 	init_cutter(map, &new_cutter);
 	new_map = init_new_map(game, map, &new_cutter);
 	free_td_str(map->map_data, map->map_height);
