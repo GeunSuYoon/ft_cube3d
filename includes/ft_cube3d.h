@@ -68,9 +68,8 @@ typedef struct s_player
 // minimap structure
 typedef struct s_minimap
 {
-	double	scale;
-	int		offset_x;
-	int		offset_y;
+	int	offset_x;
+	int	offset_y;
 }	t_minimap;
 // map structure
 typedef struct s_map

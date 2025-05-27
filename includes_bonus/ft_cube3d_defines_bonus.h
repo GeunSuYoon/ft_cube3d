@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:07 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/27 09:42:50 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/27 11:41:32 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@
 # define MWIDTH		240
 # define MHEIGHT	135
 # define MMARGIN	20
+# define MWALL		10
 # define MPLAYER	3
 # define MPLINE		7
 // color

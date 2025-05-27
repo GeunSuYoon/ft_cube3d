@@ -6,7 +6,7 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 13:28:10 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 23:28:30 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/27 12:06:02 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	cast_minimap(t_game *game);
 void	minimap_black(t_image *img, int offset_x, int offset_y);
 void	minimap_wall(t_image *img, t_map *map, t_player *player, \
 	t_minimap *minimap);
-void	init_wall(t_wall *wall, t_player *player, t_minimap *minimap);
+void	init_wall(t_wall *wall, t_player *player);
 
 void	cast_minimap(t_game *game)
 {
@@ -63,15 +63,15 @@ void	minimap_wall(t_image *img, t_map *map, t_player *player, \
 	int		y_cnt;
 	int		x_cnt;
 
-	init_wall(&wall, player, minimap);
+	init_wall(&wall, player);
 	y_cnt = 0;
 	while (y_cnt++ < MHEIGHT)
 	{
-		world_y = (int)floor((wall.start_y + y_cnt) / minimap->scale);
+		world_y = (int)floor((wall.start_y + y_cnt) / MWALL);
 		x_cnt = 0;
 		while (x_cnt++ < MWIDTH)
 		{
-			world_x = (int)floor((wall.start_x + x_cnt) / minimap->scale);
+			world_x = (int)floor((wall.start_x + x_cnt) / MWALL);
 			if (world_y >= 0 && world_y < (int)map->map_height && \
 				world_x >= 0 && world_x < \
 				(int)ft_strlen(map->map_data[world_y]))
@@ -84,8 +84,8 @@ void	minimap_wall(t_image *img, t_map *map, t_player *player, \
 	}
 }
 
-void	init_wall(t_wall *wall, t_player *player, t_minimap *minimap)
+void	init_wall(t_wall *wall, t_player *player)
 {
-	wall->start_x = (int)(player->pos_x * minimap->scale) - MWIDTH / 2;
-	wall->start_y = (int)(player->pos_y * minimap->scale) - MHEIGHT / 2;
+	wall->start_x = (int)(player->pos_x * MWALL) - MWIDTH / 2;
+	wall->start_y = (int)(player->pos_y * MWALL) - MHEIGHT / 2;
 }
