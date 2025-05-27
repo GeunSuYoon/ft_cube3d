@@ -10,8 +10,8 @@
 /*																			*/
 /* ************************************************************************** */
 
-#ifndef FT_CUBE3D_H
-# define FT_CUBE3D_H
+#ifndef FT_CUBE3D_BONUS_H
+# define FT_CUBE3D_BONUS_H
 
 # include "ft_cube3d_includes_bonus.h"
 # include "ft_cube3d_defines_bonus.h"

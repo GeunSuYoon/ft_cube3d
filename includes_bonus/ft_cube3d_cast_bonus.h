@@ -6,12 +6,12 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:18:42 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/26 12:55:38 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/27 09:42:45 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_CUBE3D_CAST_H
-# define FT_CUBE3D_CAST_H
+#ifndef FT_CUBE3D_CAST_BONUS_H
+# define FT_CUBE3D_CAST_BONUS_H
 
 # include "ft_cube3d_bonus.h"
 

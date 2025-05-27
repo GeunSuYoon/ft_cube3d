@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cube3d_includes.h                               :+:      :+:    :+:   */
+/*   ft_cube3d_includes_bonus.h                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:09:26 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 18:12:33 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/27 09:42:55 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_CUBE3D_INCLUDES_H
-# define FT_CUBE3D_INCLUDES_H
+#ifndef FT_CUBE3D_INCLUDES_BONUS_H
+# define FT_CUBE3D_INCLUDES_BONUS_H
 
 # include "../ft_lib/ft_printf/libft/libft.h"
 # include "../ft_lib/ft_printf/ft_printf.h"

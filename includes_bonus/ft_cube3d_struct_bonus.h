@@ -6,12 +6,12 @@
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:35:42 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/26 12:55:25 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/27 09:42:58 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_CUBE3D_STRUCT_H
-# define FT_CUBE3D_STRUCT_H
+#ifndef FT_CUBE3D_STRUCT_BONUS_H
+# define FT_CUBE3D_STRUCT_BONUS_H
 
 # include "ft_cube3d_bonus.h"
 

@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cube3d_defines.h                                :+:      :+:    :+:   */
+/*   ft_cube3d_defines_bonus.h                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: geuyoon <geuyoon@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 18:13:07 by geuyoon           #+#    #+#             */
-/*   Updated: 2025/05/20 23:03:36 by geuyoon          ###   ########.fr       */
+/*   Updated: 2025/05/27 09:42:50 by geuyoon          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_CUBE3D_DEFINES_H
-# define FT_CUBE3D_DEFINES_H
+#ifndef FT_CUBE3D_DEFINES_BONUS_H
+# define FT_CUBE3D_DEFINES_BONUS_H
 
 # ifndef M_PI
 #  define M_PI 3.14159265358979323846
