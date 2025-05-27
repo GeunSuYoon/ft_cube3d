@@ -79,7 +79,7 @@ $(NAME) : $(OBJ)
 
 bonus	: $(MLX) $(LFT) $(GNL) $(BOBJ)
 	@echo " [..] | Compiling cub3D bonus.."
-	@$(CC) $(CFLAG) $(BOBJ) $(LFT) $(GNL) $(MFLAG) -o $@ $(BINC)
+	@$(CC) $(CFLAG) $(BOBJ) $(LFT) $(GNL) $(MFLAG) -o $(NAME) $(BINC)
 	@echo " [OK] | cub3D bonus is ready!"
 	@touch $@
 
